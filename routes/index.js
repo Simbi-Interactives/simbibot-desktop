@@ -207,15 +207,63 @@ router.post('/store_evaluation_result', (req, res) => {
   const body = req.body;
 
   db.serialize(() => {
-    db.run(`insert into evaluations(topic_id, subject_id, status, user_id, score, completed_at, start_time, end_time) values ('${body.topic_id}', '${body.subject_id}', '${body.status}', '${body.user_id}', '${body.score}', '${body.completed_at}', '${body.start_time}', '${body.end_time}') `, [], (err, data) =>  {
+    db.run(`insert into evaluations(topic_id, subject_id, status, user_id, score, completed_at, start_time, end_time) values ('${body.topic_id}', '${body.subject_id}', '${body.status}', '${body.user_id}', '${body.score}', '${body.completed_at}', '${body.start_time}', '${body.end_time}') `,  function(err)  {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
       }
 
-      console.log(data);
-      return res.status(200).send(data);  
+      return res.status(200).json({id: this.lastID});  
     });
   })
 });
+
+router.post('/update_evaluation_result', (req, res) => {
+  const body = req.body;
+
+  db.serialize(() => {
+    db.run(`update evaluations set score=${body.score}, end_time='${body.end_time}', completed_at='${body.completed_at}', status='${body.status}' where id=${body.id}`, function(err) {
+      if(err) {
+        console.log(err);
+        return res.status(422).send(err);
+      }
+
+      return res.status(200).send('succesful');
+    });
+  });
+});
+
+router.post('/store_examination_result',  (req, res) => {
+  const body = req.body;
+  db.serialize(() => {
+    db.run(`insert into examresults(exam_id, subject_id, score, user_id, completed_at, start_time, end_time, recommended_topic) values ('${body.exam_id}', '${body.subject_id}', '${body.score}',  '${body.user_id}', '${body.completed_at}', '${body.start_time}', '${body.end_time}', '${body.recommended_topic}') `,  function(err)  {
+      if(err) {
+        console.log(err);
+        return res.status(422).send(err);
+      }
+
+      return res.status(200).json({id: this.lastID});  
+    });
+  })
+});
+
+router.post('/update_examination_result', (req, res) => {
+  const body = req.body;
+
+  db.serialize(() => {
+    db.run(`update examresults set score=${body.score}, end_time='${body.end_time}', completed_at='${body.completed_at}', recommended_topic='${body.recommended_topic}' where id=${body.id}`, function(err) {
+      if(err) {
+        console.log(err);
+        return res.status(422).send(err);
+      }
+
+      return res.status(200).send('succesful');
+    });
+  })
+});
+
+
+
+
+
 module.exports = router;
