@@ -203,20 +203,19 @@ router.get('/fetch_topic_by_id/:topic_id', (req, res) => {
   })
 });
 
-// router.post('/store_user_learning_curve', (req, res) => {
-//   const body = req.body;
+router.post('/store_evaluation_result', (req, res) => {
+  const body = req.body;
 
-//   db.serialize(() => {
-//     db.all(`select * from learninglogs where user_id='${body.user_id} and AND subject='${body.subject_id}' AND topic = '${body.topic_id}'`, [], (err, data) => {
-//       if(err) {
-//         console.log(err);
-//         return res.status(422).send(err);
-//       }
+  db.serialize(() => {
+    db.run(`insert into evaluations(topic_id, subject_id, status, user_id, score, completed_at, start_time, end_time) values ('${body.topic_id}', '${body.subject_id}', '${body.status}', '${body.user_id}', '${body.score}', '${body.completed_at}', '${body.start_time}', '${body.end_time}') `, [], (err, data) =>  {
+      if(err) {
+        console.log(err);
+        return res.status(422).send(err);
+      }
 
-//       if(data.length > 0) {
-//         let user = 
-//       }
-//     })
-//   })
-// })
+      console.log(data);
+      return res.status(200).send(data);  
+    });
+  })
+});
 module.exports = router;
