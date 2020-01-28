@@ -24,7 +24,7 @@ router.get('/is_teacher_created', async (req, res) => {
         let settings = data[0];
 
         if(settings.has_created_teacher == 1) {
-          return res.status(200).json({ data: true});
+          return res.status(200).json({ data: true, show_sweet: settings.should_show_novel});
         } else {
           return res.status(200).json({ data: false})
         }
@@ -69,7 +69,6 @@ router.post('/login', async (req, res) => {
             return res.status(422).send(err);
           }
 
-          console.log(data);
 
           if(data.length > 0) {
             let user = data[0];
@@ -123,7 +122,7 @@ router.get('/fetch_student', async (req, res) => {
   let offset = 0;
   db.serialize(() => {
     
-    db.all(`select count(id)  from users`, [], (err, data) => {
+    db.all(`select count(id)  from users where usertype='student'`, [], (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
@@ -132,7 +131,7 @@ router.get('/fetch_student', async (req, res) => {
       let pages = Math.ceil(parseInt(count) / limit );
       offset = limit * (page - 1);
 
-      db.all(`select * from users limit ${limit} offset ${offset}`, [], (err, users) => {
+      db.all(`select * from users where usertype='student'`, [], (err, users) => {
         if(err) {
           console.log(err);
           return res.status(422).send(err);
