@@ -282,7 +282,7 @@ router.get('/user_evaluation_report_avg/:user_id', (req, res) => {
   const user = req.params.user_id;
 
   db.serialize(() => {
-    db.all(`SELECT *, COUNT( * ) as attempts, AVG(score) as aggregate_score FROM evaluations JOIN topics on evaluations.topic_id = topics.id JOIN Subjects on evaluations.subject_id = Subjects.id where user_id =${user} Group By evaluations.subject_id`, (err, data)=> {
+    db.all(`SELECT *, COUNT( * ) as attempts, AVG(score) as aggregate_score FROM evaluations JOIN topics on evaluations.topic_id = topics.id JOIN Subjects on evaluations.subject_id = Subjects.id where user_id =${user} Group By evaluations.topic_id`, (err, data)=> {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
@@ -329,7 +329,7 @@ router.get('/user_evaluation_all/:user_id/:subject_id/:topic_id', (req, res) => 
 router.get('/evaluations_by_subject_for_line_chart/:subject_id', (req, res) => {
   const subject_id = req.params.subject_id;
   db.serialize(() => {
-    db.all(`select * from evaluations inner join users on evaluations.user_id = users.id join topics on evaluations.topic_id = topics.id  where evaluations.subject_id=${subject_id} `, [], (err, data) => {
+    db.all(`select * from evaluations inner join users on evaluations.user_id = users.id join topics on evaluations.topic_id = topics.id  where evaluations.subject_id=${subject_id} group by evaluations.topic_id`, [], (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
@@ -343,7 +343,7 @@ router.get('/evaluations_by_subject_for_line_chart/:subject_id', (req, res) => {
 router.get('/evaluations_avg_score_on_subject/:subject_id', (req, res) => {
   const subject_id = req.params.subject_id;
   db.serialize(() => {
-    db.all(`select *, count (*) as attempts, AVG(score) as aggregate_score FROM evaluations Inner JOIN users on evaluations.user_id = users.id JOIN subjects on evaluations.subject_id = subjects.id JOIN  topics on evaluations.topic_id = topics.id where evaluations.subject_id = ${subject_id}  Group By evaluations.user_id `, (err, data) => {
+    db.all(`select *, count (*) as attempts, AVG(score) as aggregate_score FROM evaluations Inner JOIN users on evaluations.user_id = users.id JOIN subjects on evaluations.subject_id = subjects.id JOIN  topics on evaluations.topic_id = topics.id where evaluations.subject_id = ${subject_id}  Group By evaluations.topic_id `, (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
@@ -357,7 +357,7 @@ router.get('/evaluations_avg_score_on_subject/:subject_id', (req, res) => {
 router.get('/examinations_by_subject_for_line_chart/:exam_id', (req, res) => {
   const exam_id = req.params.exam_id;
   db.serialize(() => {
-    db.all(`select * from examresults join superexams on examresults.exam_id = superexams.id join subjects on examresults.subject_id = subjects.id where examresults.exam_id = ${exam_id}`, (err, data) => {
+    db.all(`select * from examresults join superexams on examresults.exam_id = superexams.id join subjects on examresults.subject_id = subjects.id where examresults.exam_id = ${exam_id} group by examresults.subject_id`, (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
@@ -371,7 +371,7 @@ router.get('/examinations_by_subject_for_line_chart/:exam_id', (req, res) => {
 router.get('/examination_avg_score_on_exams/:exam_id', (req, res) => {
   const exam_id = req.params.exam_id;
   db.serialize(() => {
-    db.all(`select *, count(*) as attempts, AVG(score) as aggregate_score from examresults join subjects on examresults.subject_id = subjects.id join topics on examresults.recommended_topic = topics.id left join users on examresults.user_id = users.id  where examresults.exam_id = ${exam_id} Group By examresults.subject_id `, (err, data) => {
+    db.all(`select *, count(*) as attempts, AVG(score) as aggregate_score from examresults join subjects on examresults.subject_id = subjects.id join topics on examresults.recommended_topic = topics.id left join users on examresults.user_id = users.id  where examresults.exam_id = ${exam_id} group by examresults.subject_id`, (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
