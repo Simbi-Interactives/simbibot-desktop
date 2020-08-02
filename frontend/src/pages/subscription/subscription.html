@@ -1,0 +1,70 @@
+<!--
+  Generated template for the PaymentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle *ngIf="!hasExpired">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ pageTitle }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <br />
+  <div class="mid">
+    <ion-card *ngIf="hasExpired && showCard == 'notshared'">
+      <ion-card-content>
+        <p class="grey-text" text-center *ngIf="loaded">
+          Dear {{ user.firstname | titlecase }},
+        </p>
+        <h3 text-center>
+          Your trial mode has expired, but you can still continue to learn with
+          me by sharing about me to your friends.
+        </h3>
+        <hr />
+        <button ion-button round full (click)="share()">
+          Share to friends
+        </button>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="!hasExpired">
+      <ion-card-content>
+        <h3 text-center>
+          By activating your SimbiBot app, you get instant unlimited access for
+          the next one year.
+        </h3>
+        <button ion-button round full (click)="subscribe()">
+          Pay Online With ATM Card
+        </button>
+        <h3 text-center>
+          Make payment to the account details below to activate your app.
+        </h3>
+        <button ion-button round full (click)="openPaywithcardInfo()">
+          Bank Payment/Transfer
+        </button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="hasExpired && showCard == 'shared'">
+      <ion-card-content>
+        <p class="grey-text" text-center *ngIf="loaded">
+          Dear {{ user.firstname | titlecase }},
+        </p>
+        <h3 text-center>
+          Sorry to interrupt you, your trial mode has expired. You can continue
+          to learn with me by paying a one-time activation fee of N1,000. Click
+          the button below to activate
+        </h3>
+        <hr />
+        <p></p>
+
+        <br />
+        <button ion-button round full (click)="subscribe()">Activate</button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

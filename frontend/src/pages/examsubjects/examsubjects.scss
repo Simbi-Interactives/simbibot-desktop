@@ -1,0 +1,30 @@
+page-examsubjects {
+  .center-page {
+    margin-top: calc(100vh / 10);
+  }
+
+  .content-md {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+
+  ion-select {
+    max-width: 100%;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .item-md {
+    border-radius: 15px;
+  }
+
+  .select-custom .alert-wrapper {
+    background-color: color($colors, primary, base) !important;
+  }
+  .topic-obj {
+    padding: 10px;
+  }
+}

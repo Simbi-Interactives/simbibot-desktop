@@ -1,0 +1,101 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Create Student</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="cont" >
+    <ion-row padding> 
+      <ion-col col-4>
+        <ion-card>
+          <ion-card-content>
+            <ion-item>
+              <ion-label>Bulk Upload</ion-label>
+              <ion-input type="file" (change)="selectFile($event)" accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"></ion-input>
+            </ion-item>
+
+            <button [disabled]="!bulkuploadfile || uploading" (click)="uploadStudent() " ion-button full>Upload</button>
+          </ion-card-content>
+        </ion-card>
+        <br>
+        <ion-card>
+          <ion-card-content>
+            <h3>Add new Student</h3>
+            <br>
+
+            <form [formGroup]="createStudentForm" (submit)="submit()">
+              <ion-item>
+                <ion-label floating>Email Address</ion-label>
+                <ion-input type="email" formControlName="email" value=""></ion-input>
+              </ion-item>
+              <br>
+              <ion-item>
+                <ion-label floating>FirstName</ion-label>
+                <ion-input type="text" formControlName="firstname"></ion-input>
+              </ion-item>
+              <br>
+              <ion-item>
+                <ion-label floating>LastName</ion-label>
+                <ion-input type="text" formControlName="lastname"></ion-input>
+              </ion-item>
+              <br>
+              <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+              </ion-item>
+              <br>
+              <button type="submit" ion-button full round [disabled]="!createStudentForm.valid"> Create Student</button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- <ion-col col-1></ion-col> -->
+
+      <ion-col col-7 *ngIf="loaded | async">
+        <ion-card>
+          <ion-card-content>
+            <h1>Students: <strong>{{users.metric}}</strong></h1>
+          </ion-card-content>
+        </ion-card>
+        <br>
+
+        <ion-card>
+          <ion-card-content>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th  scope="col">#</th>
+                    <th scope="col">FirstName</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">Email Address</th>
+                  </tr>
+                </thead>
+      
+                <tbody>
+                  <tr *ngFor="let user of users.data  | paginate: { id: 'server', itemsPerPage: users.limit, currentPage: page, totalItems: users.metric, numberOfPages: users.total }; let i = index"> 
+                    <td>{{i + 1}}</td>
+                    <td>{{user.firstname}}</td>
+                    <td>{{user.lastname}}</td>
+                    <td>{{user.email}}</td>
+                  </tr>
+
+                  <br>
+                  <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+                </tbody>
+              </table>
+            </div>
+            <br>
+
+
+          </ion-card-content>
+        </ion-card>
+        
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

@@ -1,0 +1,40 @@
+page-subscription {
+  .toolbar-background-md {
+    background: none !important;
+  }
+  .mid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .content-md {
+    background: url("../../assets/imgs/subscription.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  ion-header ion-icon.back-button-icon.icon {
+    color: map-get($colors, brown);
+  }
+  ion-navbar .toolbar-title-md {
+    color: map-get($colors, brown);
+  }
+  ion-header ion-icon {
+    color: map-get($colors, brown);
+  }
+
+  .button {
+    margin: 10px 0 15px 0;
+  }
+
+  .grey-text {
+    color: #777;
+  }
+  .card-md h3 {
+    font-size: 20px;
+  }
+  .card-md {
+    border-radius: 10px;
+    padding: 15px;
+  }
+}

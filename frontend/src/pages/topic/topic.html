@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title color="brown">{{ subject.name | titlecase }}</ion-title>
+  </ion-navbar>
+
+  <div class="cont">
+    
+  <ion-searchbar [(ngModel)]="searchInput" class="search-bar"></ion-searchbar>
+  </div>
+</ion-header>
+
+<ion-content padding>
+  <div class="pad"></div>
+  
+  <div class="cont" *ngIf="loaded">
+    <h2><strong>Topics</strong></h2>
+    <br>
+    <ion-row>
+      <ion-col col-4  *ngFor="let topic of topics | searchFilter: searchInput; let i = index">
+        <button
+      ion-item
+     no-lines
+      (click)="openTopicInfo(i)"
+      class="animated pulse"
+    >
+      <div class="topic-obj">
+        <img
+          class="img-center"
+          [src]="subject.image_url"
+          alt=""
+          *ngIf="subject.image_url != null"
+        />
+        <h6>
+          <strong> {{ topic.topic | titlecase }} </strong>
+        </h6>
+      </div>
+      <ion-icon
+        item-end
+        name="ios-arrow-forward"
+        [ngStyle]="{ color: subject.color }"
+      ></ion-icon>
+    </button>
+      </ion-col>
+    </ion-row>
+    
+  </div>
+</ion-content>

@@ -1,0 +1,73 @@
+<!--
+  Generated template for the StudentreportdetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Result Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="cont">
+    <ion-card>
+      <ion-card-content>
+        <div class="table-responsive">
+          <table class="table table-bordered" *ngIf="type == 'evals'">
+            <thead>
+              <tr>
+                <th  scope="col">#</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Status</th>
+                <th scope="col">Score</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let eval of data; let i = index;">
+                <td></td>
+                <td>{{eval.name}}</td>
+                <td>{{eval.topic}}</td>
+                <td>{{eval.status}}</td>
+                <td>{{eval.score}}</td>
+                <td>{{eval.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td>{{eval?.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-bordered" *ngIf="type == 'exams'">
+            <thead>
+              <tr>
+                <th  scope="col">#</th>
+                <th scope="col">Exam</th>
+                <th scope="col">Subject</th> 
+                <th scope="col">Score</th>
+                <th scope="col">Recommended Topic</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let exam of data; let i = index;">
+                <td></td>
+                <td>{{exam.similar_name}}</td>
+                <td>{{exam.name}}</td>
+                <td>{{exam.score}}</td>
+                <td>{{exam.topic}}</td>
+                <td>{{exam.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td>{{exam.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Result</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="loaded | async">
+  <div class="cont">
+    <ion-row>
+      <ion-col col-4>
+        <ion-card>
+          <ion-card-content>
+            <canvas #doughnutCanvas></canvas>
+
+            <br>
+            <h4>Score : {{ result.score }} / {{ result.total }}</h4>
+            <h4>Total Percentage : {{ result.percentage | number: '1.0-0' }} %</h4>
+          </ion-card-content>
+        </ion-card>
+        
+   
+    <br />  
+    <ion-card *ngIf="questionType == 'normal' && topicLoaded == true">
+      <ion-card-content>
+        <ion-row>
+          <ion-col col-12>
+            <h6><strong>Recommendation.</strong></h6>
+            <br />
+            <p>
+              After grading your test, I noticed that you are weak in {{
+              frequentTopic.topic }}, let's learn more on this topic, shall we?
+            </p>
+            <br />
+            <button ion-button full (click)="learnMore()">
+              Let's learn more
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+      </ion-col>
+
+      <ion-col col-8>
+        <ion-list
+      no-lines
+      class="questions"
+    >
+      <ion-card *ngFor="let question of result.questions; let i = index">
+        <ion-card-content>
+          <h3>
+            <strong
+              >Question&nbsp;&nbsp;{{ i + 1 + "/" + result.questions?.length
+              }}</strong
+            >
+            <span float-right
+              ><ion-icon
+                *ngIf="question.correct == 'yes'"
+                style="color:#01c22e; padding-right: 10px"
+                name="checkmark"
+              ></ion-icon
+              ><ion-icon
+                *ngIf="question.correct == 'no'"
+                style="color:#ff0000; padding-right: 10px"
+                name="close"
+              ></ion-icon
+            ></span>
+          </h3>
+          <br />
+          <p class="question" [innerHTML]="question.question"></p>
+          <br />
+          <div class="answer">
+            <div *ngIf="question.chosen?.length > 0">
+              <h3 *ngIf="question.correct == 'no'" style="color:#FF0000;">
+                <strong
+                  >Your Answer :
+                  <span [innerHTML]="question.chosen[0].option_text"></span>
+                </strong>
+              </h3>
+              <h3 *ngIf="question.correct == 'yes'" style="color:#01c22e;">
+                <strong
+                  >Your Answer : <span [innerHTML]="question.chosen"></span
+                ></strong>
+              </h3>
+            </div>
+            <br />
+            <h3 style="color:#01c22e;">
+              <strong
+                >Correct Answer :
+                <span [innerHTML]>{{ question.answer }}</span></strong
+              >
+            </h3>
+            <br />
+            <h3><strong>Explanation</strong></h3>
+            <p [innerHTML]="question.explanation"></p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+      </ion-col>
+    </ion-row>
+    
+  
+    
+  </div>
+ 
+
+ 
+</ion-content>

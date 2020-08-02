@@ -1,0 +1,50 @@
+<ion-header>
+  <div class="bg-head">
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" color="brown"></ion-icon>
+      </button>
+      <ion-title text-center>Syllabus</ion-title>
+    </ion-navbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-row class="animated fadeInUp">
+      <ion-col
+        *ngFor="
+          let subject of subjects
+        "
+        col-6
+      >
+        <div>
+          <ion-card (click)="openSyllabus(subject)">
+            <ion-card-content>
+              <ion-card-title>
+                <img
+                  class="center img"
+                  [src]="subject.image_url"
+                  alt=""
+                  *ngIf="subject.image_url != null"
+                />
+                <p
+                  [ngStyle]="{ 'background-color': subject.color }"
+                  class="p-bg"
+                  *ngIf="subject.image_url == null"
+                ></p>
+              </ion-card-title>
+              <p
+                class="center line"
+                [ngStyle]="{ 'border-bottom-color': subject.color }"
+              ></p>
+              <p>
+                <strong> {{ subject.name | titlecase }} </strong>
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

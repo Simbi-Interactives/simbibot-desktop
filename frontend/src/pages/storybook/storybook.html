@@ -1,0 +1,134 @@
+<ion-header>
+  <div class="bg-head">
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" color="brown"></ion-icon>
+      </button>
+      <ion-title text-center class="about-title">
+        {{config.storybook}}
+      </ion-title>
+    </ion-navbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="cont">
+    <ion-slides
+      pager="pager"
+      #myslides
+      (ionSlideWillChange)="onSlideChanged($event)"
+      (ionSlideDidChange)="slideChanged()"
+    >
+      <ion-slide>
+        <div class="pad"></div>
+        <img
+          src="../../assets/imgs/sweet-sixteen.jpg"
+          alt="simbi"
+          class="simbi-girl img-center"
+        />
+        <h6 class="summary-heading">
+          <strong>SUMMARY OF JAMB SWEET SIXTEEN by Bolaji Abdullahi</strong>
+        </h6>
+        <ion-list>
+          <button ion-item (click)="openFirst()" class="animated pulse">
+            <div class="topic-obj">
+              <h6>
+                <strong>
+                  {{ storybook.introduction.title | titlecase }}
+                </strong>
+              </h6>
+            </div>
+            <ion-icon
+              item-end
+              name="ios-arrow-forward"
+              [ngStyle]="{ color: blue }"
+            ></ion-icon>
+          </button>
+          <button
+            ion-item
+            *ngFor="let chapter of storybook.chapters; let i = index"
+            (click)="openChapter(i)"
+            class="animated pulse"
+          >
+            <div class="topic-obj">
+              <h6>
+                <strong> {{ chapter.title | titlecase }} </strong>
+              </h6>
+            </div>
+            <ion-icon
+              item-end
+              name="ios-arrow-forward"
+              [ngStyle]="{ color: blue }"
+            ></ion-icon>
+          </button>
+          <button ion-item (click)="openLast()" class="animated pulse">
+            <div class="topic-obj">
+              <h6>
+                <strong>
+                  {{ storybook.practice.title | titlecase }}
+                </strong>
+              </h6>
+            </div>
+            <ion-icon
+              item-end
+              name="ios-arrow-forward"
+              [ngStyle]="{ color: blue }"
+            ></ion-icon>
+          </button>
+        </ion-list>
+      </ion-slide>
+      <ion-slide>
+        <h1>{{storybook.introduction.title}}</h1>
+        <div
+          *ngIf="currentIndex == 1"
+          class="chapter-summary"
+          [innerHTML]="storybook.introduction.summary"
+        ></div>
+      </ion-slide>
+      <ion-slide *ngFor="let chapter of storybook.chapters; let i = index">
+        <div class="summary-container">
+          <h1>{{chapter.title}}</h1>
+          <div class="chapter-summary" [innerHTML]="chapter.summary"></div>
+          <!-- <button class="share-btn back-btn" (click)="goBack()">Prev</button> -->
+          <!-- <button class="share-btn back-btn" (click)="slideNext()">Next</button> -->
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="summary-container">
+          <h1>{{storybook.practice.title}}</h1>
+          <div>
+            <ion-card
+              *ngFor="let question of storybook.questions; let i = index"
+            >
+              <ion-card-content>
+                <br />
+                <p
+                  class="question practice-question"
+                  [innerHTML]="question.question"
+                ></p>
+                <br />
+                <div class="answer chapter-practice">
+                  <div>
+                    <h3><span [innerHTML]="question.options"></span></h3>
+                  </div>
+                  <br />
+                  <h3 style="color:#01c22e;">
+                    <strong
+                      >Correct Answer :
+                      <span [innerHTML]>{{ question.answer }}</span></strong
+                    >
+                  </h3>
+                  <br />
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div class="slide-buttons" *ngIf="currentIndex > 0">
+      <button class="share-btn back-btn" (click)="goBack()">Prev</button>
+      <button class="share-btn back-btn" (click)="slideNext()">Next</button>
+    </div>
+  </div>
+</ion-content>

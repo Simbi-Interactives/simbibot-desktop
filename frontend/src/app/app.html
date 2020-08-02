@@ -1,0 +1,81 @@
+<ion-menu [content]="content" class="menu">
+  <ion-header>
+    <div class="menu-bg">
+      <ion-title text-center
+        ><img src="assets/imgs/simbi.png" class="img-src" alt=""
+      /></ion-title>
+      <h3 class="simbi-text" text-center>
+        Your Interactive Learning Assistant.
+      </h3>
+    </div>
+  </ion-header>
+
+  <ion-content>
+   
+
+    <ion-list class="padding-top">
+      <button
+        [ngClass]="p.title == activePage ? 'active-menu' : ''"
+        menuClose
+        ion-item
+        no-lines
+        *ngFor="let p of pages"
+        (click)="openPage(p)"
+      >
+        <span class="menu-icon"><ion-icon [name]="p.icon"></ion-icon></span
+        ><span class="menu-text">{{ p.title }}</span>
+      </button>
+      <!-- For offline sidebar  -->
+      <!-- <button
+        [ngClass]="Activation == activePage ? 'active-menu' : ''"
+        *ngIf="!hasSubscribed"
+        menuClose
+        ion-item
+        no-lines
+        (click)="openPageManually(subscriptionPage)"
+      >
+        <span class="menu-icon"><ion-icon name="compass"></ion-icon></span
+        ><span class="menu-text">Activation</span>
+      </button> -->
+      <!-- <button
+        *ngIf="hasSubscribed"
+        [ngClass]="Updates == activePage ? 'active-menu' : ''"
+        menuClose
+        ion-item
+        no-lines
+        (click)="openPageManually(updatesPage)"
+      >
+        <span class="menu-icon"><ion-icon name="refresh"></ion-icon></span
+        ><span class="menu-text">Updates</span>
+      </button> -->
+      <!-- <button ion-item no-lines (click)="openWhatssapLink()">
+        <span class="menu-icon"
+          ><ion-icon
+            name="people"
+            class="icon-color"
+            color="light"
+          ></ion-icon></span
+        ><span class="menu-text">Join Community</span>
+      </button> -->
+      <button ion-item no-lines (click)="openPageManually(aboutPage)">
+        <span class="menu-icon"
+          ><ion-icon
+            name="information-circle"
+            class="icon-color"
+            color="light"
+          ></ion-icon></span
+        ><span class="menu-text">About Simbi</span>
+      </button>
+    </ion-list>
+  </ion-content>
+
+  <ion-footer>
+    <button ion-item no-lines (click)="logOut()">
+      <span class="menu-icon"
+        ><ion-icon name="log-out" color="light"></ion-icon></span
+      ><span class="menu-text">Log Out</span>
+    </button>
+  </ion-footer>
+</ion-menu>
+  <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+

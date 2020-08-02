@@ -1,0 +1,258 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="brown"></ion-icon>
+    </button>
+    <ion-title *ngIf="topic">{{ topic.topic | titlecase }}</ion-title>
+    <ion-title *ngIf="!topic">{{ subject.name | titlecase }}</ion-title>
+    <ion-buttons end *ngIf="test_type == 1 || test_type == 2">
+      <button ion-button clear color="brown" class="timer">{{ time }}</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="loaded | async" class="cont mtop">
+    <!-- Learning Track Interface-->
+    <div *ngIf="test_type == 0">
+      <div>
+        <div
+          [ngClass]="[
+            shake ? 'shake-card' : '',
+            shakeGreen ? 'shake-card-green' : ''
+          ]"
+        >
+          <ion-card #quizcard>
+            <ion-card-content>
+              <div class="progress">
+                <div
+                  class="progress-inner"
+                  [ngStyle]="{
+                    width: width + '%',
+                    'background-color': '#C27C39'
+                  }"
+                ></div>
+              </div>
+              <h2 [innerHTML]="questions[currentIndex].question"></h2>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <br />
+        <div class="animated fadeIn explanation-card" *ngIf="showCorrectAnswer">
+          <ion-card>
+            <ion-card-content>
+              <h3>
+                <strong
+                  >The correct answer is &nbsp;<span
+                    [innerHTML]="currentQuestion.answer.option_text"
+                  ></span
+                ></strong>
+              </h3>
+              <br />
+              <h3><strong>Explanation</strong></h3>
+              <h3 [innerHTML]="currentQuestion.explanation"></h3>
+            </ion-card-content>
+          </ion-card>
+          <ion-row>
+            <ion-col col-4>
+              <button
+                ion-button
+                round
+                float-right
+                color="brown"
+                (click)="onEndClick()"
+              >
+                End
+              </button>
+            </ion-col>
+            <ion-col col-4>
+              <button
+                ion-button
+                round
+                float-right
+                color="brown"
+                (click)="onEndClick()"
+              >
+                Back to Topics
+              </button>
+            </ion-col>
+            <ion-col col-4>
+              <button
+                ion-button
+                round
+                color="brown"
+                icon-start
+                (click)="onGotItClick()"
+              >
+                <ion-icon name="thumbs-up" color="light"></ion-icon>
+                Got It
+              </button>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="anwser-grp" *ngIf="!showCorrectAnswer">
+          <div
+            *ngFor="
+              let answer of questions[currentIndex].options;
+              let i = index
+            "
+          >
+            <button
+              class="center answer-btn"
+              ion-button
+              color="brown"
+              round
+              [innerHTML]="answer.option_text"
+              [disabled]="
+                trialNumbers < 1 || questions[currentIndex].disabled[i]
+              "
+              (click)="checkAnswer(i)"
+            ></button>
+          </div>
+        </div>
+      </div>
+      <br />
+      <ion-row *ngIf="test_type == 0">
+        <ion-col col-6>
+          <button
+            (click)="prev()"
+            ion-button
+            round
+            color="brown"
+            icon-start
+            *ngIf="currentIndex >= 1 && currentIndex < questions.length"
+          >
+            <ion-icon name="ios-arrow-back"></ion-icon>
+            Previous
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button
+            float-right
+            (click)="next()"
+            ion-button
+            round
+            color="brown"
+            icon-end
+            *ngIf="questions.length > currentIndex"
+          >
+            Next
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <!-- Evaluation Track Interface -->
+    <div *ngIf="test_type == 1 || test_type == 2">
+      <ion-row *ngIf="test_type == 1 || test_type == 2">
+        <ion-col col-6>
+          <button
+            (click)="prev()"
+            ion-button
+            round
+            color="brown"
+            icon-start
+            *ngIf="currentIndex > 0"
+          >
+            <ion-icon name="ios-arrow-back"></ion-icon>
+            Previous
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button
+            float-right
+            (click)="next()"
+            ion-button  
+            round
+            color="brown"
+            icon-end
+            *ngIf="questions.length - 1 > currentIndex"
+          >
+            Next
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+      <br>
+      <div>
+        <ion-card>
+          <ion-card-content>
+            <!-- display format for test type 1 -->
+            <p *ngIf="test_type == 1">
+              {{ currentIndex + 1 }} / {{ questions.length }}
+            </p>
+            <!-- display format for test type 2 -->
+            <p *ngIf="test_type == 2">
+              {{ currentIndex + 1 }} / {{ questions.length }} out of
+              {{ totalExamQuestionCount.count }} questions
+            </p>
+            <h2 [innerHTML]="questions[currentIndex].question"></h2>
+            <br>
+            <div>
+          
+              <ion-list radio-group>
+                <ion-item
+                  *ngFor="
+                    let answer of questions[currentIndex].options;
+                    let i = index
+                  "
+                >
+                  <ion-label
+                    ><strong [innerHTML]="answer.option_text"></strong
+                  ></ion-label>
+                  <ion-radio
+                    color="brown"
+                    mode="md"
+                    [value]="answer.id"
+                    [checked]="selectedQuestion[currentIndex].answerId == answer.id"
+                    (ionSelect)="
+                      addToSelected(questions[currentIndex].id, answer.id)
+                    "
+                  ></ion-radio>
+                </ion-item>
+              </ion-list>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer padding *ngIf="loaded">
+  <!-- <div class="d-flex" *ngIf="test_type == 0">
+    <input
+      placeholder="Type answer here"
+      type="text"
+      class="input-box"
+      [(ngModel)]="answer_input"
+      name="anwser_input"
+    />
+    <button
+      icon-end
+      class="btn-send"
+      color="brown"
+      round
+      ion-button
+      icon-only
+      (click)="checkSubmittion()"
+    >
+      Submit
+      <ion-icon name="ios-arrow-forward"></ion-icon>
+    </button>
+  </div> -->
+
+  <div class="cont">
+    <button
+    ion-button
+    round
+    (click)="submit()"
+    full
+    *ngIf="test_type == 1 || test_type == 2"
+    color="brown"
+  >
+    Submit
+  </button>
+  </div>
+</ion-footer>

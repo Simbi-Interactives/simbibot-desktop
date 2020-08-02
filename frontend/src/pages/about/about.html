@@ -1,0 +1,58 @@
+<ion-header>
+  <div class="bg-head">
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" color="brown"></ion-icon>
+      </button>
+      <ion-title text-center class="about-title">
+        About SimbiBot
+      </ion-title>
+    </ion-navbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <img
+    src="../../assets/imgs/simbi-girl.png"
+    alt="simbi"
+    class="simbi-girl img-center"
+  />
+  <div class="about-content">
+    <div class="about-text">
+      <p>
+        SimbiBot is a learning partner that helps you learn, master and evaluate
+        yourself in any topic across all subjects.
+      </p>
+      <p>
+        SimbiBot also helps you prepare to pass and excel in your exams (such as
+        Common Entrance, BECE, WAEC, NECO, UTME and PUTME).
+      </p>
+      <p>
+        SimbiBot is available on web (www.simbibot.com) and mobile app stores.
+      </p>
+      <p>For more info contact us: care@simbibot.com Tel:09066450210</p>
+      <div class="social-icons">
+        <a
+          href="https://twitter.com/SimbiBot"
+          target="_blank"
+          rel="no_referer"
+          class="twitter-icon"
+        ></a>
+        <a
+          href="https://instagram.com/simbibot/"
+          target="_blank"
+          rel="no_referer"
+          class="instagram-icon"
+        ></a>
+        <a
+          href="https://www.facebook.com/simbibot/"
+          target="_blank"
+          rel="no_referer"
+          class="facebook-icon"
+        ></a>
+      </div>
+      <button class="share-btn" (click)="share()">Share</button>
+      <p>Version {{ config.version }}</p>
+    </div>
+  </div>
+</ion-content>

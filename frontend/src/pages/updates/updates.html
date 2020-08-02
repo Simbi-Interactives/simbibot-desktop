@@ -1,0 +1,54 @@
+<ion-header>
+  <div class="bg-head">
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" color="brown"></ion-icon>
+      </button>
+      <ion-title text-center class="about-title">
+        Updates
+      </ion-title>
+    </ion-navbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <img
+    src="../../assets/imgs/simbi-girl.png"
+    alt="simbi"
+    class="simbi-girl img-center"
+  />
+  <div class="updates-content">
+    <div class="updates-text">
+      <ion-spinner
+        *ngIf="downloading || updating"
+        name="crescent"
+        color="primary"
+      ></ion-spinner>
+      <p *ngIf="downloading">{{ progressText }}</p>
+      <p *ngIf="updating">Installing updates please wait</p>
+      <p *ngIf="updated">Your app is up to date</p>
+      <p *ngIf="error">
+        An unknown error occurred, please check your network and try again
+      </p>
+      <p *ngIf="hasSubscribed">Version {{ config.version }}</p>
+      <p *ngIf="!hasSubscribed">
+        Activate your app to enjoy unlimited questions update
+      </p>
+      <button
+        class="share-btn"
+        (click)="downloadUpdates()"
+        [disabled]="updated || updating || downloading"
+        *ngIf="hasSubscribed"
+      >
+        Check for updates
+      </button>
+      <button
+        class="share-btn"
+        (click)="goToSubscriptionPage()"
+        *ngIf="!hasSubscribed"
+      >
+        Click here to activate
+      </button>
+    </div>
+  </div>
+</ion-content>

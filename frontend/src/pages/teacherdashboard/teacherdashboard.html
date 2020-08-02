@@ -1,0 +1,84 @@
+<!--
+  Generated template for the TeacherdashboardPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Admin Dashboard</ion-title>
+    <ion-buttons end padding>
+      <button ion-button color="danger"  (click)="logout()">Log Out</button>
+    </ion-buttons>
+  </ion-navbar>
+ 
+</ion-header>
+
+<ion-content padding>
+  <div class="cont">
+    <ion-row>
+      <ion-col col-4>
+        <ion-card>
+          <ion-card-content>
+            <img src="assets/imgs/users.png" class="img" alt="" />
+            <br />
+            <h2 text-center>Create Students.</h2>
+            <div padding>
+              <button ion-button full (click)="createStudents()">View</button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-4>
+        <ion-card>
+          <ion-card-content>
+            <img src="assets/imgs/report.png" class="img" alt="" />
+            <br />
+            <h2 text-center>Evaluation Results</h2>
+            <div padding>
+              <button ion-button full (click)="gotoEvaluationResult()">
+                View
+              </button>  
+            </div>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-4>
+        <ion-card>
+          <ion-card-content>
+            <img src="assets/imgs/report.png" class="img" alt="" />
+            <br />
+            <h2 text-center>Examination Results</h2>
+            <div padding>
+              <button ion-button full (click)="gotoExaminationResult()">
+                View
+              </button>  
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <br>
+
+    <ion-row>
+      <ion-col col-6>
+        <ion-card *ngIf="settingsLoaded">
+          <ion-card-content>
+            <h3>Settings</h3>
+            <br>
+            <ion-item *ngFor="let superexam of superexams; let i = index;">
+              <h3 item-start>{{superexam.name}}</h3>
+              <ion-toggle [checked]="superexam.show == 1" (ionChange)="updateExam($event, i)"></ion-toggle>
+            </ion-item>
+            <ion-item>
+              <h3 item-start>Show sweet sixteen</h3>
+              <ion-toggle [checked]="show_sweet == 1" (ionChange)="updateSweetSixteen($event)"></ion-toggle>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

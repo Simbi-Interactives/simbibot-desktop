@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="cont">
+    <ion-card>
+      <ion-card-content padding>
+        <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />
+        <br />
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="ios-mail"></ion-icon>Email Address
+          </ion-label>
+          <ion-input
+            type="email"
+            aria-required="true"
+            [(ngModel)]="email"
+          ></ion-input>
+        </ion-item>
+        <br />
+        <ion-item>
+          <ion-label floating>
+            <ion-icon name="key"></ion-icon>Password
+          </ion-label>
+          <ion-input
+            type="password"
+            aria-required="true"
+            [(ngModel)]="password"
+          ></ion-input>
+        </ion-item>
+        <br />
+        <button
+          ion-button
+          class="global-btn"
+          (click)="loginUser()"
+        >
+          Login
+        </button>
+        <br>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

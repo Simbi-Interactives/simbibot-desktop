@@ -1,0 +1,43 @@
+<ion-header>
+  <div class="bg-head">
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" color="brown"></ion-icon>
+      </button>
+      <ion-title text-center class="about-title">
+        Notifications
+      </ion-title>
+    </ion-navbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <img
+    src="../../assets/imgs/simbi-girl.png"
+    alt="simbi"
+    class="simbi-girl img-center"
+  />
+
+  <div class="flex-vertical">
+    <ion-spinner name="bubbles" *ngIf="!loaded"></ion-spinner>
+  </div>
+  <div class=" flex-vertical notifications-container" *ngIf="loaded">
+    <div
+      class="notification-card"
+      *ngFor="let notification of notifications"
+      (click)="openNotification(notification)"
+    >
+      <h1>{{ notification.title }}</h1>
+      <p>
+        {{notification.content}}
+      </p>
+    </div>
+  </div>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

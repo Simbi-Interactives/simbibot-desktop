@@ -1,0 +1,18 @@
+{
+  "android": {
+    "debug": {
+      "keystore": "./my-release-key.jks",
+      "storePassword": "simbibot",
+      "alias": "offline-utme-app",
+      "password": "simbibot",
+      "keystoreType": ""
+    },
+    "release": {
+      "keystore": "./my-release-key.jks",
+      "storePassword": "simbibot",
+      "alias": "offline-utme-app",
+      "password": "simbibot",
+      "keystoreType": ""
+    }
+  }
+}

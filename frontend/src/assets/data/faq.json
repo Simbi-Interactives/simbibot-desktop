@@ -1,0 +1,32 @@
+{
+    "faqs": [
+        {
+            "name": "Who is SimbiBot?",
+            "content": "Hello, My name is Simbi. I am a platform (chat-bot) that will help you learn and master any topic so that you can excel in your exams and achieve your dreams.   I will also help you evaluate yourself to be sure you really know the topic you have learnt."
+        }, 
+        {
+            "name" : "Can I use Simbibot on my phone?",
+            "content" : "Of course! I am available on all platforms including phones, laptops and tablets. I will soon be available on USSD too."
+        },
+        {
+            "name": "What age and classes do you work with?",
+            "content" : "I can currently teach teenagers at secondary school level."
+        },
+        {
+            "name": "Why is Simbibot better than  a private tutor ?",
+            "content": "With me, you can learn and re-learn a concept as many times as you wish without having a remorse feeling of stressing a tutor. Don't also forget I am available anywhere anytime."
+        },
+        {
+            "name": "How many times can I learn a topic with Simbibot ?",
+            "content": "There are no restrictions on the number of times you can learn a topic. You can keep learning for as long as you need to understand."
+        },
+        {
+            "name": "Can my learning process be monitored by my Parents and Teachers",
+            "content": "Yes absolutely, your learning curve and progress reports are shared with your parents and teacher."
+        },
+        {
+            "name": "Why should I join the Simbibot community",
+            "content": "Join the community to get a lot of benefits which includes discount offers, access to valuable information, group learning etc."
+        }
+    ]
+}

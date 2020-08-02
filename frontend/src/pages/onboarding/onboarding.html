@@ -1,0 +1,54 @@
+<ion-content padding>
+  <div class="bg-text">
+    <h3 text-center>
+      Welcome to learning with simbi
+    </h3>
+    <div class="p-bg">
+      <p>
+        I am going to be using the Maieutic learning style to help you
+        understand
+        {{ topic.topic | titlecase }}.
+      </p>
+      <p>
+        Our learning method is going to be in form of me asking you questions on
+        {{ topic.topic | titlecase }} and allowing you two trials to make a
+        correct attempt.
+      </p>
+      <!-- <p>
+              While learning, take your time before attempting each question, as this is
+              not a test. It is OK to get it wrong. A detailed explanation will be
+              provided to you before proceeding to the next question. After completing
+              the learning stage, you can proceed to take a test on the topic to assess
+              your understanding of the topic.
+            </p> -->
+    </div>
+
+    <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>
+  </div>
+</ion-content>
+<ion-footer padding>
+  <ion-row>
+    <ion-col col-6>
+      <button
+        [disabled]="!loaded"
+        class="global-btn"
+        ion-button
+        color="brown"
+        (click)="takeTest(0)"
+      >
+        Start Learning
+      </button>
+    </ion-col>
+    <ion-col col-6>
+      <button
+        [disabled]="!loaded"
+        class="global-btn"
+        ion-button
+        color="brown"
+        (click)="takeTest(1)"
+      >
+        Take Evaluation
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

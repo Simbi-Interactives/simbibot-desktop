@@ -1,0 +1,74 @@
+<!--
+  Generated template for the TeacherevaluationresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Evaluation Result </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="cont">
+    <ion-row>
+      <ion-col col-4>
+        <ion-card *ngIf="subjectLoaded">
+          <ion-card-content>
+            <ion-item *ngFor="let subject of subjects">
+              <button ion-button item-start clear color="dark"> {{subject.name}}</button>
+              <button ion-button item-end (click)="fetchChartData(subject)">View Performance</button>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+  
+  
+      <ion-col col-8 padding>
+        <h3>{{currentSubject | titlecase}}</h3>
+        <br>
+      <ion-card>
+          <ion-card-content>
+            <canvas #lineChart></canvas>
+          </ion-card-content>
+        </ion-card >
+
+        <br>
+
+          <ion-card *ngIf="aggregatesLoaded">
+            <ion-card-content>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <th  scope="col">#</th>
+                    <th scope="col">Fullname</th>
+                    <th scope="col">Topic</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Attempts</th>
+                    <th scope="col">Avg Score</th>
+                    <th scope="col"></th>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let aggregate of aggregates; let i =index">
+                    <td>{{i}}</td>
+                    <td>{{aggregate.firstname + ' ' + aggregate.lastname}}</td>
+                    <td>{{aggregate.topic}}</td>
+                    <td>{{aggregate.name}}</td>
+                    <td>{{aggregate.attempts}}</td>
+                    <td>{{aggregate.aggregate_score | number: '1.2-2'}}%</td>
+                    <td>
+                      <button ion-button round (click)="viewPerfomances(aggregate)">View Students Performances</button>
+                    </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ion-card-content>
+          </ion-card>
+      </ion-col>
+    </ion-row> 
+  </div>
+  
+</ion-content>

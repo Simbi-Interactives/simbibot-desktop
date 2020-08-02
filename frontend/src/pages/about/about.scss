@@ -1,0 +1,158 @@
+page-about {
+  .content-md {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .content-md > * {
+    font-family: "McLaren", cursive;
+  }
+
+  ion-navbar .toolbar-title-md {
+    color: #000000;
+    margin-left: -20px;
+    font-family: "McLaren", cursive;
+  }
+
+  .bg-head {
+    padding-top: 7px;
+    // background: url("../../assets/imgs/bg.jpg");
+    background-size: cover;
+    height: 100px;
+  }
+
+  .toolbar-background-md {
+    background: transparent;
+  }
+
+  .title-md {
+    img {
+      width: 150px;
+    }
+  }
+
+  .img-center {
+    display: block;
+    margin: 0 auto;
+    // padding: 35px;
+    // padding-top: 30px;
+    height: 100px;
+    object-fit: cover;
+  }
+  .simbi-girl {
+    width: 90px;
+    height: 100px;
+  }
+
+  .about-content {
+    margin: 0 auto;
+    height: 80vh;
+    width: 90%;
+    background: url("../../assets/imgs/carpet-bg.png");
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-text {
+    color: #ffffff;
+    font-size: 16px;
+    width: 80%;
+    font-family: "McLaren", cursive;
+    text-align: center;
+  }
+
+  .about-text > * {
+    font-family: "McLaren", cursive;
+  }
+
+  .social-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+
+  .social-icons > a {
+    padding: 10px;
+  }
+
+  .twitter-icon {
+    background: url("../../assets/imgs/twitter.svg") center no-repeat;
+  }
+
+  .instagram-icon {
+    background: url("../../assets/imgs/instagram.svg") center no-repeat;
+  }
+
+  .facebook-icon {
+    background: url("../../assets/imgs/fb.svg") center no-repeat;
+  }
+
+  .share-btn {
+    padding: 8px 25px;
+    background: #ffc300;
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+    // color: #ffffff;
+  }
+
+  .col,
+  .grid {
+    padding: 0 !important;
+  }
+
+  .img {
+    height: 60px;
+    object-fit: contain;
+  }
+
+  .line {
+    border-bottom: 1px solid;
+    width: 30px;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    text-align: center;
+  }
+
+  ion-card-content > p {
+    text-align: center;
+    font-weight: 600;
+  }
+
+  @media screen and (min-width: 600px) {
+    .simbi-girl {
+      margin-top: 10%;
+    }
+    .about-content {
+      height: 70vh;
+      width: 50%;
+      // background-position: center;
+      // background-size: 100% 100%;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .about-content {
+      height: 100vh;
+      width: 100%;
+      // background-position: center;
+      // background-size: 100% 100%;
+    }
+  }
+
+  @media screen and (max-width: 330px) {
+    .about-content {
+      height: 120vh;
+      width: 100%;
+      // background-position: center;
+      // background-size: 100% 100%;
+    }
+  }
+}

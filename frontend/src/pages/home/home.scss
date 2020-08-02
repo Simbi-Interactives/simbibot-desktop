@@ -1,0 +1,147 @@
+page-home {
+  .content-md {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .bg-head {
+    padding-top: 15px;
+    // background: url("../../assets/imgs/bg.jpg");
+    background-size: cover;
+    height: 200px;
+  }
+
+  .toolbar-background-md {
+    background: transparent;
+  }
+
+  .title-md {
+    img {
+      width: 150px;
+    }
+  }
+
+
+  // .online-offline {
+  //   background: #fff;
+  //   color: aqua;
+  //   padding: 0 10px 0 10px;
+  // }
+  .searchbar-md {
+    padding-top: 20px;
+    background: none !important;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .searchbar-md .searchbar-input {
+    // color: #f00;
+    border-radius: 25px;
+    height: 40px;
+  }
+
+  .searchbar-md .searchbar-search-icon {
+    top: 11px;
+  }
+
+  .img-center {
+    display: block;
+    margin: 0 auto;
+    // padding: 35px;
+    padding-top: 40px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  .subject-card {
+    // margin-top: -16px;
+    padding: 0;
+    height: 150px;
+
+    h3 {
+      color: #fff;
+      // text-align: center;
+      padding-top: 40px;
+      padding-left: 20px;
+    }
+  }
+
+  .move_img_left {
+    margin-left: 15px;
+  }
+
+  .col,
+  .grid {
+    padding: 0 !important;
+  }
+
+  .img {
+    height: 60px;
+    object-fit: contain;
+  }
+
+  .line {
+    border-bottom: 1px solid;
+    width: 30px;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    text-align: center;
+  }
+
+  ion-card-content>p {
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .card-ios,
+  .card-md {
+    box-shadow: 0 1px 0.5px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+  }
+
+  .text-light {
+    color: #fff;
+  }
+
+  .banner-card {
+    padding: 10px;
+
+    h3 {
+      font-size: 20px;
+    }
+
+    h1 {
+      font-size: 25px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+  }
+
+  .t-center {
+    text-align: center;
+    padding-top: 10px;
+    display: block;
+    margin: 0 auto;
+
+    img {
+      height: 100px;
+    }
+  }
+
+  .animated {
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+
+  .p-bg {
+    height: 50px;
+    width: 50px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+  }
+
+}

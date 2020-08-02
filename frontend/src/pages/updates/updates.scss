@@ -1,0 +1,130 @@
+page-updates {
+  .content-md {
+    background: url("../../assets/imgs/subscription.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .content-md > * {
+    font-family: "McLaren", cursive;
+  }
+
+  ion-navbar .toolbar-title-md {
+    color: #000000;
+    margin-left: -20px;
+    font-family: "McLaren", cursive;
+  }
+
+  .bg-head {
+    padding-top: 7px;
+    // background: url("../../assets/imgs/bg.jpg");
+    background-size: cover;
+    height: 100px;
+  }
+
+  .toolbar-background-md {
+    background: transparent;
+  }
+
+  .title-md {
+    img {
+      width: 150px;
+    }
+  }
+
+  .img-center {
+    display: block;
+    margin: 0 auto;
+    // padding: 35px;
+    // padding-top: 30px;
+    height: 100px;
+    object-fit: cover;
+  }
+  .simbi-girl {
+    width: 90px;
+    height: 100px;
+  }
+
+  .updates-content {
+    margin: 0 auto;
+    height: 50vh;
+    width: 90%;
+    background: url("../../assets/imgs/carpet-bg.png");
+    background-position: center;
+    background-size: 90% 80%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .updates-text {
+    color: #ffffff;
+    font-size: 16px;
+    width: 80%;
+    font-family: "McLaren", cursive;
+    text-align: center;
+  }
+
+  .updates-text > * {
+    font-family: "McLaren", cursive;
+  }
+
+  .social-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+
+  .share-btn {
+    padding: 8px 25px;
+    background: #ffc300;
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+    // color: #ffffff;
+  }
+
+  .img {
+    height: 60px;
+    object-fit: contain;
+  }
+
+  ion-card-content > p {
+    text-align: center;
+    font-weight: 600;
+  }
+
+  @media screen and (min-width: 600px) {
+    .simbi-girl {
+      margin-top: 10%;
+    }
+    .updates-content {
+      height: 70vh;
+      width: 50%;
+      // background-position: center;
+      // background-size: 100% 100%;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .updates-content {
+      height: 70vh;
+      width: 100%;
+      // background-position: center;
+      // background-size: 100% 100%;
+    }
+  }
+
+  @media screen and (max-width: 330px) {
+    .updates-content {
+      height: 70vh;
+      width: 100%;
+      // background-position: center;
+      // background-size: 100% 100%;
+    }
+  }
+}

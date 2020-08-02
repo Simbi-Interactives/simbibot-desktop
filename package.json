@@ -9,7 +9,8 @@
     "dev": "nodemon ./bin/www",
     "postinstall": "electron-builder install-app-deps",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "build:exe": "cd frontend && ionic build --prod &&  cd .. && electron-builder"
   },
   "build": {
     "appId": "com.simbibotdesktop.app",
