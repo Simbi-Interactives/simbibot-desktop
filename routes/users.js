@@ -40,7 +40,7 @@ router.post('/create_teacher', async (req, res) => {
       const hash = await bcrypt.hash(data.password, salt);
       const user_type = "teacher";
       db.serialize(async () => {
-        db.run(`insert into users(email, password, usertype) values ('${data.email}', '${hash}', 'teacher')`, [], (err) => {
+        db.run(`insert into users(email, password, usertype, created_at, updated_at) values ('${data.email}', '${hash}', 'teacher', ?, ?)`, [new Date().toISOString(), new Date().toISOString()], (err) => {
           if(err) { 
             console.log(err)
             return res.status(422).send(err) };
@@ -100,7 +100,7 @@ router.post('/create_student', async (req, res) => {
 
     console.log(body);
     db.serialize(() => {
-      db.run(`insert into users(email, password, firstname, lastname, usertype) values('${body.email}', '${hash}', '${body.firstname}', '${body.lastname}', 'student' )`, [], (err) => {
+      db.run(`insert into users(email, password, firstname, lastname, usertype, created_at, updated_at) values('${body.email}', '${hash}', '${body.firstname}', '${body.lastname}', 'student', ?, ? )`, [new Date().toISOString(), new Date().toISOString()], (err) => {
         if(err) {
           console.log(err);
           return  res.status(422).send(err);
@@ -168,7 +168,7 @@ router.post('/bulk_upload_student', upload.single('file'), async (req, res) => {
           const salt = await bcrypt.genSalt(5)
           const hash = await bcrypt.hash(student.password, salt);
     
-          db.run(`insert into users(firstname, lastname, email, password, usertype) values ('${student.firstname}', '${student.lastname}', '${student.email}', '${hash}', 'student')`, [], (err) => {
+          db.run(`insert into users(firstname, lastname, email, password, usertype, created_at, updated_at) values ('${student.firstname}', '${student.lastname}', '${student.email}', '${hash}', 'student', ?, ?)`, [new Date().toISOString(), new Date().toISOString()], (err) => {
             if(err) {
               errors.push(err);
               callback
