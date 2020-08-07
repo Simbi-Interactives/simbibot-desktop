@@ -230,12 +230,13 @@ export class LoginPage {
 
 
   handleAuthError(err) {
-    const errorMessages = [];
+    const errors = [];
 
-    Object.entries(err.error.errors)
-      .forEach(([key, value]) => errorMessages.push(`${key}: ${value}`))
+    err.error.errors && Object.entries(err.error.errors)
+      .forEach(([key, value]) => errors.push(`${key}: ${value}`))
 
-    this.alertMessage(errorMessages[0] || 'An unknown error occured');
+    let errorMessage = errors[0] || err.error.message;
+    this.alertMessage(errorMessage || 'An unknown error occured');
   }
 
   createLocalTeacherAccount(adminData) {

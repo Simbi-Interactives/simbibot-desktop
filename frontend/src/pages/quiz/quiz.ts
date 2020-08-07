@@ -596,6 +596,7 @@ export class QuizPage {
   }
 
   storeExamresultUpdate() {
+    console.log('exam ', this.test_type, this.selectedQuestion)
     const result: any = {};
     result["questions"] = [];
     for (let i = 0; i < this.selectedQuestion.length; i++) {
@@ -629,47 +630,56 @@ export class QuizPage {
     let counts = {};
     let compare = 0;
     let current_topic_id;
+    let recommended_topic = null;
+
+    console.log('result ', result.questions)
     for (let i = 0; i < result.questions.length; i++) {
       let question_correct = result.questions[i].correct;
       let topic_id = result.questions[i].topic_id;
       console.log(topic_id);
 
-      if(topic_id != null) {
+      if (topic_id != null) {
         if (question_correct == "no") {
           if (counts[topic_id] === undefined) {
             counts[topic_id] = 1;
           } else {
             counts[topic_id] = counts[topic_id] + 1;
           }
-  
-          if (counts[topic_id] > compare) {
-            compare = counts[topic_id];
-  
-            if ((i + 1) == result.questions.length) {
-              console.log(topic_id, counts, compare)
-              if (this.questionType == "normal") {
-                let exam_update = {
-                  score: this.scores,
-                  end_time: new Date(Date.now()),
-                  completed_at: new Date(Date.now()),
-                  id: this.currentEvaluationId,
-                  recommended_topic: topic_id
-                };
-  
-                this.desktopProvider.updateExaminationResult(exam_update).subscribe((response: any) => {
-                  console.log(response);
-  
-                }, (err: any) => {
-                  console.log(err);
-                });
-              }
-            }
+
+          if(!recommended_topic) recommended_topic = topic_id;
+
+          if (counts[topic_id] > counts[recommended_topic]) {
+            recommended_topic = topic_id;
           }
         }
       }
-      
+
+      if ((i + 1) == result.questions.length) {
+        console.log(topic_id, counts, compare)
+        break;
+      }
+
     }
 
+    if (this.questionType == "normal") {
+      
+      let exam_update = {
+        score: this.scores,
+        end_time: new Date(Date.now()),
+        completed_at: new Date(Date.now()),
+        id: this.currentEvaluationId,
+        recommended_topic: recommended_topic
+      };
+
+      console.log('exam update ', exam_update)
+
+      this.desktopProvider.updateExaminationResult(exam_update).subscribe((response: any) => {
+        console.log(response);
+
+      }, (err: any) => {
+        console.log(err);
+      });
+    }
 
   }
 }

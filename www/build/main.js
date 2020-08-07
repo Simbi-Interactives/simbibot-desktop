@@ -388,13 +388,14 @@ var LoginPage = /** @class */ (function () {
         }
     };
     LoginPage.prototype.handleAuthError = function (err) {
-        var errorMessages = [];
-        Object.entries(err.error.errors)
+        var errors = [];
+        err.error.errors && Object.entries(err.error.errors)
             .forEach(function (_a) {
             var key = _a[0], value = _a[1];
-            return errorMessages.push(key + ": " + value);
+            return errors.push(key + ": " + value);
         });
-        this.alertMessage(errorMessages[0] || 'An unknown error occured');
+        var errorMessage = errors[0] || err.error.message;
+        this.alertMessage(errorMessage || 'An unknown error occured');
     };
     LoginPage.prototype.createLocalTeacherAccount = function (adminData) {
         var _this = this;
@@ -1021,7 +1022,7 @@ var SubscriptionProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_device__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__paywithcard_paywithcard__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__paywithcard_paywithcard__ = __webpack_require__(480);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config__ = __webpack_require__(34);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1427,10 +1428,10 @@ var map = {
 		492
 	],
 	"../pages/onboarding/onboarding.module": [
-		480
+		478
 	],
 	"../pages/paywithcard/paywithcard.module": [
-		478
+		479
 	],
 	"../pages/postutme/postutme.module": [
 		481
@@ -1439,16 +1440,16 @@ var map = {
 		493
 	],
 	"../pages/quizresult/quizresult.module": [
-		483
-	],
-	"../pages/register/register.module": [
 		482
 	],
+	"../pages/register/register.module": [
+		483
+	],
 	"../pages/studentreportdetails/studentreportdetails.module": [
-		485
+		484
 	],
 	"../pages/studentresults/studentresults.module": [
-		484
+		485
 	],
 	"../pages/subscription/subscription.module": [
 		486
@@ -1725,10 +1726,13 @@ var OnboardingPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: "page-onboarding",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/onboarding/onboarding.html"*/'<!-- <ion-content padding>\n  <div class="bg-text">\n    <h3 text-center>\n      Welcome to learning with simbi\n    </h3>\n    <div class="p-bg">\n      <p>\n        I am going to be using the Maieutic learning style to help you\n        understand\n        {{ topic.topic | titlecase }}.\n      </p>\n      <p>\n        Our learning method is going to be in form of me asking you questions on\n        {{ topic.topic | titlecase }} and allowing you two trials to make a\n        correct attempt.\n      </p>\n      <!-- <p>\n              While learning, take your time before attempting each question, as this is\n              not a test. It is OK to get it wrong. A detailed explanation will be\n              provided to you before proceeding to the next question. After completing\n              the learning stage, you can proceed to take a test on the topic to assess\n              your understanding of the topic.\n            </p> \n    </div>\n\n    <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>\n  </div>\n</ion-content>\n<ion-footer padding>\n  <ion-row>\n    <ion-col col-6>\n      <button\n        [disabled]="!loaded"\n        class="global-btn"\n        ion-button\n        color="brown"\n        (click)="takeTest(0)"\n      >\n        Start Learning\n      </button>\n    </ion-col>\n    <ion-col col-6>\n      <button\n        [disabled]="!loaded"\n        class="global-btn"\n        ion-button\n        color="brown"\n        (click)="takeTest(1)"\n      >\n        Take Evaluation\n      </button>\n    </ion-col>\n  </ion-row>\n</ion-footer> -->\n\n<ion-content padding class="modal-content">\n  <div [ngClass]="[\'bg-text \' + \'subject--\' + subject.id ]">\n   \n    <div class="flex flex-v mt-25">      \n      <ion-row class="btn-row" *ngIf="keyPointsCount > 0">\n        <ion-col col-12>\n          <button\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="openLessonNotes()"            \n          >\n            Read Lesson Note\n          </button>\n        </ion-col>\n      </ion-row>      \n      <ion-row class="btn-row">\n        <ion-col col-12>\n          <button\n            [disabled]="!loaded"\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="takeTest(0)"\n          >\n            Interactive Questions\n          </button>\n        </ion-col>\n      </ion-row>\n      <ion-row class="btn-row">\n        <ion-col col-12>\n          <button\n            [disabled]="!loaded"\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="takeTest(1)"\n          >\n            Take Evaluation\n          </button>\n        </ion-col>\n      </ion-row>           \n    </div>\n    <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>\n  </div>\n</ion-content>\n\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/onboarding/onboarding.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* ViewController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */]])
     ], OnboardingPage);
     return OnboardingPage;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=onboarding.js.map
@@ -3303,10 +3307,48 @@ var LessonOutlinePageModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnboardingPageModule", function() { return OnboardingPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__onboarding__ = __webpack_require__(334);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var OnboardingPageModule = /** @class */ (function () {
+    function OnboardingPageModule() {
+    }
+    OnboardingPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */]),
+            ],
+        })
+    ], OnboardingPageModule);
+    return OnboardingPageModule;
+}());
+
+//# sourceMappingURL=onboarding.module.js.map
+
+/***/ }),
+
+/***/ 479:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaywithCardPageModule", function() { return PaywithCardPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paywithcard__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paywithcard__ = __webpack_require__(480);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3336,7 +3378,7 @@ var PaywithCardPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 479:
+/***/ 480:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3416,44 +3458,6 @@ var PaywithCardPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 480:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnboardingPageModule", function() { return OnboardingPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__onboarding__ = __webpack_require__(334);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var OnboardingPageModule = /** @class */ (function () {
-    function OnboardingPageModule() {
-    }
-    OnboardingPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */]),
-            ],
-        })
-    ], OnboardingPageModule);
-    return OnboardingPageModule;
-}());
-
-//# sourceMappingURL=onboarding.module.js.map
-
-/***/ }),
-
 /***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3497,44 +3501,6 @@ var PostutmePageModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterPageModule", function() { return RegisterPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register__ = __webpack_require__(857);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var RegisterPageModule = /** @class */ (function () {
-    function RegisterPageModule() {
-    }
-    RegisterPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__register__["a" /* RegisterPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__register__["a" /* RegisterPage */]),
-            ],
-        })
-    ], RegisterPageModule);
-    return RegisterPageModule;
-}());
-
-//# sourceMappingURL=register.module.js.map
-
-/***/ }),
-
-/***/ 483:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuizresultPageModule", function() { return QuizresultPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
@@ -3568,7 +3534,83 @@ var QuizresultPageModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 483:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterPageModule", function() { return RegisterPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register__ = __webpack_require__(857);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var RegisterPageModule = /** @class */ (function () {
+    function RegisterPageModule() {
+    }
+    RegisterPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__register__["a" /* RegisterPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__register__["a" /* RegisterPage */]),
+            ],
+        })
+    ], RegisterPageModule);
+    return RegisterPageModule;
+}());
+
+//# sourceMappingURL=register.module.js.map
+
+/***/ }),
+
 /***/ 484:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StudentreportdetailsPageModule", function() { return StudentreportdetailsPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__studentreportdetails__ = __webpack_require__(470);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var StudentreportdetailsPageModule = /** @class */ (function () {
+    function StudentreportdetailsPageModule() {
+    }
+    StudentreportdetailsPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__studentreportdetails__["a" /* StudentreportdetailsPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__studentreportdetails__["a" /* StudentreportdetailsPage */]),
+            ],
+        })
+    ], StudentreportdetailsPageModule);
+    return StudentreportdetailsPageModule;
+}());
+
+//# sourceMappingURL=studentreportdetails.module.js.map
+
+/***/ }),
+
+/***/ 485:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3606,44 +3648,6 @@ var StudentresultsPageModule = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=studentresults.module.js.map
-
-/***/ }),
-
-/***/ 485:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StudentreportdetailsPageModule", function() { return StudentreportdetailsPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__studentreportdetails__ = __webpack_require__(470);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var StudentreportdetailsPageModule = /** @class */ (function () {
-    function StudentreportdetailsPageModule() {
-    }
-    StudentreportdetailsPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__studentreportdetails__["a" /* StudentreportdetailsPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__studentreportdetails__["a" /* StudentreportdetailsPage */]),
-            ],
-        })
-    ], StudentreportdetailsPageModule);
-    return StudentreportdetailsPageModule;
-}());
-
-//# sourceMappingURL=studentreportdetails.module.js.map
 
 /***/ }),
 
@@ -4647,7 +4651,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(877);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_syllabus_syllabus__ = __webpack_require__(878);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_login_login_module__ = __webpack_require__(492);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_register_register_module__ = __webpack_require__(482);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_register_register_module__ = __webpack_require__(483);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_status_bar__ = __webpack_require__(534);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_splash_screen__ = __webpack_require__(535);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_offline_offline__ = __webpack_require__(35);
@@ -4668,10 +4672,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_sqlite_db_copy__ = __webpack_require__(332);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_native_audio__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_topic_topic_module__ = __webpack_require__(490);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_onboarding_onboarding_module__ = __webpack_require__(480);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_paywithcard_paywithcard_module__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_onboarding_onboarding_module__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_paywithcard_paywithcard_module__ = __webpack_require__(479);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_quiz_quiz_module__ = __webpack_require__(493);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_quizresult_quizresult_module__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_quizresult_quizresult_module__ = __webpack_require__(482);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_examsubjects_examsubjects_module__ = __webpack_require__(475);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__providers_subscription_subscription__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_subscription_subscription_module__ = __webpack_require__(486);
@@ -4691,8 +4695,8 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__pages_createstudent_createstudent_module__ = __webpack_require__(472);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_ngx_paginate__ = __webpack_require__(884);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__pages_postutme_postutme_module__ = __webpack_require__(481);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__pages_studentresults_studentresults_module__ = __webpack_require__(484);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__pages_studentreportdetails_studentreportdetails_module__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__pages_studentresults_studentresults_module__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__pages_studentreportdetails_studentreportdetails_module__ = __webpack_require__(484);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__pages_teacherevaluationresult_teacherevaluationresult_module__ = __webpack_require__(488);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__pages_teacherexaminationresult_teacherexaminationresult_module__ = __webpack_require__(489);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__pages_activationpage_activationpage_module__ = __webpack_require__(231);
@@ -4811,13 +4815,13 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/examsubjects/examsubjects.module#ExamsubjectsPageModule', name: 'ExamsubjectsPage', segment: 'examsubjects', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/lesson-note/lesson-note.module#LessonNoteModule', name: 'lessonNote-page', segment: 'lesson-note', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/lesson-outline/lesson-outline.module#LessonOutlinePageModule', name: 'lessonOutline-page', segment: 'lesson-outline', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/paywithcard/paywithcard.module#PaywithCardPageModule', name: 'PaywithCardPage', segment: 'paywithcard', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/onboarding/onboarding.module#OnboardingPageModule', name: 'OnboardingPage', segment: 'onboarding', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/paywithcard/paywithcard.module#PaywithCardPageModule', name: 'PaywithCardPage', segment: 'paywithcard', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/postutme/postutme.module#PostutmePageModule', name: 'PostutmePage', segment: 'postutme', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/quizresult/quizresult.module#QuizresultPageModule', name: 'QuizresultPage', segment: 'quizresult', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/studentresults/studentresults.module#StudentresultsPageModule', name: 'StudentresultsPage', segment: 'studentresults', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/studentreportdetails/studentreportdetails.module#StudentreportdetailsPageModule', name: 'StudentreportdetailsPage', segment: 'studentreportdetails', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/studentresults/studentresults.module#StudentresultsPageModule', name: 'StudentresultsPage', segment: 'studentresults', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/subscription/subscription.module#SubscriptionPageModule', name: 'SubscriptionPage', segment: 'subscription', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherdashboard/teacherdashboard.module#TeacherdashboardPageModule', name: 'TeacherdashboardPage', segment: 'teacherdashboard', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherevaluationresult/teacherevaluationresult.module#TeacherevaluationresultPageModule', name: 'TeacherevaluationresultPage', segment: 'teacherevaluationresult', priority: 'low', defaultHistory: [] },
@@ -5433,6 +5437,7 @@ var QuizPage = /** @class */ (function () {
     };
     QuizPage.prototype.storeExamresultUpdate = function () {
         var _this = this;
+        console.log('exam ', this.test_type, this.selectedQuestion);
         var result = {};
         result["questions"] = [];
         var _loop_2 = function (i) {
@@ -5470,6 +5475,8 @@ var QuizPage = /** @class */ (function () {
         var counts = {};
         var compare = 0;
         var current_topic_id;
+        var recommended_topic = null;
+        console.log('result ', result.questions);
         for (var i = 0; i < result.questions.length; i++) {
             var question_correct = result.questions[i].correct;
             var topic_id = result.questions[i].topic_id;
@@ -5482,51 +5489,46 @@ var QuizPage = /** @class */ (function () {
                     else {
                         counts[topic_id] = counts[topic_id] + 1;
                     }
-                    if (counts[topic_id] > compare) {
-                        compare = counts[topic_id];
-                        if ((i + 1) == result.questions.length) {
-                            console.log(topic_id, counts, compare);
-                            if (this.questionType == "normal") {
-                                var exam_update = {
-                                    score: this.scores,
-                                    end_time: new Date(Date.now()),
-                                    completed_at: new Date(Date.now()),
-                                    id: this.currentEvaluationId,
-                                    recommended_topic: topic_id
-                                };
-                                this.desktopProvider.updateExaminationResult(exam_update).subscribe(function (response) {
-                                    console.log(response);
-                                }, function (err) {
-                                    console.log(err);
-                                });
-                            }
-                        }
+                    if (!recommended_topic)
+                        recommended_topic = topic_id;
+                    if (counts[topic_id] > counts[recommended_topic]) {
+                        recommended_topic = topic_id;
                     }
                 }
             }
+            if ((i + 1) == result.questions.length) {
+                console.log(topic_id, counts, compare);
+                break;
+            }
+        }
+        if (this.questionType == "normal") {
+            var exam_update = {
+                score: this.scores,
+                end_time: new Date(Date.now()),
+                completed_at: new Date(Date.now()),
+                id: this.currentEvaluationId,
+                recommended_topic: recommended_topic
+            };
+            console.log('exam update ', exam_update);
+            this.desktopProvider.updateExaminationResult(exam_update).subscribe(function (response) {
+                console.log(response);
+            }, function (err) {
+                console.log(err);
+            });
         }
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])("quizcard"),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _a || Object)
     ], QuizPage.prototype, "quizcard", void 0);
     QuizPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: "page-quiz",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/quiz/quiz.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu" color="brown"></ion-icon>\n    </button>\n    <ion-title *ngIf="topic">{{ topic.topic | titlecase }}</ion-title>\n    <ion-title *ngIf="!topic">{{ subject.name | titlecase }}</ion-title>\n    <ion-buttons end *ngIf="test_type == 1 || test_type == 2">\n      <button ion-button clear color="brown" class="timer">{{ time }}</button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="loaded | async" class="cont mtop">\n    <!-- Learning Track Interface-->\n    <div *ngIf="test_type == 0">\n      <div>\n        <div\n          [ngClass]="[\n            shake ? \'shake-card\' : \'\',\n            shakeGreen ? \'shake-card-green\' : \'\'\n          ]"\n        >\n          <ion-card #quizcard>\n            <ion-card-content>\n              <div class="progress">\n                <div\n                  class="progress-inner"\n                  [ngStyle]="{\n                    width: width + \'%\',\n                    \'background-color\': \'#C27C39\'\n                  }"\n                ></div>\n              </div>\n              <h2 [innerHTML]="questions[currentIndex].question"></h2>\n            </ion-card-content>\n          </ion-card>\n        </div>\n        <br />\n        <div class="animated fadeIn explanation-card" *ngIf="showCorrectAnswer">\n          <ion-card>\n            <ion-card-content>\n              <h3>\n                <strong\n                  >The correct answer is &nbsp;<span\n                    [innerHTML]="currentQuestion.answer.option_text"\n                  ></span\n                ></strong>\n              </h3>\n              <br />\n              <h3><strong>Explanation</strong></h3>\n              <h3 [innerHTML]="currentQuestion.explanation"></h3>\n            </ion-card-content>\n          </ion-card>\n          <ion-row>\n            <ion-col col-4>\n              <button\n                ion-button\n                round\n                float-right\n                color="brown"\n                (click)="onEndClick()"\n              >\n                End\n              </button>\n            </ion-col>\n            <ion-col col-4>\n              <button\n                ion-button\n                round\n                float-right\n                color="brown"\n                (click)="onEndClick()"\n              >\n                Back to Topics\n              </button>\n            </ion-col>\n            <ion-col col-4>\n              <button\n                ion-button\n                round\n                color="brown"\n                icon-start\n                (click)="onGotItClick()"\n              >\n                <ion-icon name="thumbs-up" color="light"></ion-icon>\n                Got It\n              </button>\n            </ion-col>\n          </ion-row>\n        </div>\n        <div class="anwser-grp" *ngIf="!showCorrectAnswer">\n          <div\n            *ngFor="\n              let answer of questions[currentIndex].options;\n              let i = index\n            "\n          >\n            <button\n              class="center answer-btn"\n              ion-button\n              color="brown"\n              round\n              [innerHTML]="answer.option_text"\n              [disabled]="\n                trialNumbers < 1 || questions[currentIndex].disabled[i]\n              "\n              (click)="checkAnswer(i)"\n            ></button>\n          </div>\n        </div>\n      </div>\n      <br />\n      <ion-row *ngIf="test_type == 0">\n        <ion-col col-6>\n          <button\n            (click)="prev()"\n            ion-button\n            round\n            color="brown"\n            icon-start\n            *ngIf="currentIndex >= 1 && currentIndex < questions.length"\n          >\n            <ion-icon name="ios-arrow-back"></ion-icon>\n            Previous\n          </button>\n        </ion-col>\n        <ion-col col-6>\n          <button\n            float-right\n            (click)="next()"\n            ion-button\n            round\n            color="brown"\n            icon-end\n            *ngIf="questions.length > currentIndex"\n          >\n            Next\n            <ion-icon name="ios-arrow-forward"></ion-icon>\n          </button>\n        </ion-col>\n      </ion-row>\n    </div>\n\n    <!-- Evaluation Track Interface -->\n    <div *ngIf="test_type == 1 || test_type == 2">\n      <ion-row *ngIf="test_type == 1 || test_type == 2">\n        <ion-col col-6>\n          <button\n            (click)="prev()"\n            ion-button\n            round\n            color="brown"\n            icon-start\n            *ngIf="currentIndex > 0"\n          >\n            <ion-icon name="ios-arrow-back"></ion-icon>\n            Previous\n          </button>\n        </ion-col>\n        <ion-col col-6>\n          <button\n            float-right\n            (click)="next()"\n            ion-button  \n            round\n            color="brown"\n            icon-end\n            *ngIf="questions.length - 1 > currentIndex"\n          >\n            Next\n            <ion-icon name="ios-arrow-forward"></ion-icon>\n          </button>\n        </ion-col>\n      </ion-row>\n      <br>\n      <div>\n        <ion-card>\n          <ion-card-content>\n            <!-- display format for test type 1 -->\n            <p *ngIf="test_type == 1">\n              {{ currentIndex + 1 }} / {{ questions.length }}\n            </p>\n            <!-- display format for test type 2 -->\n            <p *ngIf="test_type == 2">\n              {{ currentIndex + 1 }} / {{ questions.length }} out of\n              {{ totalExamQuestionCount.count }} questions\n            </p>\n            <h2 [innerHTML]="questions[currentIndex].question"></h2>\n            <br>\n            <div>\n          \n              <ion-list radio-group>\n                <ion-item\n                  *ngFor="\n                    let answer of questions[currentIndex].options;\n                    let i = index\n                  "\n                >\n                  <ion-label\n                    ><strong [innerHTML]="answer.option_text"></strong\n                  ></ion-label>\n                  <ion-radio\n                    color="brown"\n                    mode="md"\n                    [value]="answer.id"\n                    [checked]="selectedQuestion[currentIndex].answerId == answer.id"\n                    (ionSelect)="\n                      addToSelected(questions[currentIndex].id, answer.id)\n                    "\n                  ></ion-radio>\n                </ion-item>\n              </ion-list>\n            </div>\n          </ion-card-content>\n        </ion-card>\n      </div>\n    </div>\n  </div>\n</ion-content>\n\n<ion-footer padding *ngIf="loaded">\n  <!-- <div class="d-flex" *ngIf="test_type == 0">\n    <input\n      placeholder="Type answer here"\n      type="text"\n      class="input-box"\n      [(ngModel)]="answer_input"\n      name="anwser_input"\n    />\n    <button\n      icon-end\n      class="btn-send"\n      color="brown"\n      round\n      ion-button\n      icon-only\n      (click)="checkSubmittion()"\n    >\n      Submit\n      <ion-icon name="ios-arrow-forward"></ion-icon>\n    </button>\n  </div> -->\n\n  <div class="cont">\n    <button\n    ion-button\n    round\n    (click)="submit()"\n    full\n    *ngIf="test_type == 1 || test_type == 2"\n    color="brown"\n  >\n    Submit\n  </button>\n  </div>\n</ion-footer>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/quiz/quiz.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_native_audio__["a" /* NativeAudio */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__["a" /* AuthProvider */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__["a" /* OfflineProvider */],
-            __WEBPACK_IMPORTED_MODULE_7__providers_desktop_desktop__["a" /* DesktopProvider */],
-            __WEBPACK_IMPORTED_MODULE_8__providers_session_session__["a" /* SessionProvider */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_native_audio__["a" /* NativeAudio */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_native_audio__["a" /* NativeAudio */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__["a" /* OfflineProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__["a" /* OfflineProvider */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_7__providers_desktop_desktop__["a" /* DesktopProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__providers_desktop_desktop__["a" /* DesktopProvider */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_8__providers_session_session__["a" /* SessionProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__providers_session_session__["a" /* SessionProvider */]) === "function" && _m || Object])
     ], QuizPage);
     return QuizPage;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
 }());
 
 //# sourceMappingURL=quiz.js.map
