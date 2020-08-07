@@ -137,7 +137,7 @@ export class LoginPage {
     if (this.userTypeForm.controls.isStudent.value === "false") return this.loginAsAdmin();
 
     // prevent student or teacher login if app hasn't been activated or the activation key has expired
-    if(!this.session.isActivated()) return this.alertMessage('You cannot login until your account has been activated, contact you admin or teacher for more info.')
+    if(!this.session.isActivated()) return this.alertMessage('You cannot login until your account has been activated, contact your admin or teacher for more info.')
 
     let loader = this.loadingCtrl.create({
       cssClass: "my-loading"

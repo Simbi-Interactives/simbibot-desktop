@@ -92,7 +92,6 @@ router.get("/fetch_keypoints/:topic_id", (req, res) => {
   }
 });
 
-
 router.get('/fetch_questions/:topic_id', (req, res) => {
   try {
     const topic_id = req.params.topic_id;
@@ -181,7 +180,6 @@ router.get('/fetch_post_utme', (req, res) => {
     })
   })
 });
-
 
 router.get('/fetch_questions_from_exam_list', (req, res) => {
   const subject_id = req.query.subject_id;
@@ -302,7 +300,7 @@ router.post('/store_examination_result',  (req, res) => {
   const body = req.body;
   db.serialize(() => {
     db.run(
-      `insert into examresults(exam_id, subject_id, score, user_id, completed_at, start_time, end_time, recommended_topic, created_at, updated_at) values ('${
+      `insert into examattempts(exam_id, subject_id, score, user_id, completed_at, start_time, end_time, recommended_topic, created_at, updated_at) values ('${
         body.exam_id
       }', '${body.subject_id}', '${body.score}',  '${body.user_id}', '${
         body.completed_at
@@ -325,7 +323,7 @@ router.post('/update_examination_result', (req, res) => {
   const body = req.body;
 
   db.serialize(() => {
-    db.run(`update examresults set score=${body.score}, end_time='${body.end_time}', completed_at='${body.completed_at}', recommended_topic='${body.recommended_topic}' where id=${body.id}`, function(err) {
+    db.run(`update examattempts set score=${body.score}, end_time='${body.end_time}', completed_at='${body.completed_at}', recommended_topic='${body.recommended_topic}' where id=${body.id}`, function(err) {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
@@ -341,7 +339,7 @@ router.get('/user_examination_report_avg/:user_id', (req, res) => {
   const user_id = req.params.user_id;
 
   db.serialize(() => {
-    db.all(`SELECT *, COUNT( * ) as attempts, AVG(score) as aggregate_score FROM examresults JOIN SuperExams on examresults.exam_id = SuperExams.id JOIN Subjects on examresults.subject_id = Subjects.id JOIN Topics on examresults.recommended_topic = Topics.id where user_id = ${user_id}`, (err, data) => {
+    db.all(`SELECT *, COUNT( * ) as attempts, AVG(score) as aggregate_score FROM examattempts JOIN SuperExams on examattempts.exam_id = SuperExams.id JOIN Subjects on examattempts.subject_id = Subjects.id JOIN Topics on examattempts.recommended_topic = Topics.id where user_id = ${user_id}`, (err, data) => {
         if(err) {
           console.log(err);
           return res.status(200).send(err);
@@ -372,7 +370,7 @@ router.get('/user_examination_all/:user_id/:exam_id', (req, res) => {
   const exam_id = req.params.exam_id;
 
   db.serialize(() => {
-    db.all(`select * from examresults join superexams on examresults.exam_id = superexams.id join topics on examresults.recommended_topic = topics.id where user_id=${user_id} AND exam_id=${exam_id}`, (err, data) => {
+    db.all(`select * from examattempts join superexams on examattempts.exam_id = superexams.id join topics on examattempts.recommended_topic = topics.id where user_id=${user_id} AND exam_id=${exam_id}`, (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
@@ -431,7 +429,7 @@ router.get('/evaluations_avg_score_on_subject/:subject_id', (req, res) => {
 router.get('/examinations_by_subject_for_line_chart/:exam_id', (req, res) => {
   const exam_id = req.params.exam_id;
   db.serialize(() => {
-    db.all(`select * from examresults join superexams on examresults.exam_id = superexams.id join subjects on examresults.subject_id = subjects.id where examresults.exam_id = ${exam_id} group by examresults.subject_id`, (err, data) => {
+    db.all(`select * from examattempts join superexams on examattempts.exam_id = superexams.id join subjects on examattempts.subject_id = subjects.id where examattempts.exam_id = ${exam_id} group by examattempts.subject_id`, (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);
@@ -445,7 +443,7 @@ router.get('/examinations_by_subject_for_line_chart/:exam_id', (req, res) => {
 router.get('/examination_avg_score_on_exams/:exam_id', (req, res) => {
   const exam_id = req.params.exam_id;
   db.serialize(() => {
-    db.all(`select *, count(*) as attempts, AVG(score) as aggregate_score from examresults join subjects on examresults.subject_id = subjects.id join topics on examresults.recommended_topic = topics.id left join users on examresults.user_id = users.id  where examresults.exam_id = ${exam_id} group by examresults.subject_id`, (err, data) => {
+    db.all(`select *, count(*) as attempts, AVG(score) as aggregate_score from examattempts join subjects on examattempts.subject_id = subjects.id join topics on examattempts.recommended_topic = topics.id left join users on examattempts.user_id = users.id  where examattempts.exam_id = ${exam_id} group by examattempts.subject_id`, (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);

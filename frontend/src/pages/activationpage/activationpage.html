@@ -9,24 +9,29 @@
     <ion-card>
       <ion-card-content padding>
         <!-- <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" /> -->
+        <p>
+          Internet is required for activation 
+        </p>
+        <p>How to get activation key? Contact
+          2349066450210 for your activation key</p>
         <br />
-          <ion-item>
-            <ion-label class="email-label" stacked>
-              <ion-icon name="ios-mail"></ion-icon>Activation key
-            </ion-label>
-            <ion-input
-              type="text"
-              aria-required="true"
-              [(ngModel)]="key"
-              name="key"
-              class="email-input"
-              aria-placeholder="EKY265P"
-            ></ion-input>
-          </ion-item>
-          <br />
-          <button (click)="submit()" ion-button class="global-btn login-btn">
-            Submit
-          </button>
+        <ion-item>
+          <ion-label class="email-label" stacked>
+            <ion-icon name="ios-mail"></ion-icon>Activation key
+          </ion-label>
+          <ion-input
+            type="text"
+            aria-required="true"
+            [(ngModel)]="key"
+            name="key"
+            class="email-input"
+            aria-placeholder="EKY265P"
+          ></ion-input>
+        </ion-item>
+        <br />
+        <button (click)="submit()" ion-button class="global-btn login-btn">
+          Submit
+        </button>
         <!-- 
         <br />
         <button ion-button clear color="dark" class="link-btn" text-center>
