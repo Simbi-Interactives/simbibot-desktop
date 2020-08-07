@@ -35,7 +35,7 @@
                 <td>{{eval.topic}}</td>
                 <td>{{eval.status}}</td>
                 <td>{{eval.score}}</td>
-                <td>{{eval.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td>{{eval?.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
                 <td>{{eval?.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
               </tr>
             </tbody>
@@ -61,8 +61,8 @@
                 <td>{{exam.name}}</td>
                 <td>{{exam.score}}</td>
                 <td>{{exam.topic}}</td>
-                <td>{{exam.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
-                <td>{{exam.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td>{{exam?.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td>{{exam?.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
               </tr>
             </tbody>
           </table>

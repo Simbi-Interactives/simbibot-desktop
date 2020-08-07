@@ -370,7 +370,7 @@ router.get('/user_examination_all/:user_id/:exam_id', (req, res) => {
   const exam_id = req.params.exam_id;
 
   db.serialize(() => {
-    db.all(`select * from examattempts join superexams on examattempts.exam_id = superexams.id join topics on examattempts.recommended_topic = topics.id where user_id=${user_id} AND exam_id=${exam_id}`, (err, data) => {
+    db.all(`select * from examattempts join superexams on examattempts.exam_id = superexams.id join topics on examattempts.recommended_topic = topics.id join subjects on examattempts.subject_id = subjects.id where user_id=${user_id} AND exam_id=${exam_id}`, (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);

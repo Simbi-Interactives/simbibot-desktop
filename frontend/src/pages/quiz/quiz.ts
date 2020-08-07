@@ -301,7 +301,7 @@ export class QuizPage {
   }
 
   showDoneAlert() {
-    this.shareUserTrack();
+    // this.shareUserTrack();
     const alert = this.alertController.create({
       title: "Congratulation",
       subTitle: `You have completed your lesson on ${this.topic.topic}`,
@@ -461,6 +461,7 @@ export class QuizPage {
   }
 
   shareUserTrack() {
+    console.log('share track ', this.user.id, this.topic.id)
     this.userProvider
       .updateUserTrack(this.user.id, this.topic.id)
       .subscribe((response: any) => {
