@@ -5,7 +5,8 @@ import {
   MenuController,
   Events,
   App,
-  AlertController
+  AlertController,
+  ToastController
 } from "ionic-angular";
 import { Device } from "@ionic-native/device";
 import { LocalNotifications } from '@ionic-native/local-notifications';
@@ -37,6 +38,8 @@ import { CreateteacherPage } from "../pages/createteacher/createteacher";
 import { SessionProvider } from "../providers/session/session";
 import { TeacherdashboardPage } from "../pages/teacherdashboard/teacherdashboard";
 import { StudentresultsPage } from "../pages/studentresults/studentresults";
+import { ActivationPage } from "../pages/activationpage/activationpage";
+import { LessonNote } from "../pages/lesson-note/lesson-note";
 
 declare global {
   interface Window {
@@ -80,6 +83,7 @@ export class MyApp {
     private app: App,
     private session: SessionProvider,
     private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
     private audio: NativeAudio,
     private localNotifications: LocalNotifications,
     private desktopProvider: DesktopProvider
@@ -97,12 +101,6 @@ export class MyApp {
         icon: "folder-open"
       },
       
-      
-      // {
-      //   title: "Syllabus",
-      //   component: SyllabusPage,
-      //   icon: "book"
-      // },
       // {
       //   title: "Notifications",
       //   component: NotificationsPage,
@@ -129,7 +127,7 @@ export class MyApp {
 
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      
+
 
       this.keepSession();
       // this.offlineProvider.unzipDatabase();
@@ -204,8 +202,9 @@ export class MyApp {
   }
 
   async keepSession() {
+
     this.desktopProvider.checkIfTeacherHasubscribed().subscribe((res: any) => {
-      if(res.show_sweet == 1) {
+      if (res.show_sweet == 1) {
         this.pages.push(
           {
             title: "Sweet Sixteen",
@@ -214,14 +213,26 @@ export class MyApp {
           },
         )
       }
-      if(res.data) {
+      if (res.data) {
         let session = this.session.checkUser();
-        if(!session) this.rootPage = LoginPage;
+        const activation_key = this.session.getActivationKey();
+        console.log('session ', session, activation_key)
+
+        if (!session) this.rootPage = LoginPage;
         else {
           const user = this.session.getUser();
-          if(user.usertype == 'teacher') return this.rootPage = TeacherdashboardPage;
+          const activation_key = this.session.getActivationKey();
 
-          if(user.usertype == 'student') return this.rootPage = HomePage;
+          if (!activation_key || this.hasExpired(activation_key)) {
+            this.toastCtrl.create({ message: 'Your Actvation Key has expired, Please contact +2349066450210.'})
+
+            if (user.usertype == 'teacher') return this.rootPage = ActivationPage;
+            if (user.usertype == 'student') return this.rootPage = LoginPage;
+          }
+
+          if (user.usertype == 'teacher') return this.rootPage = TeacherdashboardPage;
+
+          if (user.usertype == 'student') return this.rootPage = HomePage;
         }
       } else {
         console.log('e no work');
@@ -230,9 +241,13 @@ export class MyApp {
     })
   }
 
+  hasExpired(activation_key) {
+    //   create date objects for comparison      
+    let today = new Date();
+    let expiryTime = new Date(activation_key.expiry_date);
 
-
-  
+    return (today.getTime() > expiryTime.getTime())
+  }
 
   openWhatssapLink() {
     window.open("whatsapp://chat?code=KtybtfGE9QcHbDUEMY6JMc", "_system");

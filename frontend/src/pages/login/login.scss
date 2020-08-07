@@ -26,8 +26,31 @@ page-login {
     }
   }
 
+  .card-md .item-md.item-block .item-inner {
+    border-bottom: 1px solid #dedede;
+  }
+
+  .show-password {
+    position: absolute;
+    right: -20px;
+    top: 20px;
+    z-index: 99999;
+    pointer-events: visible !important;
+  }
+
   .forgot-btn {
+    font-size: 14px;
+    font-family: "McLaren";
+    text-decoration: underline;
+    text-transform: lowercase;
+    color: color($colors, primary, base);
+    letter-spacing: 1px;
+  }
+
+  .link-btn {
     font-size: 12px;
+    text-transform: none;
+    font-weight: bold;
   }
 
   .scroll-content {

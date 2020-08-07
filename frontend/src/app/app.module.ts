@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
+import { ActivationPage } from "../pages/activationpage/activationpage";
 import { ListPage } from "../pages/list/list";
 import { SyllabusPage } from "../pages/syllabus/syllabus";
 import { PaywithCardPage } from "../pages/paywithcard/paywithcard";
@@ -64,12 +65,16 @@ import { StudentresultsPageModule } from "../pages/studentresults/studentresults
 import { StudentreportdetailsPageModule } from "../pages/studentreportdetails/studentreportdetails.module";
 import { TeacherevaluationresultPageModule } from "../pages/teacherevaluationresult/teacherevaluationresult.module";
 import { TeacherexaminationresultPageModule } from "../pages/teacherexaminationresult/teacherexaminationresult.module";
+import { ActivationPageModule } from "../pages/activationpage/activationpage.module";
+import { LessonNoteModule } from "../pages/lesson-note/lesson-note.module";
+import { LessonOutlinePageModule } from "../pages/lesson-outline/lesson-outline.module";
 
 
 @NgModule({
   declarations: [MyApp, HomePage, ListPage, SyllabusPage],
   imports: [
     BrowserModule,
+    ActivationPageModule,
     LoginPageModule,
     RegisterPageModule,
     TopicPageModule,
@@ -77,6 +82,8 @@ import { TeacherexaminationresultPageModule } from "../pages/teacherexaminationr
     PaywithCardPageModule,
     QuizPageModule,
     QuizresultPageModule,
+    LessonNoteModule,
+    LessonOutlinePageModule,
     HttpClientModule,
     PipesModule,
     ExamsubjectsPageModule,

@@ -9,8 +9,8 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class DesktopProvider {
-  baseurl = `/api/v1`;
-  // baseurl = `http://localhost:3000/api/v1`;
+  // baseurl = `/api/v1`;
+  baseurl = `http://localhost:3000/api/v1`; // change b4 push
   constructor(public http: HttpClient) {
   }
 
@@ -23,8 +23,20 @@ export class DesktopProvider {
     return this.http.post(`${this.baseurl}/users/create_teacher`, data);
   }
 
+
+  public checkEmail(email) {
+    return this.http.post(`${this.baseurl}auth/validate-email`, {
+      email: email
+    });
+  }
+
   public login(data) {
     return this.http.post(`${this.baseurl}/users/login`, data);
+  }
+
+  public signup(body) {
+    // const device_id = this.device.uuid;
+    return this.http.post(`${this.baseurl}auth/register`, body);
   }
 
   public createStudent(data) {
@@ -63,6 +75,14 @@ export class DesktopProvider {
 
   public postUtmeSchools() {
     return this.http.get(`${this.baseurl}/app/fetch_post_utme`);
+  }
+
+  public fetchKeypointsCounts(topic_id) {
+    return this.http.get(`${this.baseurl}/app/fetch_keypoints_count/${topic_id}`);
+  }
+
+  public fetchKeypoints(topic_id) {
+    return this.http.get(`${this.baseurl}/app/fetch_keypoints/${topic_id}`);
   }
 
   public fetchQuestionForExam(subject_id, super_exam_id) {

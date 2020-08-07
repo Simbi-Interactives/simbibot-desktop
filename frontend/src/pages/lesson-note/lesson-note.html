@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="brown"></ion-icon>
+    </button>
+    <ion-title *ngIf="topic">{{ topic.topic }}</ion-title>
+    <ion-buttons end>
+      <button
+        ion-button
+        color="dark"
+        class="timer"
+        (click)="openContentModal()"
+      >
+        <ion-icon name="list" color="dark" class="calc-icon"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="loaded | async">
+    <!-- Lesson note Interface-->
+    <div>
+      <div>
+        <div class="flex">
+          <button class="outline-trigger" (click)="openContentModal()">
+            <ion-icon name="menu" color="dark"></ion-icon>
+            <span>Contents outline</span>
+          </button>
+        </div>
+        <div
+          [ngClass]="[
+            shake ? 'shake-card' : '',
+            shakeGreen ? 'shake-card-green' : ''
+          ]"
+        >
+          <ion-card #quizcard>
+            <ion-card-content>
+              <div class="progress">
+                <div
+                  class="progress-inner"
+                  [ngStyle]="{
+                    width: width + '%',
+                    'background-color': '#00dbaa'
+                  }"
+                ></div>
+              </div>
+              <div class="flex">
+                <button
+                  ion-button
+                  color="light"
+                  class="sound"
+                  (click)="playAudio(lessons[currentIndex])"
+                >
+                  <ion-icon
+                    name="ios-volume-up"
+                    color="dark"
+                    class="calc-icon"
+                    *ngIf="!isPlayingAudio"
+                  ></ion-icon>
+                  <ion-icon
+                    name="ios-volume-off"
+                    color="dark"
+                    class="calc-icon"
+                    *ngIf="isPlayingAudio"
+                  ></ion-icon>
+                </button>
+              </div>
+              <h2 class="text-center lesson-title">
+                {{ lessons[currentIndex].title }}
+              </h2>
+              <br />
+              <article [innerHTML]="lessons[currentIndex].content"></article>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+      <br />
+      <ion-row>
+        <ion-col col-6>
+          <button
+            (click)="prev()"
+            ion-button
+            round
+            color="deep-blue"
+            icon-start
+            *ngIf="currentIndex >= 1 && currentIndex < lessons.length"
+          >
+            <ion-icon name="ios-arrow-back"></ion-icon>
+            Previous
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button
+            float-right
+            (click)="next()"
+            ion-button
+            round
+            color="deep-blue"
+            icon-end
+          >
+            Next
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col col-6 class="btn-skip--wrapper">
+      <button
+        icon-end
+        class="btn-skip learning"
+        color="secondary"
+        icon-only
+        (click)="skipToEvaluation(0)"
+      >
+        Skip to <br />
+        <br />
+        <span class="btn-skip__subtitle">INTERACTIVE QUESTIONS</span>
+        <!-- <ion-icon name="ios-arrow-forward"></ion-icon> -->
+      </button>
+    </ion-col>
+    <ion-col col-6 class="btn-skip--wrapper">
+      <button
+        icon-end
+        class="btn-skip evaluation"
+        color="primary"
+        icon-only
+        (click)="skipToEvaluation(1)"
+      >
+        Skip to <br />
+        <br />
+        <span class="btn-skip__subtitle">EVALUATION </span>
+        <!-- <ion-icon name="ios-arrow-forward"></ion-icon> -->
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

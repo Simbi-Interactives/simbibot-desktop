@@ -6,41 +6,232 @@
 
 <ion-content padding>
   <div class="cont">
-    <ion-card>
-      <ion-card-content padding>
-        <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />
-        <br />
-        <ion-item>
-          <ion-label floating>
-            <ion-icon name="ios-mail"></ion-icon>Email Address
-          </ion-label>
-          <ion-input
-            type="email"
-            aria-required="true"
-            [(ngModel)]="email"
-          ></ion-input>
-        </ion-item>
-        <br />
-        <ion-item>
-          <ion-label floating>
-            <ion-icon name="key"></ion-icon>Password
-          </ion-label>
-          <ion-input
-            type="password"
-            aria-required="true"
-            [(ngModel)]="password"
-          ></ion-input>
-        </ion-item>
-        <br />
-        <button
-          ion-button
-          class="global-btn"
-          (click)="loginUser()"
-        >
-          Login
-        </button>
-        <br>
-      </ion-card-content>
-    </ion-card>
+    <ion-slides pager="false" #slides>
+      <ion-slide>
+        <ion-card>
+          <ion-card-content padding>
+            <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />
+            <br />
+            <!-- <form
+              [formGroup]="loginForm"
+              (ngSubmit)="verifyEmailAddress()"
+              *ngIf="!showLogin"
+            >
+              <ion-item>
+                <ion-label class="email-label" stacked>
+                  <ion-icon name="ios-mail"></ion-icon>Email Address
+                </ion-label>
+                <ion-input
+                  type="email"
+                  aria-required="true"
+                  [(ngModel)]="email"
+                  formControlName="email"
+                  class="email-input"
+                  aria-placeholder="Enter your email"
+                ></ion-input>
+              </ion-item>
+              <br />
+              <button
+                *ngIf="!showLogin"
+                ion-button
+                class="global-btn login-btn"
+              >
+                Get started
+              </button>
+            </form> -->
+            <div [formGroup]="userTypeForm">
+              <ion-list radio-group formControlName="isStudent">
+                <ion-item>
+                  <ion-label>Login as a Student/Teacher</ion-label>
+                  <ion-radio slot="start" value="true"></ion-radio>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Login as Admin</ion-label>
+                  <ion-radio slot="start" value="false"></ion-radio>
+                </ion-item>
+              </ion-list>
+            </div>
+            <br />
+            <br />
+            <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+              <ion-item>
+                <ion-label stacked>
+                  <ion-icon name="ios-mail"></ion-icon>Email Address
+                </ion-label>
+                <ion-input
+                  type="email"
+                  aria-required="true"
+                  formControlName="email"
+                  class="email-input"
+                  aria-placeholder="Enter your email"
+                ></ion-input>
+              </ion-item>
+
+              <br />
+              <ion-item>
+                <ion-label stacked>
+                  <ion-icon name="key"></ion-icon>Password
+                </ion-label>
+                <ion-input
+                  type="password"
+                  aria-required="true"
+                  formControlName="password"
+                  *ngIf="!showPassword"
+                ></ion-input>
+                <ion-input
+                  type="text"
+                  aria-required="true"
+                  formControlName="password"
+                  *ngIf="showPassword"
+                ></ion-input>
+                <ion-label position="fixed" class="show-password">
+                  <ion-icon
+                    name="eye"
+                    *ngIf="showPassword"
+                    (click)="toggleShowPassword()"
+                  ></ion-icon>
+                  <ion-icon
+                    name="eye-off"
+                    *ngIf="!showPassword"
+                    (click)="toggleShowPassword()"
+                  ></ion-icon>
+                </ion-label>
+              </ion-item>
+              <br />
+              <div>
+                <button
+                  ion-button
+                  clear
+                  color="dark"
+                  (tap)="forgotPassword()"
+                  class="link-btn"
+                  text-center
+                >
+                  Forgot Password ?
+                </button>
+              </div>
+
+              <button ion-button type="submit" class="global-btn login-btn">
+                Login
+              </button>
+            </form>
+            <br />
+            <button
+              ion-button
+              clear
+              color="dark"
+              (tap)="next()"
+              class="link-btn"
+              text-center
+            >
+              Click here to Sign up.
+            </button>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide>
+        <ion-card>
+          <ion-card-content padding>
+            <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />
+            <br />
+            <!-- Sign up form student details centric -->
+            <form [formGroup]="registerUserBody" (ngSubmit)="registerUser()">
+              <ion-item>
+                <ion-label stacked>
+                  <ion-icon name="ios-person"></ion-icon>School Name
+                </ion-label>
+                <ion-input
+                  type="type"
+                  aria-required="true"
+                  formControlName="name"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>
+                  <ion-icon name="ios-mail"></ion-icon>Email Address
+                </ion-label>
+                <ion-input
+                  type="email"
+                  aria-required="true"
+                  formControlName="email"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>
+                  <ion-icon name="ios-call"></ion-icon>Phone Number
+                </ion-label>
+                <ion-input
+                  type="number"
+                  aria-required="true"
+                  formControlName="phone"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label stacked>
+                  <ion-icon name="ios-person"></ion-icon>Address
+                </ion-label>
+                <ion-input
+                  type="type"
+                  aria-required="true"
+                  formControlName="address"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>
+                  <ion-icon name="key"></ion-icon>Password
+                </ion-label>
+                <ion-input
+                  type="password"
+                  aria-required="true"
+                  formControlName="password"
+                  *ngIf="!showPassword"
+                ></ion-input>
+                <ion-input
+                  type="input"
+                  aria-required="true"
+                  formControlName="password"
+                  *ngIf="showPassword"
+                ></ion-input>
+                <ion-label position="fixed" class="show-password">
+                  <ion-icon
+                    name="eye"
+                    *ngIf="showPassword"
+                    (click)="toggleShowPassword()"
+                  ></ion-icon>
+                  <ion-icon
+                    name="eye-off"
+                    *ngIf="!showPassword"
+                    (click)="toggleShowPassword()"
+                  ></ion-icon>
+                </ion-label>
+              </ion-item>
+              <br />
+              <button
+                [disabled]="!registerUserBody.valid"
+                type="submit"
+                ion-button
+                class="global-btn login-btn"
+              >
+                Proceed
+              </button>
+            </form>
+            <!-- End Sign up form  tudent details centric-->
+            <br />
+            <button
+              ion-button
+              clear
+              color="dark"
+              (tap)="prev()"
+              class="link-btn"
+              text-center
+            >
+              Already have an account? Login.
+            </button>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
   </div>
 </ion-content>

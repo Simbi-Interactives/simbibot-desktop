@@ -10,6 +10,7 @@ import { OfflineProvider } from "../../providers/offline/offline";
 import { OnboardingPage } from "../onboarding/onboarding";
 import { QuizPage } from "../quiz/quiz";
 import { DesktopProvider } from "../../providers/desktop/desktop";
+import { LessonNote } from "../lesson-note/lesson-note";
 
 /**
  * Generated class for the TopicPage page.
@@ -63,6 +64,7 @@ export class TopicPage {
     modal.present();
 
     modal.onDidDismiss(data => {
+      console.log('data ', data)
       if (data) {
         if (data.take_test != null) {
           this.navCtrl.setRoot(QuizPage, {
@@ -71,6 +73,12 @@ export class TopicPage {
             test_type: data.test_type,
             questions: data.questions,
             questionType: this.questionType
+          });
+        } else if(data.read_notes === true) {
+          this.navCtrl.setRoot(LessonNote, {
+            subject: this.subject,
+            topic: this.topics[i],
+            lessons: data.lessons,
           });
         }
       }

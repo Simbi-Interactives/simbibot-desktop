@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Confirm activation key</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="cont">
+    <ion-card>
+      <ion-card-content padding>
+        <!-- <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" /> -->
+        <br />
+          <ion-item>
+            <ion-label class="email-label" stacked>
+              <ion-icon name="ios-mail"></ion-icon>Activation key
+            </ion-label>
+            <ion-input
+              type="text"
+              aria-required="true"
+              [(ngModel)]="key"
+              name="key"
+              class="email-input"
+              aria-placeholder="EKY265P"
+            ></ion-input>
+          </ion-item>
+          <br />
+          <button (click)="submit()" ion-button class="global-btn login-btn">
+            Submit
+          </button>
+        <!-- 
+        <br />
+        <button ion-button clear color="dark" class="link-btn" text-center>
+          Confirm
+        </button> -->
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

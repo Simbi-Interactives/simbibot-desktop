@@ -10,6 +10,16 @@ ion-content .scroll-content {
   overflow : scroll !important;
 }
 
+
+.flex-v {
+  flex-direction: column;
+}
+
+.flex-container {
+  width: 100%;
+  text-align: center;
+}
+
 .scroll {
   min-height: 100vh;
 }
@@ -166,11 +176,28 @@ blockquote::after {
   position: relative;
 }
 
+
 ion-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   ion-backdrop {
     visibility: visible;
   }
+
+  .modal-wrapper {
+    // width: 86%;
+    min-height: 58%;
+    height: 100%;
+    margin: 0 auto;
+    position: absolute;
+    overflow: hidden;
+    border: 5px solid #fff;
+    border-radius: 5px;
+  }
 }
+
 
 ion-navbar {
   .toolbar-title-md {

@@ -14,6 +14,10 @@ export class AuthProvider {
     });
   }
 
+  verifyActivation(body) {
+    return this.http.post(`${config.base_url}schools-management/schools/check-activation-key`, body); 
+  }
+
   login(email, password) {
     const device_id = this.device.uuid;
     return this.http.post(`${config.base_url}auth/login?source=mobile&device_id=${device_id}`, {
@@ -22,9 +26,12 @@ export class AuthProvider {
     });
   }
 
+  loginAsAdmin(body) {
+    return this.http.post(`${config.base_url}schools-management/schools/login`, body);
+  }
+
   signup(body) {
-    const device_id = this.device.uuid;
-    return this.http.post(`${config.base_url}auth/register?source=mobile&device_id=${device_id}`, { ...body });
+    return this.http.post(`${config.base_url}schools-management/schools/new`, body);
   }
 
   public submitUserProgress(user_id, body) {

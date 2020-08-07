@@ -1,7 +1,14 @@
+page-onboarding.ion-page {
+  height: 100%;
+}
+
 page-onboarding {
+  height: 70%;
+
   .bg-text {
-    background: rgba($color: #fff, $alpha: 0.6);
-    padding: 10px;
+    
+     padding: 20% 10px 10px 10px;
+    height: 100%;
 
     .p-bg {
       background: rgba($color: #fff, $alpha: 1);
@@ -32,9 +39,11 @@ page-onboarding {
 
   .content-ios,
   .content-md {
-    background: url("../../assets/imgs/popup.jpg");
+    background: url("../../assets/imgs/onboarding.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    align-items: center;
   }
 
   .global-btn {
@@ -43,6 +52,8 @@ page-onboarding {
     padding: 20px;
     margin: 0 auto;
     display: block;
+    font-size: 14px;
+    background-image: linear-gradient(to right, #7b1ce3, rgb(95, 157, 232));
   }
 
   .button-md {

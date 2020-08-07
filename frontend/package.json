@@ -41,6 +41,7 @@
     "@ionic-native/sqlite-db-copy": "^4.20.0",
     "@ionic-native/status-bar": "~4.20.0",
     "@ionic-native/tealium-installreferrer": "^5.19.1",
+    "@ionic-native/text-to-speech": "^4.15.0",
     "@ionic-native/themeable-browser": "^4.20.0",
     "@ionic-native/zip": "^4.20.0",
     "@ionic/storage": "2.2.0",
@@ -62,6 +63,7 @@
     "cordova-plugin-nativeaudio": "^3.0.9",
     "cordova-plugin-network-information": "^2.0.2",
     "cordova-plugin-themeablebrowser": "^0.2.18",
+    "cordova-plugin-tts": "^0.2.3",
     "cordova-plugin-x-socialsharing": "^5.6.0",
     "cordova-plugin-zip": "^3.1.0",
     "cordova-sqlite-storage": "^3.4.0",
@@ -76,7 +78,9 @@
     "ngx-paginate": "^2.0.1",
     "ngx-pagination": "^5.0.0",
     "ngx-scrollbar": "^4.2.0",
+    "node-sass": "^4.13.0",
     "rxjs": "5.5.11",
+    "sanitize-html": "^1.27.2",
     "sw-toolbox": "3.6.0",
     "tealium-cordova-installreferrer": "^0.1.0",
     "zone.js": "0.8.29"
@@ -117,7 +121,8 @@
       "cordova-plugin-native-spinner": {},
       "cordova-plugin-local-notification": {},
       "tealium-cordova-installreferrer": {},
-      "cordova-plugin-installreferrer": {}
+      "cordova-plugin-installreferrer": {},
+      "cordova-plugin-tts": {}
     },
     "platforms": [
       "android",

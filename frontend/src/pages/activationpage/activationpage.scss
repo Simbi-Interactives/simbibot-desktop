@@ -1,0 +1,66 @@
+page-activation {
+  .content-md {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .logo {
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .item-md {
+    background-color: transparent;
+    color: #000;
+
+    .label-md {
+      font-weight: 600;
+      font-size: 14px;
+
+      ion-icon {
+        font-size: 18px;
+        color: color($colors, primary, base);
+        padding-right: 20px;
+      }
+    }
+  }
+
+  .card-md .item-md.item-block .item-inner {
+    border-bottom: 1px solid #dedede;
+  }
+
+  .show-password {
+    position: absolute;
+    right: -20px;
+    top: 20px;
+    z-index: 99999;
+    pointer-events: visible !important;
+  }
+
+  .forgot-btn {
+    font-size: 14px;
+    font-family: "McLaren";
+    text-decoration: underline;
+    text-transform: lowercase;
+    color: color($colors, primary, base);
+    letter-spacing: 1px;
+  }
+
+  .link-btn {
+    font-size: 12px;
+    text-transform: none;
+    font-weight: bold;
+  }
+
+  .scroll-content {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .cont {
+    width: 500px;
+    margin: 0 auto;
+    display: block;
+  }
+}
