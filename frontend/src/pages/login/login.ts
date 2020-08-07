@@ -232,8 +232,8 @@ export class LoginPage {
   handleAuthError(err) {
     const errors = [];
 
-    err.error.errors && Object.entries(err.error.errors)
-      .forEach(([key, value]) => errors.push(`${key}: ${value}`))
+    err.error.errors && (Object.entries(err.error.errors)
+      .forEach(([key, value]) => errors.push(`${key}: ${value}`)))
 
     let errorMessage = errors[0] || err.error.message;
     this.alertMessage(errorMessage || 'An unknown error occured');
