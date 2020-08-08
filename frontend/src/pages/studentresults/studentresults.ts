@@ -26,6 +26,7 @@ export class StudentresultsPage {
   }
 
   ionViewDidLoad() {
+    console.log('view user ', this.navParams.get('user'))
     let user;
     if(this.navParams.get('user')) {
       user = this.navParams.get('user');

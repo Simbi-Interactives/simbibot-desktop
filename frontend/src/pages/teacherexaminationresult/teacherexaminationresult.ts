@@ -74,9 +74,10 @@ export class TeacherexaminationresultPage {
     });
   }
 
-  viewPerformances(exam) {
+  viewPerformances(aggregate) {
+    console.log('user_id ', aggregate)
     this.navCtrl.push(StudentresultsPage, {
-      user: exam.user_id 
+      user: aggregate.id // should be user_id but it is returned as null and then the value is attached to the *id* property
     });
   }
 }
