@@ -151,7 +151,7 @@ router.get('/fetch_questions/:topic_id', (req, res) => {
 router.get('/fetch_super_exams', (req, res) => {
   try {
     db.serialize(() => {
-      db.all(`select * from superexams where rank='first_level' and name NOT IN ('schools', 'post utme', 'diploma')`, [], (err, data) => {
+      db.all(`select * from superexams where rank='first_level' and name NOT IN ('schools', 'Post utme', 'Diploma')`, [], (err, data) => {
         if(err) {
           console.log(err);
           return res.status(422).send(err);
@@ -451,7 +451,7 @@ router.get('/examination_avg_score_on_exams/:exam_id', (req, res) => {
         console.log(err);
         return res.status(422).send(err);
       }
-      console.log('exam ', data[0])
+      
       return res.status(200).send(data);
     })
   })
