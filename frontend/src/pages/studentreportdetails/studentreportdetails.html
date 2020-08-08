@@ -35,8 +35,10 @@
                 <td>{{eval.topic}}</td>
                 <td>{{eval.status}}</td>
                 <td>{{eval.score}}</td>
-                <td>{{eval?.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
-                <td>{{eval?.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td *ngIf="validDate(eval?.start_time)">{{ eval?.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td *ngIf="!validDate(eval?.start_time)"> - </td>
+                <td *ngIf="validDate(eval?.end_time)">{{ eval.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td *ngIf="!validDate(eval?.end_time)"> - </td>
               </tr>
             </tbody>
           </table>
@@ -61,8 +63,10 @@
                 <td>{{exam.name}}</td>
                 <td>{{exam.score}}</td>
                 <td>{{exam.topic}}</td>
-                <td>{{exam?.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
-                <td>{{exam?.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td *ngIf="validDate(exam.start_time)">{{exam?.start_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td *ngIf="!validDate(exam.start_time)"> - </td>
+                <td *ngIf="validDate(exam.end_time)">{{exam?.end_time | date: 'MMM d, y, h:mm:ss a'}}</td>
+                <td *ngIf="!validDate(exam.end_time)"> - </td>
               </tr>
             </tbody>
           </table>

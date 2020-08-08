@@ -45,6 +45,10 @@ export class StudentreportdetailsPage {
     }
   }
 
+  validDate(date) {
+    return (date != 'undefined') && (date != 'null');
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad StudentreportdetailsPage');
   }
