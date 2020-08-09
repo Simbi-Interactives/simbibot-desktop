@@ -11,6 +11,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_session_session__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__teacherdashboard_teacherdashboard__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(147);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -28,6 +29,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 // import { NetworkProvider } from "../../providers/network/network";
+
 
 
 // import { InappbrowserProvider } from '../../providers/inappbrowser/inappbrowser';
@@ -80,9 +82,20 @@ var ActivationPage = /** @class */ (function () {
             }
         }, function (err) {
             console.log(err);
-            _this.alertMessage(err.error.message);
+            // this.alertMessage(err.error.message);
             loader.dismiss();
+            _this.handleAuthError(err);
         });
+    };
+    ActivationPage.prototype.handleAuthError = function (err) {
+        var errors = [];
+        err.error.errors && (Object.entries(err.error.errors)
+            .forEach(function (_a) {
+            var key = _a[0], value = _a[1];
+            return errors.push(key + ": " + value);
+        }));
+        var errorMessage = errors[0] || err.error.message;
+        this.alertMessage(errorMessage || 'An unknown error occured');
     };
     ActivationPage.prototype.alertMessage = function (message) {
         this.alertController
@@ -101,21 +114,22 @@ var ActivationPage = /** @class */ (function () {
         })
             .present();
     };
+    ActivationPage.prototype.logout = function () {
+        localStorage.removeItem('user');
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */], null, {
+            animate: true,
+            animation: "transition-ios",
+            direction: "back"
+        });
+    };
     ActivationPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-activation",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/activationpage/activationpage.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Confirm activation key</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div class="cont">\n    <ion-card>\n      <ion-card-content padding>\n        <!-- <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" /> -->\n        <p>\n          Internet is required for activation \n        </p>\n        <p>How to get activation key? Contact\n          2349066450210 for your activation key</p>\n        <br />\n        <ion-item>\n          <ion-label class="email-label" stacked>\n            <ion-icon name="ios-mail"></ion-icon>Activation key\n          </ion-label>\n          <ion-input\n            type="text"\n            aria-required="true"\n            [(ngModel)]="key"\n            name="key"\n            class="email-input"\n            aria-placeholder="EKY265P"\n          ></ion-input>\n        </ion-item>\n        <br />\n        <button (click)="submit()" ion-button class="global-btn login-btn">\n          Submit\n        </button>\n        <!-- \n        <br />\n        <button ion-button clear color="dark" class="link-btn" text-center>\n          Confirm\n        </button> -->\n      </ion-card-content>\n    </ion-card>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/activationpage/activationpage.html"*/
+            selector: "page-activation",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/activationpage/activationpage.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Confirm activation key</ion-title>\n     <ion-buttons end padding>\n      <button ion-button color="danger"  (click)="logout()">Log Out</button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div class="cont">\n    <ion-card>\n      <ion-card-content padding>\n        <!-- <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" /> -->\n        <p>\n          Internet is required for activation \n        </p>\n        <p>How to get activation key? Contact\n          2349066450210 for your activation key</p>\n        <br />\n        <ion-item>\n          <ion-label class="email-label" stacked>\n            <ion-icon name="ios-mail"></ion-icon>Activation key\n          </ion-label>\n          <ion-input\n            type="text"\n            aria-required="true"\n            [(ngModel)]="key"\n            name="key"\n            class="email-input"\n            aria-placeholder="EKY265P"\n          ></ion-input>\n        </ion-item>\n        <br />\n        <button (click)="submit()" ion-button class="global-btn login-btn">\n          Submit\n        </button>\n        <!-- \n        <br />\n        <button ion-button clear color="dark" class="link-btn" text-center>\n          Confirm\n        </button> -->\n      </ion-card-content>\n    </ion-card>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/activationpage/activationpage.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_session_session__["a" /* SessionProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__["a" /* AuthProvider */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_app_preferences_ngx__["a" /* AppPreferences */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__providers_session_session__["a" /* SessionProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_session_session__["a" /* SessionProvider */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* MenuController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_app_preferences_ngx__["a" /* AppPreferences */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_app_preferences_ngx__["a" /* AppPreferences */]) === "function" && _j || Object])
     ], ActivationPage);
     return ActivationPage;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 }());
 
 //# sourceMappingURL=activationpage.js.map
@@ -1460,19 +1474,19 @@ var map = {
 		484
 	],
 	"../pages/studentresults/studentresults.module": [
-		489
+		485
 	],
 	"../pages/subscription/subscription.module": [
 		486
 	],
 	"../pages/teacherdashboard/teacherdashboard.module": [
-		485
-	],
-	"../pages/teacherevaluationresult/teacherevaluationresult.module": [
 		487
 	],
-	"../pages/teacherexaminationresult/teacherexaminationresult.module": [
+	"../pages/teacherevaluationresult/teacherevaluationresult.module": [
 		488
+	],
+	"../pages/teacherexaminationresult/teacherexaminationresult.module": [
+		489
 	],
 	"../pages/topic/topic.module": [
 		490
@@ -3630,10 +3644,11 @@ var StudentreportdetailsPageModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeacherdashboardPageModule", function() { return TeacherdashboardPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StudentresultsPageModule", function() { return StudentresultsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__teacherdashboard__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__studentresults__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3643,23 +3658,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var TeacherdashboardPageModule = /** @class */ (function () {
-    function TeacherdashboardPageModule() {
+
+var StudentresultsPageModule = /** @class */ (function () {
+    function StudentresultsPageModule() {
     }
-    TeacherdashboardPageModule = __decorate([
+    StudentresultsPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__teacherdashboard__["a" /* TeacherdashboardPage */],
+                __WEBPACK_IMPORTED_MODULE_2__studentresults__["a" /* StudentresultsPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__teacherdashboard__["a" /* TeacherdashboardPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__studentresults__["a" /* StudentresultsPage */]),
+                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormsModule */]
             ],
         })
-    ], TeacherdashboardPageModule);
-    return TeacherdashboardPageModule;
+    ], StudentresultsPageModule);
+    return StudentresultsPageModule;
 }());
 
-//# sourceMappingURL=teacherdashboard.module.js.map
+//# sourceMappingURL=studentresults.module.js.map
 
 /***/ }),
 
@@ -3706,6 +3723,44 @@ var SubscriptionPageModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeacherdashboardPageModule", function() { return TeacherdashboardPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__teacherdashboard__ = __webpack_require__(73);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var TeacherdashboardPageModule = /** @class */ (function () {
+    function TeacherdashboardPageModule() {
+    }
+    TeacherdashboardPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__teacherdashboard__["a" /* TeacherdashboardPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__teacherdashboard__["a" /* TeacherdashboardPage */]),
+            ],
+        })
+    ], TeacherdashboardPageModule);
+    return TeacherdashboardPageModule;
+}());
+
+//# sourceMappingURL=teacherdashboard.module.js.map
+
+/***/ }),
+
+/***/ 488:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeacherevaluationresultPageModule", function() { return TeacherevaluationresultPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
@@ -3739,7 +3794,7 @@ var TeacherevaluationresultPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 488:
+/***/ 489:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3774,47 +3829,6 @@ var TeacherexaminationresultPageModule = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=teacherexaminationresult.module.js.map
-
-/***/ }),
-
-/***/ 489:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StudentresultsPageModule", function() { return StudentresultsPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__studentresults__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(22);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-var StudentresultsPageModule = /** @class */ (function () {
-    function StudentresultsPageModule() {
-    }
-    StudentresultsPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__studentresults__["a" /* StudentresultsPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__studentresults__["a" /* StudentresultsPage */]),
-                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormsModule */]
-            ],
-        })
-    ], StudentresultsPageModule);
-    return StudentresultsPageModule;
-}());
-
-//# sourceMappingURL=studentresults.module.js.map
 
 /***/ }),
 
@@ -4706,14 +4720,14 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__providers_inappbrowser_inappbrowser__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__providers_desktop_desktop__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__pages_createteacher_createteacher_module__ = __webpack_require__(473);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__pages_teacherdashboard_teacherdashboard_module__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__pages_teacherdashboard_teacherdashboard_module__ = __webpack_require__(487);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__pages_createstudent_createstudent_module__ = __webpack_require__(472);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_ngx_paginate__ = __webpack_require__(884);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__pages_postutme_postutme_module__ = __webpack_require__(481);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__pages_studentresults_studentresults_module__ = __webpack_require__(489);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__pages_studentresults_studentresults_module__ = __webpack_require__(485);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__pages_studentreportdetails_studentreportdetails_module__ = __webpack_require__(484);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__pages_teacherevaluationresult_teacherevaluationresult_module__ = __webpack_require__(487);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__pages_teacherexaminationresult_teacherexaminationresult_module__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__pages_teacherevaluationresult_teacherevaluationresult_module__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__pages_teacherexaminationresult_teacherexaminationresult_module__ = __webpack_require__(489);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__pages_activationpage_activationpage_module__ = __webpack_require__(231);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__pages_lesson_note_lesson_note_module__ = __webpack_require__(476);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__pages_lesson_outline_lesson_outline_module__ = __webpack_require__(477);
@@ -4836,11 +4850,11 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/quizresult/quizresult.module#QuizresultPageModule', name: 'QuizresultPage', segment: 'quizresult', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/studentreportdetails/studentreportdetails.module#StudentreportdetailsPageModule', name: 'StudentreportdetailsPage', segment: 'studentreportdetails', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/teacherdashboard/teacherdashboard.module#TeacherdashboardPageModule', name: 'TeacherdashboardPage', segment: 'teacherdashboard', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/studentresults/studentresults.module#StudentresultsPageModule', name: 'StudentresultsPage', segment: 'studentresults', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/subscription/subscription.module#SubscriptionPageModule', name: 'SubscriptionPage', segment: 'subscription', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/teacherdashboard/teacherdashboard.module#TeacherdashboardPageModule', name: 'TeacherdashboardPage', segment: 'teacherdashboard', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherevaluationresult/teacherevaluationresult.module#TeacherevaluationresultPageModule', name: 'TeacherevaluationresultPage', segment: 'teacherevaluationresult', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherexaminationresult/teacherexaminationresult.module#TeacherexaminationresultPageModule', name: 'TeacherexaminationresultPage', segment: 'teacherexaminationresult', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/studentresults/studentresults.module#StudentresultsPageModule', name: 'StudentresultsPage', segment: 'studentresults', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/topic/topic.module#TopicPageModule', name: 'TopicPage', segment: 'topic', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/quiz/quiz.module#QuizPageModule', name: 'QuizPage', segment: 'quiz', priority: 'low', defaultHistory: [] }

@@ -20,6 +20,7 @@ import { AuthProvider } from "../../providers/auth/auth";
 // import { NetworkProvider } from "../../providers/network/network";
 import { SessionProvider } from "../../providers/session/session";
 import { TeacherdashboardPage } from "../teacherdashboard/teacherdashboard";
+import { LoginPage } from "../login/login";
 // import { InappbrowserProvider } from '../../providers/inappbrowser/inappbrowser';
 // import { config } from '../../config'
 // import { DesktopProvider } from "../../providers/desktop/desktop";
@@ -90,11 +91,22 @@ export class ActivationPage {
       },
         (err: any) => {
           console.log(err);
-          this.alertMessage(err.error.message);
+          // this.alertMessage(err.error.message);
           loader.dismiss();
+          this.handleAuthError(err)
         }
       );
 
+  }
+
+  handleAuthError(err) {
+    const errors = [];
+
+    err.error.errors && (Object.entries(err.error.errors)
+      .forEach(([key, value]) => errors.push(`${key}: ${value}`)))
+
+    let errorMessage = errors[0] || err.error.message;
+    this.alertMessage(errorMessage || 'An unknown error occured');
   }
 
   alertMessage(message) {
@@ -115,5 +127,15 @@ export class ActivationPage {
         duration: 3000
       })
       .present();
+  }
+
+
+  logout() {
+    localStorage.removeItem('user');
+    this.navCtrl.setRoot(LoginPage, null, {
+      animate: true,
+      animation: "transition-ios",
+      direction: "back"
+    });
   }
 }
