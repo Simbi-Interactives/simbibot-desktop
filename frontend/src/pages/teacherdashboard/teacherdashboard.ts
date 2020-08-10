@@ -5,6 +5,7 @@ import { LoginPage } from '../login/login';
 import { TeacherevaluationresultPage } from '../teacherevaluationresult/teacherevaluationresult';
 import { TeacherexaminationresultPage } from '../teacherexaminationresult/teacherexaminationresult';
 import { DesktopProvider } from '../../providers/desktop/desktop';
+import { SessionProvider } from '../../providers/session/session';
 
 /**
  * Generated class for the TeacherdashboardPage page.
@@ -21,9 +22,12 @@ import { DesktopProvider } from '../../providers/desktop/desktop';
 export class TeacherdashboardPage {
   superexams: any;
   show_sweet: any;
+  user: any;
 
   settingsLoaded: Promise<boolean>;
-  constructor(public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private desktopProvider: DesktopProvider) {
+  constructor(public navCtrl: NavController, public session: SessionProvider, private toastCtrl: ToastController, public navParams: NavParams, private desktopProvider: DesktopProvider) {
+    this.user = this.session.getUser();
+    console.log('user ', this.user)
   }
 
   ionViewDidLoad() {
@@ -75,34 +79,34 @@ export class TeacherdashboardPage {
   }
 
   updateExam(event, i) {
-      let body = {};
-      if(event.checked === true) {
-        body = {
-          value: 1,
-          id: this.superexams[i].id
-        }
-      } else {
-        body = {
-          value: 0,
-          id: this.superexams[i].id
-        }
+    let body = {};
+    if (event.checked === true) {
+      body = {
+        value: 1,
+        id: this.superexams[i].id
       }
-        this.desktopProvider.updateexamsettings(body).subscribe((response: any) => {
-          this.toastCtrl.create({
-            message: 'Hurray, settings updated',
-            duration: 2000
-          }).present();
-        }, (err: any) => {
-          this.toastCtrl.create({
-            message: 'Oops an error occured',
-            duration: 2000
-          }).present();
-        });
+    } else {
+      body = {
+        value: 0,
+        id: this.superexams[i].id
+      }
+    }
+    this.desktopProvider.updateexamsettings(body).subscribe((response: any) => {
+      this.toastCtrl.create({
+        message: 'Hurray, settings updated',
+        duration: 2000
+      }).present();
+    }, (err: any) => {
+      this.toastCtrl.create({
+        message: 'Oops an error occured',
+        duration: 2000
+      }).present();
+    });
   }
 
   updateSweetSixteen(event) {
     let val = null;
-    if(event.checked === true) {
+    if (event.checked === true) {
       val = 1;
     } else {
       val = 0;

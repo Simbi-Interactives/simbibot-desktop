@@ -53,7 +53,7 @@ export class CreatestudentPage {
 
     this.desktopProvider.createStudent(this.createStudentForm.value).subscribe((resp: any) => {
       loader.dismiss();
-
+      this.createStudentForm.reset();
       this.alertCtrl.create({
         title: 'Success',
         message: 'Student Created succesfully',

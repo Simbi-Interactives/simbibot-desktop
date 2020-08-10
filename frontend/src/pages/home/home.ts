@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
 import { NavController, LoadingController, Events, ToastController } from "ionic-angular";
 import { config } from "../../config";
-import { OfflineProvider } from "../../providers/offline/offline";
 import { TopicPage } from "../topic/topic";
 import { ExamsubjectsPage } from "../examsubjects/examsubjects";
 import { DesktopProvider } from "../../providers/desktop/desktop";
 import { PostutmePage } from "../postutme/postutme";
+import { SessionProvider } from "../../providers/session/session";
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
@@ -17,15 +17,17 @@ export class HomePage {
 
   exams: any[];
   examLoaded: Promise<boolean>;
+  user: any;
 
   constructor(
     public navCtrl: NavController,
-    private offlineProvider: OfflineProvider,
+    private session: SessionProvider,
     private loadingCtrl: LoadingController,
     public events: Events,
     private desktopProvider: DesktopProvider,
     private toastCtrl: ToastController
   ) {
+    this.user = this.session.getUser();
     this.fetchSubjects();
     this.fetchSuperExams();
   }

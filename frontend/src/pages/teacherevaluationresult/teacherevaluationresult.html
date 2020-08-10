@@ -18,7 +18,7 @@
           <ion-card-content>
             <ion-item *ngFor="let subject of subjects">
               <button ion-button item-start clear color="dark"> {{subject.name}}</button>
-              <button ion-button item-end (click)="fetchChartData(subject)">View Performance</button>
+              <button ion-button item-end (click)="fetchChartData(subject)">View Results</button>
             </ion-item>
           </ion-card-content>
         </ion-card>
@@ -59,7 +59,7 @@
                     <td>{{aggregate.attempts}}</td>
                     <td>{{aggregate.aggregate_score | number: '1.2-2'}}</td>
                     <td>
-                      <button ion-button round (click)="viewPerfomances(aggregate)">View Students Performances</button>
+                      <button ion-button round (click)="viewPerfomances(aggregate)">View Students Result</button>
                     </td>
                     </tr>
                   </tbody>

@@ -35,6 +35,9 @@
     </ion-row>
   </ion-card> -->
   <div *ngIf="loaded && examLoaded" class="cont">
+    <h1>Welcome {{user.firstname}}</h1>
+    <br />
+    <br />
     <h2>Practice Exams</h2>
     <ion-row>
       <ion-col col-3 *ngFor="let exam of exams">

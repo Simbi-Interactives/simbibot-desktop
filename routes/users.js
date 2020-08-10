@@ -33,29 +33,48 @@ router.get("/is_teacher_created", async (req, res) => {
   });
 });
 
-
 router.post("/create_teacher", async (req, res) => {
   try {
     const data = req.body;
     const salt = await bcrypt.genSalt(5);
     const hash = await bcrypt.hash(data.password, salt);
     const user_type = "teacher";
-    
-    db.serialize(async () => {
-      db.run(
-        `insert into users(email, password, usertype, created_at, updated_at) values ('${
-          data.email
-        }', '${hash}', 'teacher', '${data.created_at || new Date().toISOString()
-        }', '${data.updated_at || new Date().toISOString()}')`,
+
+    db.serialize(() => {
+      db.all(
+        `select * from users where email='${body.email}'`,
         [],
-        (err) => {
+        async (err, data) => {
           if (err) {
             console.log(err);
             return res.status(422).send(err);
           }
 
-          db.run("update settings set has_created_teacher = 1 where id = 1");
-          return res.status(200).json({ message: "successful" });
+          if (data.length > 0) {
+            return res.status(422).send({ message: "Email has been taken" });
+          }
+
+          db.serialize(async () => {
+            db.run(
+              `insert into users(email, password, usertype, created_at, updated_at) values ('${
+                data.email
+              }', '${hash}', 'teacher', '${
+                data.created_at || new Date().toISOString()
+              }', '${data.updated_at || new Date().toISOString()}')`,
+              [],
+              (err) => {
+                if (err) {
+                  console.log(err);
+                  return res.status(422).send(err);
+                }
+
+                db.run(
+                  "update settings set has_created_teacher = 1 where id = 1"
+                );
+                return res.status(200).json({ message: "successful" });
+              }
+            );
+          });
         }
       );
     });
@@ -110,17 +129,39 @@ router.post("/create_student", async (req, res) => {
     const hash = await bcrypt.hash(body.password, salt);
 
     console.log(body);
+
     db.serialize(() => {
-      db.run(
-        `insert into users(email, password, firstname, lastname, usertype, created_at, updated_at) values('${body.email}', '${hash}', '${body.firstname}', '${body.lastname}', 'student', '${new Date().toISOString()}', '${new Date().toISOString()}' )`,
+      db.all(
+        `select * from users where email='${body.email}'`,
         [],
-        (err) => {
+        async (err, data) => {
           if (err) {
             console.log(err);
             return res.status(422).send(err);
           }
 
-          return res.status(200).json({ message: "Successful" });
+          if (data.length > 0) {
+            return res.status(422).send({ message: "Email has been taken" });
+          }
+
+          db.serialize(() => {
+            db.run(
+              `insert into users(email, password, firstname, lastname, usertype, created_at, updated_at) values('${
+                body.email
+              }', '${hash}', '${body.firstname}', '${
+                body.lastname
+              }', 'student', '${new Date().toISOString()}', '${new Date().toISOString()}' )`,
+              [],
+              (err) => {
+                if (err) {
+                  console.log(err);
+                  return res.status(422).send(err);
+                }
+
+                return res.status(200).json({ message: "Successful" });
+              }
+            );
+          });
         }
       );
     });
@@ -155,16 +196,14 @@ router.get("/fetch_student", async (req, res) => {
               console.log(err);
               return res.status(422).send(err);
             }
-            return res
-              .status(200)
-              .json({
-                data: users,
-                page,
-                total: pages,
-                limit,
-                offset,
-                metric: count,
-              });
+            return res.status(200).json({
+              data: users,
+              page,
+              total: pages,
+              limit,
+              offset,
+              metric: count,
+            });
           }
         );
       }
