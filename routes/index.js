@@ -151,7 +151,7 @@ router.get('/fetch_questions/:topic_id', (req, res) => {
 router.get('/fetch_super_exams', (req, res) => {
   try {
     db.serialize(() => {
-      db.all(`select * from superexams where rank='first_level' and name NOT IN ('schools', 'Post utme', 'Diploma')`, [], (err, data) => {
+      db.all(`select * from superexams where rank='first_level' and name NOT IN ('schools', 'Post utme', 'Diploma', 'NECO')`, [], (err, data) => {
         if(err) {
           console.log(err);
           return res.status(422).send(err);

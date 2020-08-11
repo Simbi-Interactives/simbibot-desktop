@@ -10,6 +10,7 @@
     </ion-navbar>
     <div class="cont">
       <ion-searchbar [(ngModel)]="searchInput" class="search-bar"></ion-searchbar>
+      <p class="learn-more"><strong> To learn more from the comfort of your mobile device anywhere you are, simply search for SimbiBot on playstore and install.</strong></p>
     </div>
   </div>
 </ion-header>
@@ -35,7 +36,7 @@
     </ion-row>
   </ion-card> -->
   <div *ngIf="loaded && examLoaded" class="cont">
-    <h1>Welcome {{user.firstname}}</h1>
+    <h1 class="greeting-text">Welcome {{user.firstname}}</h1>
     <br />
     <br />
     <h2>Practice Exams</h2>
@@ -51,7 +52,7 @@
                 />
             <p>
               
-              <strong> {{ exam.name | titlecase }} </strong>
+              <strong> {{ exam.name }} </strong>
             </p>
           </ion-card-content>
         </ion-card>

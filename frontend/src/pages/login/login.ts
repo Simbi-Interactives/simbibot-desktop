@@ -82,6 +82,8 @@ export class LoginPage {
       email: ["", [Validators.required, Validators.email]],
       address: ["", [Validators.required]],
       name: ["", [Validators.required]],
+      // firstname: ["", [Validators.required]],
+      // lastname: ["", [Validators.required]],
       phone: ["", [Validators.required, Validators.minLength(11)]],
       password: ["", [Validators.required, Validators.minLength(6)]]
     });
@@ -208,19 +210,24 @@ export class LoginPage {
       });
 
       loader.present().then(_ => {
-        this._authProvider.signup(this.registerUserBody.value)
-          .subscribe(async (response: any) => {
-            console.log('registered ', response)
-            loader.dismiss();
-            await this.session.newUser({...response.data, usertype: 'teacher'});
-            this.createLocalTeacherAccount(response.data)
-          },
-            (err: any) => {
+        try {
+
+          this._authProvider.signup(this.registerUserBody.value)
+            .subscribe(async (response: any) => {
+              console.log('registered ', response)
               loader.dismiss();
-              console.log('registered error ', err)
-              this.handleAuthError(err)
-            }
-          )
+              await this.session.newUser({...response.data, usertype: 'teacher'});
+              this.createLocalTeacherAccount(response.data)
+            },
+              (err: any) => {
+                loader.dismiss();
+                console.log('registered error ', err)
+                this.handleAuthError(err)
+              }
+            )
+        } catch (e) {
+          console.log('login error ', e)
+        }
       })
 
     } else {
