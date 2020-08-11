@@ -222,13 +222,13 @@ router.post("/bulk_upload_student", upload.single("file"), async (req, res) => {
     header: ["firstname", "lastname", "email", "password"],
   });
 
-  console.log(studentsArray);
-
+  
   if (studentsArray.length < 1) return res.status(200).send("success");
-
+  
   if (studentsArray[0].firstname.includes("firstname"))
-    studentsArray.splice(0, 1);
-
+  studentsArray.splice(0, 1);
+  
+  
   try {
     async.each(
       studentsArray,
@@ -239,14 +239,18 @@ router.post("/bulk_upload_student", upload.single("file"), async (req, res) => {
             const hash = await bcrypt.hash(student.password, salt);
 
             db.run(
-              `insert into users(firstname, lastname, email, password, usertype) values ('${student.firstname}', '${student.lastname}', '${student.email}', '${hash}', 'student')`,
+              `insert into users(firstname, lastname, email, password, usertype, created_at, updated_at) values('${
+                student.firstname
+              }', '${student.lastname}', '${
+                student.email
+              }', '${hash}', 'student', '${new Date().toISOString()}', '${new Date().toISOString()}')`,
               [],
               (err) => {
                 if (err) {
                   errors.push(err);
                   callback;
                 }
-
+                console.log("created ", student.firstname, callback);
                 callback;
               }
             );

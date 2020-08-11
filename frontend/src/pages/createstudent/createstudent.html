@@ -17,6 +17,7 @@
               <ion-input type="file" (change)="selectFile($event)" accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"></ion-input>
             </ion-item>
 
+            <a href="assets/template.xlsx" download>Download template</a>
             <button [disabled]="!bulkuploadfile || uploading" (click)="uploadStudent() " ion-button full>Upload</button>
           </ion-card-content>
         </ion-card>
