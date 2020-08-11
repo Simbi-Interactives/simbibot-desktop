@@ -25,7 +25,7 @@ export class CreatestudentPage {
   uploading = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder,private loadingCtrl:LoadingController, private alertCtrl: AlertController, private desktopProvider: DesktopProvider, private toastCtrl: ToastController) {
       this.createStudentForm = this.formBuilder.group({
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required]],
         password: ['', [Validators.required]],
         firstname: ['', [Validators.required]],
         lastname: ['', [Validators.required]],

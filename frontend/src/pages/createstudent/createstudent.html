@@ -10,7 +10,7 @@
   <div class="cont" >
     <ion-row padding> 
       <ion-col col-4>
-        <!-- <ion-card>
+        <ion-card>
           <ion-card-content>
             <ion-item>
               <ion-label>Bulk Upload</ion-label>
@@ -20,7 +20,7 @@
             <button [disabled]="!bulkuploadfile || uploading" (click)="uploadStudent() " ion-button full>Upload</button>
           </ion-card-content>
         </ion-card>
-        <br> -->
+        <br>
         <ion-card>
           <ion-card-content>
             <h3>Add new Student</h3>
@@ -28,8 +28,8 @@
 
             <form [formGroup]="createStudentForm" (submit)="submit()">
               <ion-item>
-                <ion-label floating>Email Address</ion-label>
-                <ion-input type="email" formControlName="email" value=""></ion-input>
+                <ion-label floating>Student ID</ion-label>
+                <ion-input type="text" formControlName="email" value=""></ion-input>
               </ion-item>
               <br>
               <ion-item>

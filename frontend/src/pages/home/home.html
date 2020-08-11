@@ -36,7 +36,7 @@
     </ion-row>
   </ion-card> -->
   <div *ngIf="loaded && examLoaded" class="cont">
-    <h1 class="greeting-text">Welcome {{user.firstname}}</h1>
+    <h1 class="greeting-text">Welcome {{user.firstname | titlecase}}</h1>
     <br />
     <br />
     <h2>Practice Exams</h2>

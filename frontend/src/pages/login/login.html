@@ -42,7 +42,7 @@
             <div [formGroup]="userTypeForm">
               <ion-list radio-group formControlName="isStudent">
                 <ion-item>
-                  <ion-label>Login as a Student/Teacher</ion-label>
+                  <ion-label>Login as a Student</ion-label>
                   <ion-radio slot="start" value="true"></ion-radio>
                 </ion-item>
 
@@ -57,14 +57,14 @@
             <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
               <ion-item>
                 <ion-label stacked>
-                  <ion-icon name="ios-mail"></ion-icon>Email Address
+                  <ion-icon name="ios-mail"></ion-icon>Student ID
                 </ion-label>
                 <ion-input
-                  type="email"
+                  type="text"
                   aria-required="true"
                   formControlName="email"
                   class="email-input"
-                  aria-placeholder="Enter your email"
+                  aria-placeholder="Enter your student ID"
                 ></ion-input>
               </ion-item>
 

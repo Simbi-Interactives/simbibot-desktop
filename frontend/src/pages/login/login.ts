@@ -74,7 +74,7 @@ export class LoginPage {
     });
 
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
+      email: ["", [Validators.required]],      
       password: ["", [Validators.required, Validators.minLength(6)]]
     });
 
@@ -132,9 +132,7 @@ export class LoginPage {
 
   loginUser() {
     if (this.loginForm.invalid || this.userTypeForm.invalid) return;
-    // if(!this.password || this.password.lenght === 0) return;
-
-    console.log('user type', this.userTypeForm.controls.isStudent.value, typeof this.userTypeForm.controls.isStudent.value,);
+    // if(!this.password || this.password.lenght === 0) return;    
     
     if (this.userTypeForm.controls.isStudent.value === "false") return this.loginAsAdmin();
 
@@ -148,8 +146,7 @@ export class LoginPage {
     loader.present();
 
     this.desktopProvider.login(this.loginForm.value).subscribe((resp: any) => {
-      loader.dismiss();
-      console.log(resp);
+      loader.dismiss();      
 
       this.session.newUser(resp);
 
