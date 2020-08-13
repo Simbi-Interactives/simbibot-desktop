@@ -11,6 +11,7 @@ import { OnboardingPage } from "../onboarding/onboarding";
 import { QuizPage } from "../quiz/quiz";
 import { DesktopProvider } from "../../providers/desktop/desktop";
 import { LessonNote } from "../lesson-note/lesson-note";
+import { MatchCards } from "../match-cards/match-cards";
 
 /**
  * Generated class for the TopicPage page.
@@ -80,7 +81,12 @@ export class TopicPage {
             topic: this.topics[i],
             lessons: data.lessons,
           });
-        }
+        } else if (data.match_cards === true) {
+          this.navCtrl.push(MatchCards, {
+            topic: this.topics[i],
+            subject: this.subject,
+          })
+        } 
       }
     });
   }

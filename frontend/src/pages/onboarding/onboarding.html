@@ -94,7 +94,20 @@
             Take Evaluation
           </button>
         </ion-col>
-      </ion-row>           
+      </ion-row>          
+      <ion-row class="btn-row">
+        <ion-col col-12>
+          <button
+            [disabled]="!loaded"
+            [ngClass]="['global-btn ' + 'subject--'+subject.id ]"
+            ion-button
+            color="brown"
+            (click)="openMatchCards()"
+          >
+            Match Cards
+          </button>
+        </ion-col>
+      </ion-row> 
     </div>
     <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>
   </div>

@@ -1,4 +1,4 @@
-webpackJsonp([0],{
+webpackJsonp([1],{
 
 /***/ 131:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -9,7 +9,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_app_preferences_ngx__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__ = __webpack_require__(95);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_session_session__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__teacherdashboard_teacherdashboard__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(96);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -150,11 +150,12 @@ var ActivationPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TopicPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__onboarding_onboarding__ = __webpack_require__(334);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__quiz_quiz__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_desktop_desktop__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lesson_note_lesson_note__ = __webpack_require__(462);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__match_cards_match_cards__ = __webpack_require__(886);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -164,6 +165,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -228,6 +230,12 @@ var TopicPage = /** @class */ (function () {
                         lessons: data.lessons,
                     });
                 }
+                else if (data.match_cards === true) {
+                    _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__match_cards_match_cards__["a" /* MatchCards */], {
+                        topic: _this.topics[i],
+                        subject: _this.subject,
+                    });
+                }
             }
         });
     };
@@ -235,14 +243,10 @@ var TopicPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: "page-topic",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/topic/topic.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title color="brown">{{ subject.name | titlecase }}</ion-title>\n  </ion-navbar>\n\n  <div class="cont">\n    \n  <ion-searchbar [(ngModel)]="searchInput" class="search-bar"></ion-searchbar>\n  </div>\n</ion-header>\n\n<ion-content padding>\n  <div class="pad"></div>\n  \n  <div class="cont" *ngIf="loaded">\n    <h2><strong>Topics</strong></h2>\n    <br>\n    <ion-row>\n      <ion-col col-4  *ngFor="let topic of topics | searchFilter: searchInput; let i = index">\n        <button\n      ion-item\n     no-lines\n      (click)="openTopicInfo(i)"\n      class="animated pulse"\n    >\n      <div class="topic-obj">\n        <img\n          class="img-center"\n          [src]="subject.image_url"\n          alt=""\n          *ngIf="subject.image_url != null"\n        />\n        <h6>\n          <strong> {{ topic.topic | titlecase }} </strong>\n        </h6>\n      </div>\n      <ion-icon\n        item-end\n        name="ios-arrow-forward"\n        [ngStyle]="{ color: subject.color }"\n      ></ion-icon>\n    </button>\n      </ion-col>\n    </ion-row>\n    \n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/topic/topic.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__["a" /* OfflineProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ModalController */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_desktop_desktop__["a" /* DesktopProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__["a" /* OfflineProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__["a" /* OfflineProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ModalController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__providers_desktop_desktop__["a" /* DesktopProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_desktop_desktop__["a" /* DesktopProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _f || Object])
     ], TopicPage);
     return TopicPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=topic.js.map
@@ -256,7 +260,7 @@ var TopicPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuizresultPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quiz_quiz__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_desktop_desktop__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_chart_js__ = __webpack_require__(150);
@@ -389,7 +393,7 @@ var QuizresultPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExamsubjectsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quiz_quiz__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_desktop_desktop__ = __webpack_require__(18);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -686,7 +690,7 @@ var SubscriptionProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_device__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__paywithcard_paywithcard__ = __webpack_require__(480);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__paywithcard_paywithcard__ = __webpack_require__(479);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config__ = __webpack_require__(34);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -987,6 +991,9 @@ var DesktopProvider = /** @class */ (function () {
     DesktopProvider.prototype.fetchKeypoints = function (topic_id) {
         return this.http.get(this.baseurl + "/app/fetch_keypoints/" + topic_id);
     };
+    DesktopProvider.prototype.fetchFlashCards = function (topic_id) {
+        return this.http.get(this.baseurl + "/app/fetch_flashCards/" + topic_id);
+    };
     DesktopProvider.prototype.fetchQuestionForExam = function (subject_id, super_exam_id) {
         return this.http.get(this.baseurl + "/app/fetch_questions_from_exam_list?subject_id=" + subject_id + "&super_exam_id=" + super_exam_id);
     };
@@ -1040,9 +1047,10 @@ var DesktopProvider = /** @class */ (function () {
     };
     DesktopProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
     ], DesktopProvider);
     return DesktopProvider;
+    var _a;
 }());
 
 //# sourceMappingURL=desktop.js.map
@@ -1074,10 +1082,10 @@ var map = {
 		231
 	],
 	"../pages/createstudent/createstudent.module": [
-		472
+		474
 	],
 	"../pages/createteacher/createteacher.module": [
-		473
+		472
 	],
 	"../pages/examsubjects/examsubjects.module": [
 		475
@@ -1091,11 +1099,14 @@ var map = {
 	"../pages/login/login.module": [
 		492
 	],
+	"../pages/match-cards/match-cards.module": [
+		885
+	],
 	"../pages/onboarding/onboarding.module": [
-		478
+		480
 	],
 	"../pages/paywithcard/paywithcard.module": [
-		479
+		478
 	],
 	"../pages/postutme/postutme.module": [
 		481
@@ -1113,19 +1124,19 @@ var map = {
 		484
 	],
 	"../pages/studentresults/studentresults.module": [
-		491
-	],
-	"../pages/subscription/subscription.module": [
 		485
 	],
-	"../pages/teacherdashboard/teacherdashboard.module": [
+	"../pages/subscription/subscription.module": [
 		486
 	],
-	"../pages/teacherevaluationresult/teacherevaluationresult.module": [
+	"../pages/teacherdashboard/teacherdashboard.module": [
 		487
 	],
-	"../pages/teacherexaminationresult/teacherexaminationresult.module": [
+	"../pages/teacherevaluationresult/teacherevaluationresult.module": [
 		488
+	],
+	"../pages/teacherexaminationresult/teacherexaminationresult.module": [
+		491
 	],
 	"../pages/topic/topic.module": [
 		489
@@ -1387,17 +1398,19 @@ var OnboardingPage = /** @class */ (function () {
             });
         });
     };
+    OnboardingPage.prototype.openMatchCards = function () {
+        return this.viewController.dismiss({
+            match_cards: true,
+        });
+    };
     OnboardingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-onboarding",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/onboarding/onboarding.html"*/'<!-- <ion-content padding>\n  <div class="bg-text">\n    <h3 text-center>\n      Welcome to learning with simbi\n    </h3>\n    <div class="p-bg">\n      <p>\n        I am going to be using the Maieutic learning style to help you\n        understand\n        {{ topic.topic | titlecase }}.\n      </p>\n      <p>\n        Our learning method is going to be in form of me asking you questions on\n        {{ topic.topic | titlecase }} and allowing you two trials to make a\n        correct attempt.\n      </p>\n      <!-- <p>\n              While learning, take your time before attempting each question, as this is\n              not a test. It is OK to get it wrong. A detailed explanation will be\n              provided to you before proceeding to the next question. After completing\n              the learning stage, you can proceed to take a test on the topic to assess\n              your understanding of the topic.\n            </p> \n    </div>\n\n    <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>\n  </div>\n</ion-content>\n<ion-footer padding>\n  <ion-row>\n    <ion-col col-6>\n      <button\n        [disabled]="!loaded"\n        class="global-btn"\n        ion-button\n        color="brown"\n        (click)="takeTest(0)"\n      >\n        Start Learning\n      </button>\n    </ion-col>\n    <ion-col col-6>\n      <button\n        [disabled]="!loaded"\n        class="global-btn"\n        ion-button\n        color="brown"\n        (click)="takeTest(1)"\n      >\n        Take Evaluation\n      </button>\n    </ion-col>\n  </ion-row>\n</ion-footer> -->\n\n<ion-content padding class="modal-content">\n  <div [ngClass]="[\'bg-text \' + \'subject--\' + subject.id ]">\n   \n    <div class="flex flex-v mt-25">      \n      <ion-row class="btn-row" *ngIf="keyPointsCount > 0">\n        <ion-col col-12>\n          <button\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="openLessonNotes()"            \n          >\n            Read Lesson Note\n          </button>\n        </ion-col>\n      </ion-row>      \n      <ion-row class="btn-row">\n        <ion-col col-12>\n          <button\n            [disabled]="!loaded"\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="takeTest(0)"\n          >\n            Interactive Questions\n          </button>\n        </ion-col>\n      </ion-row>\n      <ion-row class="btn-row">\n        <ion-col col-12>\n          <button\n            [disabled]="!loaded"\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="takeTest(1)"\n          >\n            Take Evaluation\n          </button>\n        </ion-col>\n      </ion-row>           \n    </div>\n    <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>\n  </div>\n</ion-content>\n\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/onboarding/onboarding.html"*/
+            selector: "page-onboarding",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/onboarding/onboarding.html"*/'<!-- <ion-content padding>\n  <div class="bg-text">\n    <h3 text-center>\n      Welcome to learning with simbi\n    </h3>\n    <div class="p-bg">\n      <p>\n        I am going to be using the Maieutic learning style to help you\n        understand\n        {{ topic.topic | titlecase }}.\n      </p>\n      <p>\n        Our learning method is going to be in form of me asking you questions on\n        {{ topic.topic | titlecase }} and allowing you two trials to make a\n        correct attempt.\n      </p>\n      <!-- <p>\n              While learning, take your time before attempting each question, as this is\n              not a test. It is OK to get it wrong. A detailed explanation will be\n              provided to you before proceeding to the next question. After completing\n              the learning stage, you can proceed to take a test on the topic to assess\n              your understanding of the topic.\n            </p> \n    </div>\n\n    <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>\n  </div>\n</ion-content>\n<ion-footer padding>\n  <ion-row>\n    <ion-col col-6>\n      <button\n        [disabled]="!loaded"\n        class="global-btn"\n        ion-button\n        color="brown"\n        (click)="takeTest(0)"\n      >\n        Start Learning\n      </button>\n    </ion-col>\n    <ion-col col-6>\n      <button\n        [disabled]="!loaded"\n        class="global-btn"\n        ion-button\n        color="brown"\n        (click)="takeTest(1)"\n      >\n        Take Evaluation\n      </button>\n    </ion-col>\n  </ion-row>\n</ion-footer> -->\n\n<ion-content padding class="modal-content">\n  <div [ngClass]="[\'bg-text \' + \'subject--\' + subject.id ]">\n   \n    <div class="flex flex-v mt-25">      \n      <ion-row class="btn-row" *ngIf="keyPointsCount > 0">\n        <ion-col col-12>\n          <button\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="openLessonNotes()"            \n          >\n            Read Lesson Note\n          </button>\n        </ion-col>\n      </ion-row>      \n      <ion-row class="btn-row">\n        <ion-col col-12>\n          <button\n            [disabled]="!loaded"\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="takeTest(0)"\n          >\n            Interactive Questions\n          </button>\n        </ion-col>\n      </ion-row>\n      <ion-row class="btn-row">\n        <ion-col col-12>\n          <button\n            [disabled]="!loaded"\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="takeTest(1)"\n          >\n            Take Evaluation\n          </button>\n        </ion-col>\n      </ion-row>          \n      <ion-row class="btn-row">\n        <ion-col col-12>\n          <button\n            [disabled]="!loaded"\n            [ngClass]="[\'global-btn \' + \'subject--\'+subject.id ]"\n            ion-button\n            color="brown"\n            (click)="openMatchCards()"\n          >\n            Match Cards\n          </button>\n        </ion-col>\n      </ion-row> \n    </div>\n    <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>\n  </div>\n</ion-content>\n\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/onboarding/onboarding.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* ViewController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */]) === "function" && _e || Object])
     ], OnboardingPage);
     return OnboardingPage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=onboarding.js.map
@@ -1437,84 +1450,7 @@ var config = {
 
 /***/ }),
 
-/***/ 37:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SessionProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_storage__ = __webpack_require__(26);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var SessionProvider = /** @class */ (function () {
-    function SessionProvider(storage) {
-        this.storage = storage;
-    }
-    SessionProvider.prototype.newUser = function (data) {
-        localStorage.setItem('user', JSON.stringify(data));
-    };
-    SessionProvider.prototype.getUser = function () {
-        var user = JSON.parse(localStorage.getItem('user'));
-        return user;
-    };
-    SessionProvider.prototype.newActivationKey = function (data) {
-        localStorage.setItem('activation_key', JSON.stringify(data));
-    };
-    SessionProvider.prototype.getActivationKey = function () {
-        // localStorage.removeItem('activation_key')
-        return localStorage.getItem('activation_key');
-    };
-    SessionProvider.prototype.isActivated = function () {
-        var activation_key = JSON.parse(localStorage.getItem('activation_key'));
-        console.log('key ', activation_key);
-        if (activation_key || activation_key !== null || !this.hasExpired(activation_key)) {
-            console.log('activated ', activation_key);
-            return true;
-        }
-        else {
-            console.log('not activated ', activation_key);
-            return false;
-        }
-    };
-    SessionProvider.prototype.hasExpired = function (activation_key) {
-        //   create date objects for comparison
-        if (!activation_key)
-            return true;
-        var today = new Date();
-        var expiryTime = new Date(activation_key.expiry_date);
-        return (today.getTime() > expiryTime.getTime());
-    };
-    SessionProvider.prototype.checkUser = function () {
-        var user = JSON.parse(localStorage.getItem('user'));
-        console.log('user ', user);
-        if (user != null || user != undefined) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
-    SessionProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]])
-    ], SessionProvider);
-    return SessionProvider;
-}());
-
-//# sourceMappingURL=session.js.map
-
-/***/ }),
-
-/***/ 38:
+/***/ 35:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2054,6 +1990,83 @@ var OfflineProvider = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 38:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SessionProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_storage__ = __webpack_require__(26);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var SessionProvider = /** @class */ (function () {
+    function SessionProvider(storage) {
+        this.storage = storage;
+    }
+    SessionProvider.prototype.newUser = function (data) {
+        localStorage.setItem('user', JSON.stringify(data));
+    };
+    SessionProvider.prototype.getUser = function () {
+        var user = JSON.parse(localStorage.getItem('user'));
+        return user;
+    };
+    SessionProvider.prototype.newActivationKey = function (data) {
+        localStorage.setItem('activation_key', JSON.stringify(data));
+    };
+    SessionProvider.prototype.getActivationKey = function () {
+        // localStorage.removeItem('activation_key')
+        return localStorage.getItem('activation_key');
+    };
+    SessionProvider.prototype.isActivated = function () {
+        var activation_key = JSON.parse(localStorage.getItem('activation_key'));
+        console.log('key ', activation_key);
+        if (activation_key || activation_key !== null || !this.hasExpired(activation_key)) {
+            console.log('activated ', activation_key);
+            return true;
+        }
+        else {
+            console.log('not activated ', activation_key);
+            return false;
+        }
+    };
+    SessionProvider.prototype.hasExpired = function (activation_key) {
+        //   create date objects for comparison
+        if (!activation_key)
+            return true;
+        var today = new Date();
+        var expiryTime = new Date(activation_key.expiry_date);
+        return (today.getTime() > expiryTime.getTime());
+    };
+    SessionProvider.prototype.checkUser = function () {
+        var user = JSON.parse(localStorage.getItem('user'));
+        console.log('user ', user);
+        if (user != null || user != undefined) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    SessionProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]])
+    ], SessionProvider);
+    return SessionProvider;
+}());
+
+//# sourceMappingURL=session.js.map
+
+/***/ }),
+
 /***/ 462:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2062,7 +2075,7 @@ var OfflineProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_native_audio__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_text_to_speech__ = __webpack_require__(463);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_sanitize_html__ = __webpack_require__(854);
@@ -2588,7 +2601,7 @@ var TeacherevaluationresultPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_session_session__ = __webpack_require__(38);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2759,51 +2772,10 @@ var TeacherexaminationresultPage = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreatestudentPageModule", function() { return CreatestudentPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createstudent__ = __webpack_require__(329);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngx_pagination__ = __webpack_require__(856);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-var CreatestudentPageModule = /** @class */ (function () {
-    function CreatestudentPageModule() {
-    }
-    CreatestudentPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__createstudent__["a" /* CreatestudentPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_3_ngx_pagination__["a" /* NgxPaginationModule */],
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__createstudent__["a" /* CreatestudentPage */]),
-            ],
-        })
-    ], CreatestudentPageModule);
-    return CreatestudentPageModule;
-}());
-
-//# sourceMappingURL=createstudent.module.js.map
-
-/***/ }),
-
-/***/ 473:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateteacherPageModule", function() { return CreateteacherPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createteacher__ = __webpack_require__(474);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createteacher__ = __webpack_require__(473);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2837,7 +2809,7 @@ var CreateteacherPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 474:
+/***/ 473:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2923,6 +2895,47 @@ var CreateteacherPage = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 474:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreatestudentPageModule", function() { return CreatestudentPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createstudent__ = __webpack_require__(329);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngx_pagination__ = __webpack_require__(856);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var CreatestudentPageModule = /** @class */ (function () {
+    function CreatestudentPageModule() {
+    }
+    CreatestudentPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__createstudent__["a" /* CreatestudentPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_3_ngx_pagination__["a" /* NgxPaginationModule */],
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__createstudent__["a" /* CreatestudentPage */]),
+            ],
+        })
+    ], CreatestudentPageModule);
+    return CreatestudentPageModule;
+}());
+
+//# sourceMappingURL=createstudent.module.js.map
+
+/***/ }),
+
 /***/ 475:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2971,7 +2984,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lesson_note__ = __webpack_require__(462);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_native_audio__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_network_network__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_text_to_speech__ = __webpack_require__(463);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3053,48 +3066,10 @@ var LessonOutlinePageModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnboardingPageModule", function() { return OnboardingPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__onboarding__ = __webpack_require__(334);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var OnboardingPageModule = /** @class */ (function () {
-    function OnboardingPageModule() {
-    }
-    OnboardingPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */]),
-            ],
-        })
-    ], OnboardingPageModule);
-    return OnboardingPageModule;
-}());
-
-//# sourceMappingURL=onboarding.module.js.map
-
-/***/ }),
-
-/***/ 479:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaywithCardPageModule", function() { return PaywithCardPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paywithcard__ = __webpack_require__(480);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paywithcard__ = __webpack_require__(479);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3124,7 +3099,7 @@ var PaywithCardPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 480:
+/***/ 479:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3201,6 +3176,44 @@ var PaywithCardPage = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=paywithcard.js.map
+
+/***/ }),
+
+/***/ 480:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnboardingPageModule", function() { return OnboardingPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__onboarding__ = __webpack_require__(334);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var OnboardingPageModule = /** @class */ (function () {
+    function OnboardingPageModule() {
+    }
+    OnboardingPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */]),
+            ],
+        })
+    ], OnboardingPageModule);
+    return OnboardingPageModule;
+}());
+
+//# sourceMappingURL=onboarding.module.js.map
 
 /***/ }),
 
@@ -3361,6 +3374,47 @@ var StudentreportdetailsPageModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StudentresultsPageModule", function() { return StudentresultsPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__studentresults__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(22);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var StudentresultsPageModule = /** @class */ (function () {
+    function StudentresultsPageModule() {
+    }
+    StudentresultsPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__studentresults__["a" /* StudentresultsPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__studentresults__["a" /* StudentresultsPage */]),
+                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormsModule */]
+            ],
+        })
+    ], StudentresultsPageModule);
+    return StudentresultsPageModule;
+}());
+
+//# sourceMappingURL=studentresults.module.js.map
+
+/***/ }),
+
+/***/ 486:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SubscriptionPageModule", function() { return SubscriptionPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
@@ -3394,7 +3448,7 @@ var SubscriptionPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 486:
+/***/ 487:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3432,7 +3486,7 @@ var TeacherdashboardPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 487:
+/***/ 488:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3467,44 +3521,6 @@ var TeacherevaluationresultPageModule = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=teacherevaluationresult.module.js.map
-
-/***/ }),
-
-/***/ 488:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeacherexaminationresultPageModule", function() { return TeacherexaminationresultPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__teacherexaminationresult__ = __webpack_require__(471);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var TeacherexaminationresultPageModule = /** @class */ (function () {
-    function TeacherexaminationresultPageModule() {
-    }
-    TeacherexaminationresultPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__teacherexaminationresult__["a" /* TeacherexaminationresultPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__teacherexaminationresult__["a" /* TeacherexaminationresultPage */]),
-            ],
-        })
-    ], TeacherexaminationresultPageModule);
-    return TeacherexaminationresultPageModule;
-}());
-
-//# sourceMappingURL=teacherexaminationresult.module.js.map
 
 /***/ }),
 
@@ -3581,11 +3597,10 @@ var PipesModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StudentresultsPageModule", function() { return StudentresultsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeacherexaminationresultPageModule", function() { return TeacherexaminationresultPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__studentresults__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__teacherexaminationresult__ = __webpack_require__(471);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3595,25 +3610,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
-var StudentresultsPageModule = /** @class */ (function () {
-    function StudentresultsPageModule() {
+var TeacherexaminationresultPageModule = /** @class */ (function () {
+    function TeacherexaminationresultPageModule() {
     }
-    StudentresultsPageModule = __decorate([
+    TeacherexaminationresultPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__studentresults__["a" /* StudentresultsPage */],
+                __WEBPACK_IMPORTED_MODULE_2__teacherexaminationresult__["a" /* TeacherexaminationresultPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__studentresults__["a" /* StudentresultsPage */]),
-                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormsModule */]
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__teacherexaminationresult__["a" /* TeacherexaminationresultPage */]),
             ],
         })
-    ], StudentresultsPageModule);
-    return StudentresultsPageModule;
+    ], TeacherexaminationresultPageModule);
+    return TeacherexaminationresultPageModule;
 }());
 
-//# sourceMappingURL=studentresults.module.js.map
+//# sourceMappingURL=teacherexaminationresult.module.js.map
 
 /***/ }),
 
@@ -3879,7 +3892,7 @@ var StoryBookPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_updates_updates__ = __webpack_require__(539);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_network_network__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__subscription_subscription__ = __webpack_require__(153);
@@ -4323,10 +4336,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_register_register_module__ = __webpack_require__(483);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_status_bar__ = __webpack_require__(534);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_splash_screen__ = __webpack_require__(535);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_auth_auth__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_network_network__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_session_session__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_updates_updates__ = __webpack_require__(539);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_storage__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_local_notifications__ = __webpack_require__(533);
@@ -4341,13 +4354,13 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_sqlite_db_copy__ = __webpack_require__(332);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_native_audio__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_topic_topic_module__ = __webpack_require__(489);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_onboarding_onboarding_module__ = __webpack_require__(478);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_paywithcard_paywithcard_module__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_onboarding_onboarding_module__ = __webpack_require__(480);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_paywithcard_paywithcard_module__ = __webpack_require__(478);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_quiz_quiz_module__ = __webpack_require__(493);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_quizresult_quizresult_module__ = __webpack_require__(482);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_examsubjects_examsubjects_module__ = __webpack_require__(475);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__providers_subscription_subscription__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_subscription_subscription_module__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_subscription_subscription_module__ = __webpack_require__(486);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_about_about_module__ = __webpack_require__(879);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_storybook_storybook_module__ = __webpack_require__(880);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_notifications_notifications_module__ = __webpack_require__(881);
@@ -4359,18 +4372,19 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__ionic_native_spinner_dialog__ = __webpack_require__(468);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__providers_inappbrowser_inappbrowser__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__providers_desktop_desktop__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__pages_createteacher_createteacher_module__ = __webpack_require__(473);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__pages_teacherdashboard_teacherdashboard_module__ = __webpack_require__(486);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__pages_createstudent_createstudent_module__ = __webpack_require__(472);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__pages_createteacher_createteacher_module__ = __webpack_require__(472);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__pages_teacherdashboard_teacherdashboard_module__ = __webpack_require__(487);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__pages_createstudent_createstudent_module__ = __webpack_require__(474);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_ngx_paginate__ = __webpack_require__(884);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__pages_postutme_postutme_module__ = __webpack_require__(481);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__pages_studentresults_studentresults_module__ = __webpack_require__(491);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__pages_studentresults_studentresults_module__ = __webpack_require__(485);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__pages_studentreportdetails_studentreportdetails_module__ = __webpack_require__(484);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__pages_teacherevaluationresult_teacherevaluationresult_module__ = __webpack_require__(487);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__pages_teacherexaminationresult_teacherexaminationresult_module__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__pages_teacherevaluationresult_teacherevaluationresult_module__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__pages_teacherexaminationresult_teacherexaminationresult_module__ = __webpack_require__(491);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__pages_activationpage_activationpage_module__ = __webpack_require__(231);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__pages_lesson_note_lesson_note_module__ = __webpack_require__(476);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__pages_lesson_outline_lesson_outline_module__ = __webpack_require__(477);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59__pages_match_cards_match_cards_module__ = __webpack_require__(885);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4438,6 +4452,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -4455,6 +4470,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_31__pages_quiz_quiz_module__["QuizPageModule"],
                 __WEBPACK_IMPORTED_MODULE_32__pages_quizresult_quizresult_module__["QuizresultPageModule"],
                 __WEBPACK_IMPORTED_MODULE_57__pages_lesson_note_lesson_note_module__["LessonNoteModule"],
+                __WEBPACK_IMPORTED_MODULE_59__pages_match_cards_match_cards_module__["MatchCardsModule"],
                 __WEBPACK_IMPORTED_MODULE_58__pages_lesson_outline_lesson_outline_module__["LessonOutlinePageModule"],
                 __WEBPACK_IMPORTED_MODULE_20__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_22__pipes_pipes_module__["a" /* PipesModule */],
@@ -4479,23 +4495,24 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/activationpage/activationpage.module#ActivationPageModule', name: 'ActivationPage', segment: 'activationpage', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/createstudent/createstudent.module#CreatestudentPageModule', name: 'CreatestudentPage', segment: 'createstudent', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/createteacher/createteacher.module#CreateteacherPageModule', name: 'CreateteacherPage', segment: 'createteacher', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/createstudent/createstudent.module#CreatestudentPageModule', name: 'CreatestudentPage', segment: 'createstudent', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/examsubjects/examsubjects.module#ExamsubjectsPageModule', name: 'ExamsubjectsPage', segment: 'examsubjects', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/lesson-note/lesson-note.module#LessonNoteModule', name: 'lessonNote-page', segment: 'lesson-note', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/lesson-outline/lesson-outline.module#LessonOutlinePageModule', name: 'lessonOutline-page', segment: 'lesson-outline', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/onboarding/onboarding.module#OnboardingPageModule', name: 'OnboardingPage', segment: 'onboarding', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/match-cards/match-cards.module#MatchCardsModule', name: 'matchcards-page', segment: 'match-cards', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/paywithcard/paywithcard.module#PaywithCardPageModule', name: 'PaywithCardPage', segment: 'paywithcard', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/onboarding/onboarding.module#OnboardingPageModule', name: 'OnboardingPage', segment: 'onboarding', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/postutme/postutme.module#PostutmePageModule', name: 'PostutmePage', segment: 'postutme', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/quizresult/quizresult.module#QuizresultPageModule', name: 'QuizresultPage', segment: 'quizresult', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/studentreportdetails/studentreportdetails.module#StudentreportdetailsPageModule', name: 'StudentreportdetailsPage', segment: 'studentreportdetails', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/studentresults/studentresults.module#StudentresultsPageModule', name: 'StudentresultsPage', segment: 'studentresults', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/subscription/subscription.module#SubscriptionPageModule', name: 'SubscriptionPage', segment: 'subscription', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherdashboard/teacherdashboard.module#TeacherdashboardPageModule', name: 'TeacherdashboardPage', segment: 'teacherdashboard', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherevaluationresult/teacherevaluationresult.module#TeacherevaluationresultPageModule', name: 'TeacherevaluationresultPage', segment: 'teacherevaluationresult', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/teacherexaminationresult/teacherexaminationresult.module#TeacherexaminationresultPageModule', name: 'TeacherexaminationresultPage', segment: 'teacherexaminationresult', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/topic/topic.module#TopicPageModule', name: 'TopicPage', segment: 'topic', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/studentresults/studentresults.module#StudentresultsPageModule', name: 'StudentresultsPage', segment: 'studentresults', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/teacherexaminationresult/teacherexaminationresult.module#TeacherexaminationresultPageModule', name: 'TeacherexaminationresultPage', segment: 'teacherexaminationresult', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/quiz/quiz.module#QuizPageModule', name: 'QuizPage', segment: 'quiz', priority: 'low', defaultHistory: [] }
                     ]
@@ -4548,11 +4565,11 @@ var AppModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_native_audio__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_auth__ = __webpack_require__(95);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__quizresult_quizresult__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_desktop_desktop__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_session_session__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__topic_topic__ = __webpack_require__(148);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5226,7 +5243,7 @@ var QuizPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__teacherevaluationresult_teacherevaluationresult__ = __webpack_require__(469);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__teacherexaminationresult_teacherexaminationresult__ = __webpack_require__(471);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_desktop_desktop__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_session_session__ = __webpack_require__(38);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5963,7 +5980,7 @@ var SearchFilterPipe = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_login_login__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_offline_offline__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_offline_offline__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_about_about__ = __webpack_require__(536);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_storybook_storybook__ = __webpack_require__(537);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_quizresult_quizresult__ = __webpack_require__(149);
@@ -5972,8 +5989,8 @@ var SearchFilterPipe = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_subscription_subscription__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_updates_updates__ = __webpack_require__(538);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_desktop_desktop__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_createteacher_createteacher__ = __webpack_require__(474);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_createteacher_createteacher__ = __webpack_require__(473);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_session_session__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_teacherdashboard_teacherdashboard__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_studentresults_studentresults__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_activationpage_activationpage__ = __webpack_require__(131);
@@ -6651,6 +6668,276 @@ var UpdatesPageModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 885:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatchCardsModule", function() { return MatchCardsModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__match_cards__ = __webpack_require__(886);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+// import { NativeAudio } from "@ionic-native/native-audio";
+// import { OfflineProvider } from "../../providers/offline/offline";
+// import { LearningProvider } from "../../providers/learning/learning";
+// import { NetworkProvider } from "../../providers/network/network";
+// import { TextToSpeech } from '@ionic-native/text-to-speech';
+var MatchCardsModule = /** @class */ (function () {
+    function MatchCardsModule() {
+    }
+    MatchCardsModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__match_cards__["a" /* MatchCards */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__match_cards__["a" /* MatchCards */]),
+            ],
+            providers: []
+        })
+    ], MatchCardsModule);
+    return MatchCardsModule;
+}());
+
+//# sourceMappingURL=match-cards.module.js.map
+
+/***/ }),
+
+/***/ 886:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MatchCards; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_desktop_desktop__ = __webpack_require__(18);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+// import { NativeAudio } from "@ionic-native/native-audio";
+// import { AuthProvider } from "../../providers/auth/auth";
+
+
+
+// import { LearningProvider } from "../../providers/learning/learning";
+// import { LessonOutlinePage } from "../lesson-outline/lesson-outline";
+var MatchCards = /** @class */ (function () {
+    function MatchCards(navCtrl, navParams, loader, storage, 
+        // private modalController: ModalController,
+        // private tts: TextToSpeech,
+        // private audio: NativeAudio,
+        // private events: Events,
+        desktopProvider, offlineProvider) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.loader = loader;
+        this.storage = storage;
+        this.desktopProvider = desktopProvider;
+        this.offlineProvider = offlineProvider;
+        this.loaded = Promise.resolve(true);
+        this.time = 0;
+        this.matchCount = 0;
+        this.gameOver = false;
+        this.newGame = true;
+        this.storage.get("user").then(function (user) {
+            _this.user = user;
+        });
+        this.topic = this.navParams.get('topic');
+        this.subject = this.navParams.get('subject');
+    }
+    MatchCards.prototype.ionViewWillEnter = function () {
+        var _this = this;
+        this.storage.get("user").then(function (user) {
+            _this.user = user;
+        });
+    };
+    MatchCards.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        var loader = this.loader.create();
+        loader.present().then(function (_) {
+            _this.desktopProvider.fetchFlashCards(_this.topic.id)
+                .subscribe(function (cards) {
+                _this.matchData = cards;
+                _this.loaded = Promise.resolve(true);
+                console.log('cards ', cards);
+                _this.initializeCards();
+                _this.learningData = {
+                    user_id: _this.user.id,
+                    user_name: _this.user.full_name,
+                    topic_id: _this.topic.id,
+                    subject_id: _this.subject.id,
+                    topic_name: _this.topic.topic,
+                    subject_name: _this.subject.name,
+                    track_type: "learning",
+                    time_spent: 0,
+                    started_at: null,
+                    completed_at: null
+                };
+                loader.dismiss();
+            }, function (e) {
+                console.log('error ', e);
+                loader.dismiss();
+            });
+        });
+    };
+    MatchCards.prototype.getFontSize = function (textLength) {
+        var baseSize = 12;
+        if (textLength >= baseSize) {
+            textLength = baseSize - 4;
+        }
+        var fontSize = baseSize - textLength;
+        return fontSize + "vw";
+    };
+    MatchCards.prototype.adjustCardFonts = function () {
+        var _this = this;
+        var cards = Array.from(document.querySelectorAll('.match-card p'));
+        console.log(cards);
+        cards.forEach(function (card) {
+            card.style.fontSize = _this.getFontSize(card.textContent.length);
+        });
+    };
+    MatchCards.prototype.initializeCards = function () {
+        var cards = [];
+        for (var _i = 0, _a = this.matchData; _i < _a.length; _i++) {
+            var data = _a[_i];
+            cards.push.apply(cards, [{ matchId: data.id, term: data.title }, { matchId: data.id, term: data.content }]);
+        }
+        this.newCards = cards.slice();
+        this.matchCards = this.shuffleArrary(cards.slice(0, 12));
+        console.log('matchcards ', this.matchCards);
+    };
+    MatchCards.prototype.shuffleArrary = function (data) {
+        var arr = data;
+        for (var i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * i);
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        return arr;
+    };
+    MatchCards.prototype.getTimeInSeconds = function (timeStamp) {
+        return Number((timeStamp / 1000)).toFixed(2);
+    };
+    MatchCards.prototype.ionViewWillLeave = function () {
+        console.log('will leave');
+        if (this.timer)
+            clearInterval(this.timer);
+        if (this.dismissTimeout)
+            clearTimeout(this.dismissTimeout);
+        // this.sendReadingData();
+    };
+    MatchCards.prototype.startReadingInterval = function () {
+        var _this = this;
+        this.timer = setInterval(function () {
+            _this.time += 1;
+        });
+    };
+    MatchCards.prototype.restart = function () {
+        this.matchCards = this.shuffleArrary(this.newCards.slice(0, Math.min(12, this.newCards.length)));
+        this.matchCount = 0;
+        this.gameOver = false;
+        this.time = 0;
+        this.startReadingInterval();
+    };
+    MatchCards.prototype.start = function () {
+        this.newGame = false;
+        this.startReadingInterval();
+        // this.adjustCardFonts()
+    };
+    MatchCards.prototype.handleCardSelect = function (e) {
+        var card = e.target;
+        if (card.classList.contains('selected')) {
+            this.selectedCard = null;
+            return card.classList.remove('selected');
+        }
+        if (!this.selectedCard) {
+            this.selectedCard = card;
+            // console.log('selected ', card);
+            return card.classList.add('selected');
+        }
+        var card1 = this.selectedCard;
+        card1.classList.remove('selected');
+        this.selectedCard = null;
+        if (card1.dataset.correctId === card.dataset.correctId) {
+            return this.markCorrect(card1, card);
+        }
+        this.markWrong(card1, card);
+    };
+    MatchCards.prototype.markCorrect = function (card1, card2) {
+        this.matchCount += 1;
+        if (this.matchCount === this.matchCards.length / 2) {
+            // game done
+            // console.log('game over')
+            this.matchCards = [];
+            this.gameOver = true;
+            clearInterval(this.timer);
+        }
+        card1.classList.add('correct');
+        card2.classList.add('correct');
+    };
+    MatchCards.prototype.markWrong = function (card1, card2) {
+        card1.classList.add('wrong');
+        card2.classList.add('wrong');
+        this.time += 1000;
+        this.displayExtraTime();
+        this.dismissTimeout = setTimeout(function () {
+            card1.classList.remove('wrong');
+            card2.classList.remove('wrong');
+        }, 500);
+    };
+    MatchCards.prototype.displayExtraTime = function () {
+        var _this = this;
+        var p = document.createElement('p');
+        p.textContent = '+1 sec';
+        p.classList.add('added-time');
+        this.timerContainer.nativeElement.appendChild(p);
+        this.addedTimeTimeout = setTimeout(function () {
+            _this.timerContainer.nativeElement.removeChild(p);
+        }, 800);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])("timer"),
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _a || Object)
+    ], MatchCards.prototype, "timerEl", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])("timerContainer"),
+        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _b || Object)
+    ], MatchCards.prototype, "timerContainer", void 0);
+    MatchCards = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: "page-matchcards",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/match-cards/match-cards.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu" color="brown"></ion-icon>\n    </button>\n    <ion-title>Match</ion-title>\n    <ion-buttons end>\n      <!-- <button ion-button color="dark" class="timer" (click)="UndoDissmis()">\n        <ion-icon name="ios-undo" color="dark" class="calc-icon"></ion-icon>\n      </button>-->\n      <!-- <button ion-button color="dark" class="timer" (click)="restart()">\n        <ion-icon name="refresh" color="dark" class="calc-icon"></ion-icon>\n      </button> -->\n      <button\n        ion-button\n        clear\n        color="dark"\n        class="timer"\n        *ngIf="!gameOver && !newGame"\n        #timer\n      >\n        {{ getTimeInSeconds(time) }} seconds\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div [ngClass]="{\'match-done\': true, \'show\': gameOver === true}">\n    <p class="emoji">🎊</p>\n    <h1>Nice Work!</h1>\n    <br />\n    <h2>{{ getTimeInSeconds(time) }} seconds</h2>\n    <p>Your personal record is {{ getTimeInSeconds(time) }} seconds</p>\n    <br />\n    <br />\n    <button class="global-btn enroll-btn" ion-button (click)="restart()">\n      Play again\n    </button>\n    <!-- <button\n      class="global-btn tertiary-btn--outline"\n      ion-button\n      (click)="restart()"\n    >\n      Restart\n    </button> -->\n  </div>\n  <div [ngClass]="{\'match-done\': true, \'show\': newGame === true}">\n    <p class="emoji">🏁</p>\n    <h1>Ready to play?</h1>\n    <p>See how fast you can match all the terms with their definitions.</p>\n    <br />\n    <br />\n    <button class="global-btn enroll-btn" ion-button (click)="start()">\n      Start game\n    </button>\n    <br />\n    <!-- <button\n      class="global-btn tertiary-btn--outline"\n      ion-button\n      (click)="restart()"\n    >\n      Restart\n    </button> -->\n  </div>\n  <div *ngIf="loaded | async" class="match-container">\n    <!-- matchcards Interface-->\n    <div [ngClass]="{\'match-cards\': true, \'show\': !gameOver && !newGame }">\n      <div\n        class="match-card"\n        [attr.data-correct-id]="card.matchId"\n        *ngFor="let card of matchCards"\n        (click)="handleCardSelect($event)"\n        [innerHTML]="card.term"\n      ></div>\n      <div class="timer-container" #timerContainer>\n        <!-- <p class="added-time">+1 Sec</p> -->\n      </div>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/match-cards/match-cards.html"*/
+        }),
+        __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4__providers_desktop_desktop__["a" /* DesktopProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_desktop_desktop__["a" /* DesktopProvider */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__["a" /* OfflineProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_offline_offline__["a" /* OfflineProvider */]) === "function" && _h || Object])
+    ], MatchCards);
+    return MatchCards;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
+}());
+
+//# sourceMappingURL=match-cards.js.map
+
+/***/ }),
+
 /***/ 95:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6730,7 +7017,7 @@ var AuthProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_app_preferences_ngx__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_network_network__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_session_session__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_inappbrowser_inappbrowser__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_desktop_desktop__ = __webpack_require__(18);
@@ -7101,7 +7388,7 @@ var LoginPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__examsubjects_examsubjects__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_desktop_desktop__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__postutme_postutme__ = __webpack_require__(465);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_session_session__ = __webpack_require__(38);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7211,7 +7498,7 @@ var HomePage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_session_session__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_session_session__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__studentreportdetails_studentreportdetails__ = __webpack_require__(470);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

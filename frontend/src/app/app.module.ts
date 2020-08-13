@@ -68,6 +68,7 @@ import { TeacherexaminationresultPageModule } from "../pages/teacherexaminationr
 import { ActivationPageModule } from "../pages/activationpage/activationpage.module";
 import { LessonNoteModule } from "../pages/lesson-note/lesson-note.module";
 import { LessonOutlinePageModule } from "../pages/lesson-outline/lesson-outline.module";
+import { MatchCardsModule } from "../pages/match-cards/match-cards.module";
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { LessonOutlinePageModule } from "../pages/lesson-outline/lesson-outline.
     QuizPageModule,
     QuizresultPageModule,
     LessonNoteModule,
+    MatchCardsModule,
     LessonOutlinePageModule,
     HttpClientModule,
     PipesModule,

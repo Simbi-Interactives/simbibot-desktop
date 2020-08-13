@@ -85,6 +85,10 @@ export class DesktopProvider {
     return this.http.get(`${this.baseurl}/app/fetch_keypoints/${topic_id}`);
   }
 
+  public fetchFlashCards(topic_id) {
+    return this.http.get(`${this.baseurl}/app/fetch_flashCards/${topic_id}`);
+  }
+
   public fetchQuestionForExam(subject_id, super_exam_id) {
     return this.http.get(`${this.baseurl}/app/fetch_questions_from_exam_list?subject_id=${subject_id}&super_exam_id=${super_exam_id}`);
   } 

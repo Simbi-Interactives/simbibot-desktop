@@ -81,4 +81,11 @@ export class OnboardingPage {
       });
     });
   }
+
+
+  openMatchCards() {
+    return this.viewController.dismiss({
+      match_cards: true,
+    });
+  }
 }

@@ -92,6 +92,30 @@ router.get("/fetch_keypoints/:topic_id", (req, res) => {
   }
 });
 
+router.get("/fetch_flashCards/:topic_id", (req, res) => {
+  try {
+    const topic_id = req.params.topic_id;
+
+    db.serialize(() => {
+      db.all(
+        `Select * from flashcards Where topic_id=${topic_id} order by index_number DESC LIMIT 20`,
+        [],
+        (err, data) => {
+          if (err) {
+            console.log(err);
+            return res.status(422).send(err);
+          }
+
+          return res.status(200).send(data);
+        }
+      );
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(422).send(e);
+  }
+});
+
 router.get('/fetch_questions/:topic_id', (req, res) => {
   try {
     const topic_id = req.params.topic_id;
