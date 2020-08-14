@@ -200,16 +200,17 @@ page-flashcards {
 
   .flash-cards {
     margin: 0 auto;
-    margin-top: 5%;
+    // margin-top: 5%;
     width: 80%;
     max-width: 400px;
     height: 600px;
-    min-height: 100%;
+    max-height: 80%;
     // max-height: 600px;
     position: relative;
     overflow: visible;
     background: none;
     perspective: 1000px;
+    padding: 20px 0;
   }
 
   .flash-card {

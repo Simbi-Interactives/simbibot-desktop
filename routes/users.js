@@ -42,10 +42,10 @@ router.post("/create_teacher", async (req, res) => {
 
     db.serialize(() => {
       db.all(
-        `select * from users where email='${body.email}'`,
+        `select * from users where email='${data.email}'`,
         [],
         async (err, data) => {
-          if (err) {
+          if (err) {  
             console.log(err);
             return res.status(422).send(err);
           }

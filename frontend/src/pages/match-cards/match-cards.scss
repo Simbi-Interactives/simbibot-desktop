@@ -189,18 +189,17 @@ page-matchcards {
       width: 100%;
       // font-size: 18px;
       // font-size: 35px;
-      font-size: 1.5vw;
+      font-size: 1.5rem;
 
       // max-height: calc(var(--max-lines) * var(--lh));
       // word-break: break-word;
-      // overflow: hidden;
+      overflow: hidden;
       // line-height: var(--lh);
       padding-right: 1rem;
       // white-space: nowrap;
 
-      // text-overflow: ellipsis;
-      position: relative;
-      overflow: scroll;
+      text-overflow: ellipsis;
+      position: relative;      
 
       // &::before {
       //   content: "...";
