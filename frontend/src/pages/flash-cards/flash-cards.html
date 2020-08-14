@@ -1,0 +1,188 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="brown"></ion-icon>
+    </button>
+    <ion-title>{{ topic.topic }}</ion-title>
+    <ion-buttons end>
+      <button
+        ion-button
+        color="dark"
+        class="timer"
+        (click)="UndoDissmis()"
+        tooltip="Click to undo dismiss"
+        navTooltip
+      >
+        <ion-icon name="ios-undo" color="dark" class="calc-icon"></ion-icon>
+      </button>
+      <!-- <button
+        ion-button
+        color="dark"
+        class="timer danger"
+        (click)="showGuides()"
+      >
+        <ion-icon name="ios-alert" color="danger" class="calc-icon"></ion-icon>
+      </button> -->
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="loaded | async" class="flash-container">
+    <!-- flashcards Interface-->
+    <div class="flash-cards">
+      <div [ngClass]="{'flash-done': true, 'show': learningDone === true}">
+        <p class="emoji" *ngIf="studyAgain.size > 0">😍</p>
+        <p class="emoji" *ngIf="studyAgain.size === 0">🎊</p>
+        <h1>Nice Work!</h1>
+        <p *ngIf="studyAgain.size > 0">
+          Keep practicing to master the {{studyAgain.size}} remaining
+        </p>
+        <p *ngIf="studyAgain.size === 0">You've learned everything</p>
+        <br />
+        <!-- <br /> -->
+        <button
+          class="global-btn enroll-btn"
+          ion-button
+          (click)="restartWithStudyAgain()"
+          *ngIf="studyAgain.size > 0"
+        >
+          Practice again
+        </button>
+        <br />
+        <button
+          class="global-btn tertiary-btn--outline"
+          ion-button
+          (click)="restart()"
+        >
+          Restart all cards
+        </button>
+        <br />
+        <button
+          class="global-btn tertiary-btn--outline"
+          ion-button
+          (click)="openLessonNote()"
+        >
+          Read lesson note
+        </button>
+      </div>
+      <div
+        *ngFor="let card of flashCardData; let i = index;"
+        [ngClass]="{'flash-card' : true, 'active': i === flashCardData.length - 1}"
+        [attr.data-id]="card.id"
+      >
+        <div class="flash-card-status">
+          <!-- {{ card.title }} -->
+        </div>
+        <!-- tutorial buttons -->
+        <button
+          ion-button
+          color="dark"
+          class="guide-btn left"
+          *ngIf="i === 0"
+          tooltip="Drag card to the left to practice again"
+          positionV="top"
+          duration="900000"
+          arrow
+          [active]="displayLeftDragGuide"
+        ></button>
+        <button
+          ion-button
+          color="dark"
+          class="guide-btn right"
+          *ngIf="i === 0"
+          tooltip="Drag card to the right if understood"
+          positionV="bottom"
+          duration="900000"
+          arrow
+          [active]="displayRightDragGuide"
+        ></button>
+        <button
+          ion-button
+          color="dark"
+          class="guide-btn right flip"
+          *ngIf="i === 0"
+          tooltip="Tap card to view explanation"
+          positionV="center"
+          duration="900000"
+          arrow
+          [active]="displayFlipGuide"
+        ></button>
+        <!-- end of tutorial buttons -->
+        <!-- <div class="flash-card--inner"> -->
+        <div
+          class="flash-card--front"
+          (mousedown)="handleTouchStart($event)"
+          (mousemove)="handleTouchMove($event)"
+          (mouseup)="handleTouchEnd($event)"
+        >
+          <h1 [innerHTML]="card.title"></h1>
+          <div class="flash-card--options">
+            <button
+              ion-button
+              color="light"
+              class="timer"
+              (click)="playAudio(card.title)"
+            >
+              <ion-icon
+                name="ios-volume-up"
+                color="dark"
+                class="calc-icon"
+              ></ion-icon>
+              <button
+                ion-button
+                color="dark"
+                class="guide-btn sound-guide"
+                *ngIf="i === 0"
+                tooltip="Click to listen to audio"
+                arrow
+                [active]="displaySoundGuide"
+                duration="900000"
+              ></button>
+            </button>
+            <!-- <button ion-button color="light" class="timer">
+              <ion-icon
+                name="md-star-outline"
+                color="dark"
+                class="calc-icon"
+              ></ion-icon>
+            </button> -->
+          </div>
+        </div>
+        <div
+          class="flash-card--back"
+          (mousedown)="handleTouchStart($event)"
+          (mousemove)="handleTouchMove($event)"
+          (mouseup)="handleTouchEnd($event)"
+        >
+          <h1 [innerHTML]="card.content"></h1>
+          <div class="flash-card--options">
+            <button
+              ion-button
+              color="light"
+              (click)="playAudio(card.content)"
+              tooltip="Click to listen to audio"
+              positionV="bottom"
+              positionH="right"
+              arrow
+            >
+              <ion-icon
+                name="ios-volume-up"
+                color="dark"
+                class="calc-icon"
+              ></ion-icon>
+            </button>
+            <!-- <button ion-button color="light">
+              <ion-icon
+                name="md-star-outline"
+                color="dark"
+                class="calc-icon"
+              ></ion-icon>
+            </button> -->
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</ion-content>

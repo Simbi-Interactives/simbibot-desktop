@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, NgModule } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
@@ -69,12 +70,14 @@ import { ActivationPageModule } from "../pages/activationpage/activationpage.mod
 import { LessonNoteModule } from "../pages/lesson-note/lesson-note.module";
 import { LessonOutlinePageModule } from "../pages/lesson-outline/lesson-outline.module";
 import { MatchCardsModule } from "../pages/match-cards/match-cards.module";
+import { FlashCardModule } from "../pages/flash-cards/flash-cards.module";
 
 
 @NgModule({
   declarations: [MyApp, HomePage, ListPage, SyllabusPage],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ActivationPageModule,
     LoginPageModule,
     RegisterPageModule,
@@ -85,6 +88,7 @@ import { MatchCardsModule } from "../pages/match-cards/match-cards.module";
     QuizresultPageModule,
     LessonNoteModule,
     MatchCardsModule,
+    FlashCardModule,
     LessonOutlinePageModule,
     HttpClientModule,
     PipesModule,

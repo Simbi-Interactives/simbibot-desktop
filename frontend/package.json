@@ -73,6 +73,7 @@
     "express": "^4.17.1",
     "install-referrer": "^5.11.0",
     "ionic-angular": "3.9.5",
+    "ionic-tooltips": "^3.1.0",
     "ionicons": "3.0.0",
     "morgan": "^1.9.1",
     "ngx-paginate": "^2.0.1",

@@ -9,8 +9,8 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class DesktopProvider {
-  // baseurl = `/api/v1`;
-  baseurl = `http://localhost:3000/api/v1`; // change b4 push
+  baseurl = `/api/v1`;
+  // baseurl = `http://localhost:3000/api/v1`; // change b4 push
   constructor(public http: HttpClient) {
   }
 
@@ -79,6 +79,10 @@ export class DesktopProvider {
 
   public fetchKeypointsCounts(topic_id) {
     return this.http.get(`${this.baseurl}/app/fetch_keypoints_count/${topic_id}`);
+  }
+
+  public fetchFlashCardsCount(topic_id) {
+    return this.http.get(`${this.baseurl}/app/fetch_flashcards_count/${topic_id}`);
   }
 
   public fetchKeypoints(topic_id) {

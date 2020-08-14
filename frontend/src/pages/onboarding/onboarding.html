@@ -55,20 +55,32 @@
 
 <ion-content padding class="modal-content">
   <div [ngClass]="['bg-text ' + 'subject--' + subject.id ]">
-   
-    <div class="flex flex-v mt-25">      
+    <div class="flex flex-v mt-25">
+      <ion-row class="btn-row" *ngIf="hasFlashCards">
+        <ion-col col-12>
+          <button
+            [disabled]="!loaded"
+            [ngClass]="['global-btn ' + 'subject--'+subject.id ]"
+            ion-button
+            color="brown"
+            (click)="openFlashCards()"
+          >
+            FlashCards
+          </button>
+        </ion-col>
+      </ion-row>
       <ion-row class="btn-row" *ngIf="keyPointsCount > 0">
         <ion-col col-12>
           <button
             [ngClass]="['global-btn ' + 'subject--'+subject.id ]"
             ion-button
             color="brown"
-            (click)="openLessonNotes()"            
+            (click)="openLessonNotes()"
           >
             Read Lesson Note
           </button>
         </ion-col>
-      </ion-row>      
+      </ion-row>
       <ion-row class="btn-row">
         <ion-col col-12>
           <button
@@ -94,7 +106,7 @@
             Take Evaluation
           </button>
         </ion-col>
-      </ion-row>          
+      </ion-row>
       <ion-row class="btn-row">
         <ion-col col-12>
           <button
@@ -107,9 +119,8 @@
             Match Cards
           </button>
         </ion-col>
-      </ion-row> 
+      </ion-row>
     </div>
     <ion-spinner *ngIf="!loaded" class="spinner" color="brown"></ion-spinner>
   </div>
 </ion-content>
-

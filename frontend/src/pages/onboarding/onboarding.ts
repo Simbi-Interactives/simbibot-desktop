@@ -4,10 +4,12 @@ import {
   NavController,
   NavParams,
   ViewController,
-  AlertController
+  AlertController,
+  ToastController
 } from "ionic-angular";
-import { OfflineProvider } from "../../providers/offline/offline";
+// import { OfflineProvider } from "../../providers/offline/offline";
 import { DesktopProvider } from "../../providers/desktop/desktop";
+import { Keys } from "../../contants";
 
 @IonicPage()
 @Component({
@@ -20,13 +22,17 @@ export class OnboardingPage {
   loaded: Promise<boolean>;
   questions: any[];
   hasKeypoints: boolean = false;
+  hasFlashCards: boolean = false;
+  flashCardCount: number = 0;
   keyPointsCount: number = 0;
+  subscribed: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private viewController: ViewController,
     private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
     private desktopProvider: DesktopProvider,
   ) {
     this.topic = this.navParams.get("topic");
@@ -36,6 +42,7 @@ export class OnboardingPage {
 
   ionViewDidLoad() {
     this.fetchKeypointsCount()
+    this.fetchFlashCardsCount();
   }
 
   fetchQuestion(topic_id) {
@@ -59,10 +66,39 @@ export class OnboardingPage {
         this.keyPointsCount = response[0]["count(*)"];
 
         this.hasKeypoints = this.keyPointsCount > 0;
-        console.log('counts', this.hasKeypoints, this.topic.index)
+        console.log('key counts', this.hasKeypoints, this.topic.index)
       }, err => {
         console.log('err ', err);
       })
+  }
+
+
+  fetchFlashCardsCount() {
+    this.desktopProvider.fetchFlashCardsCount(this.topic.id)
+      .subscribe(async (response: any) => {
+        this.flashCardCount = response[0]["count(*)"];        
+        console.log('flashcards counts', this.flashCardCount)
+
+        this.hasFlashCards = this.flashCardCount > 0;
+        // this.hasFlashCards = (this.subscribed || this.isTrialPeriod(expiryDate)) ? (count > 0) : (count > 0 && this.topic.index == 0);
+
+      }, err => {
+        console.log('err ', err);
+      })
+  }
+
+  isTrialPeriod = (expire) => {
+    let today = new Date().getTime();
+    let expiryTime = new Date(expire).getTime();
+
+    let diff = today - expiryTime;
+    diff = diff / 1000; // milliseconds to seconds
+    diff = diff / 60; // seconds to minutes
+    diff = diff / 60; // miutes to hours
+    diff = diff / 24; // hours to days;
+    console.log('diff ', diff);
+    return diff < 7;
+
   }
 
   openLessonNotes() {
@@ -82,10 +118,29 @@ export class OnboardingPage {
     });
   }
 
+  openFlashCards() {
+    if (this.flashCardCount === 0) return this.presentToast('This topic currently has no flashcard 😢.')
+
+    return this.viewController.dismiss({
+      flash_cards: true,
+      topic: this.topic,
+      subject: this.subject
+    });
+  }
 
   openMatchCards() {
     return this.viewController.dismiss({
       match_cards: true,
     });
+  }
+
+
+  async presentToast(message) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2000
+    });
+
+    toast.present();
   }
 }

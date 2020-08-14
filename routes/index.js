@@ -68,6 +68,31 @@ router.get("/fetch_keypoints_count/:topic_id", (req, res) => {
   }
 });
 
+router.get("/fetch_flashcards_count/:topic_id", (req, res) => {
+  try {
+    const topic_id = req.params.topic_id;
+
+    db.serialize(() => {
+      db.all(
+        `Select count(*) from flashcards Where topic_id=${topic_id}`,
+        [],
+        (err, data) => {
+          if (err) {
+            console.log(err);
+            return res.status(422).send(err);
+          }
+
+          console.log(data);
+          return res.status(200).send(data);
+        }
+      );
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(422).send(e);
+  }
+});
+
 router.get("/fetch_keypoints/:topic_id", (req, res) => {
   try {
     const topic_id = req.params.topic_id;

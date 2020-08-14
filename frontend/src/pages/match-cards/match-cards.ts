@@ -81,6 +81,8 @@ export class MatchCards {
       this.desktopProvider.fetchFlashCards(this.topic.id)
       .subscribe(cards => {
         this.matchData = cards;
+        loader.dismiss();
+
         this.loaded = Promise.resolve(true);
         
         console.log('cards ', cards);
@@ -98,9 +100,7 @@ export class MatchCards {
             started_at: null,
             completed_at: null
           }
-
-
-          loader.dismiss();
+          
         },
           (e) => {
             console.log('error ', e);

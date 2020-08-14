@@ -1,0 +1,456 @@
+tooltip-box {
+  border-radius: 5px;
+  background: #36bfe9 !important;
+  padding: 10px 15px !important;
+
+  &.has-arrow.arrow-bottom:before {
+    border-top: 10px solid #36bfe9 !important;
+    background-color: #ffffff;
+    bottom: -15px !important;
+  }
+
+  &.has-arrow.arrow-top:before {
+    border-bottom: 10px solid #36bfe9 !important;
+    background-color: #ffffff;
+    top: -15px !important;
+  }
+
+  &.has-arrow.arrow-left:before {
+    border-right: 10px solid #36bfe9 !important;
+    background-color: #ffffff;
+    left: -15px !important;
+  }
+
+  &.has-arrow.arrow-right:before {
+    border-left: 10px solid #36bfe9 !important;
+    background-color: #ffffff;
+    right: -15px !important;
+  }
+}
+
+page-flashcards {
+  .toolbar-background-md {
+    background: none !important;
+  }
+
+  $imgKey: random(4);
+  $list: "quiz", "quiz2", "quiz3", "quiz4", "quiz5";
+  $nth: nth($list, $imgKey);
+
+  .content-ios,
+  .content-md {
+    background: url("../../assets/imgs/simbibg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .calc-icon {
+    font-size: 24px;
+  }
+
+  blockquote::after {
+    display: none;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+  .lesson-title {
+    font-size: 22px;
+    color: #000000;
+  }
+
+  ion-header ion-icon.back-button-icon.icon {
+    color: map-get($colors, dark);
+
+    &.danger {
+      color: map-get($colors, danger);
+    }
+  }
+  ion-navbar .toolbar-title-md {
+    color: map-get($colors, dark);
+  }
+
+  // .anwser-grp {
+  //   display: flex;
+  //   justify-content: center;
+  //   flex-wrap: wrap;
+  // }
+
+  // ion-label {
+  //   white-space: pre-wrap;
+  // }
+
+  .outline-trigger {
+    color: #333;
+    background-color: #f5f5f5;
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 16px;
+    margin: 10px 0 20px 0;
+    // box-shadow: 0 1px 10px 2px rgba($color: #000000, $alpha: 0.2);
+  }
+
+  ion-header {
+    .button-md {
+      background-color: none !important;
+      font-size: 1.8rem;
+    }
+  }
+  .thumb {
+    font-size: 40px !important;
+    text-align: center;
+  }
+  .item-md {
+    background: transparent !important;
+  }
+
+  .global-btn {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+    display: block;
+    font-size: 14px;
+    background-image: linear-gradient(to right, #7b1ce3, rgb(95, 157, 232));
+    color: #fff;
+    font-size: 14px;
+    text-transform: none;
+    font-weight: 600;
+    border-radius: 0;
+  }
+
+  .tertiary-btn--outline {
+    background-image: none;
+    background-color: #ffffff;
+    border-style: solid;
+    border: 1px solid #7b1ce3;
+    // border-image: linear-gradient(to right, #7b1ce3, rgb(95, 157, 232));
+    color: #7b1ce3;
+    font-size: 14px;
+    text-transform: none;
+    font-weight: 600;
+    box-shadow: none;
+
+    &.activated {
+      background-color: #ccc;
+    }
+  }
+
+  .enroll-btn {
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+
+  .flash-container {
+    overflow: hidden;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flash-done {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    padding: 10px 15px;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    position: relative;
+    overflow: visible;
+    background: #ffffff;
+    border-radius: 15px;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease-in;
+    border: none;
+    z-index: 1999;
+
+    h1 {
+      color: #000000;
+      font-size: 2.1rem;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    p {
+      font-size: 16px;
+      text-align: center;
+      color: #444;
+
+      &.emoji {
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .flash-done.show {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .flash-cards {
+    margin: 0 auto;
+    margin-top: 5%;
+    width: 80%;
+    max-width: 400px;
+    height: 600px;
+    min-height: 100%;
+    // max-height: 600px;
+    position: relative;
+    overflow: visible;
+    background: none;
+    perspective: 1000px;
+  }
+
+  .flash-card {
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    // background: #fff;
+    border-radius: 15px;
+    border: none;
+    will-change: transform;
+    box-shadow: 0 2px 10px 2px rgba(0, 0, 0, 0.1);
+    transition: transform 0.8s;
+
+    &.read {
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.3s ease-out;
+    }
+  }
+
+  .guide-btn {
+    position: absolute;
+    opacity: 0;
+
+    &.right {
+      bottom: 25%;
+      right: 20%;
+    }
+
+    &.left {
+      top: 20%;
+      left: 20%;
+    }
+
+    &.flip {
+      bottom: 35%;
+    }
+  }
+
+  .sound-guide {
+    left: 70%;
+  }
+
+  .flash-card--options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    // background: rgb(143, 140, 140);
+    border-radius: 15px;
+    border: none;
+    // z-index: 99;
+    pointer-events: visibleFill;
+
+    .button-md {
+      box-shadow: none;
+      background: #fff;
+    }
+  }
+
+  .flash-card-status {
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 99;
+  }
+
+  .flash-card-status.right {
+    background: green;
+  }
+
+  .flash-card-status.left {
+    background: orange;
+  }
+
+  .flash-card--inner {
+    background: #ffffff;
+    border: none;
+    border-radius: 15px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+
+    .flash-card--back {
+      // visibility: hidden;
+    }
+  }
+
+  /* Position the front and back side */
+  .flash-card--front,
+  .flash-card--back {
+    border: none;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+
+    transform-style: preserve-3d;
+    transition: all 0.3s;
+
+    h1 {
+      pointer-events: none;
+      color: #000000;
+      text-transform: none;
+    }
+  }
+
+  .flash-card--front {
+    // background: orange;
+
+    h1 {
+      color: #000000;
+      width: min-content;
+    }
+  }
+
+  .flash-card--back {
+    // background-color: dodgerblue;
+    color: white;
+
+    transform: rotateY(180deg);
+    padding: 20px;
+    visibility: hidden;
+
+    h1 {
+      font-size: 1.8rem;
+      // text-transform: capitalize;
+    }
+  }
+
+  .flash-card--back .flash-card--options {
+    // transform: rotateY(180deg);
+  }
+
+  .flash-card:nth-child(odd) {
+    transform: rotate(5deg);
+  }
+
+  .flash-card:nth-child(even) {
+    transform: rotate(-5deg);
+  }
+
+  .flash-card.active {
+    transform: rotate(0);
+    // box-shadow: 0 2px 10px 2px rgba(0, 0, 0, 0.2);
+
+    // background: #fff;
+  }
+
+  .flash-card.flip {
+    .flash-card--back {
+      visibility: visible;
+    }
+  }
+
+  .flash-card--inner.flip {
+    transform: rotateY(-180deg);
+
+    .flash-card--front {
+      visibility: hidden;
+    }
+
+    .flash-card--back {
+      visibility: visible;
+    }
+
+    .flash-card--back .flash-card--options {
+      z-index: 199;
+    }
+  }
+
+  @media (orientation: landscape) {
+    // .flash-cards {
+    //   margin: 0 auto;
+    //   margin-top: 10px;
+    //   width: 90%;
+    //   height: 90%;
+    //   // min-height: 100%;
+    //   position: relative;
+    //   overflow: visible;
+    //   background: none;
+    // }
+
+    .flash-card {
+      // width: 100%;
+      // height: 80%;
+    }
+
+    .flash-done {
+      // margin-top: 10px;
+      // width: 100%;
+      // height: 100%;
+      // min-height: 100%;
+
+      p {
+        font-size: 16px;
+        text-align: center;
+        color: #444;
+
+        &.emoji {
+          margin-top: 0;
+          font-size: 40px;
+          margin-bottom: 0px;
+        }
+      }
+    }
+
+    .flash-card-status {
+      height: 45px;
+    }
+  }
+}

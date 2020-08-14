@@ -12,6 +12,7 @@ import { QuizPage } from "../quiz/quiz";
 import { DesktopProvider } from "../../providers/desktop/desktop";
 import { LessonNote } from "../lesson-note/lesson-note";
 import { MatchCards } from "../match-cards/match-cards";
+import { FlashCard } from "../flash-cards/flash-cards";
 
 /**
  * Generated class for the TopicPage page.
@@ -86,7 +87,12 @@ export class TopicPage {
             topic: this.topics[i],
             subject: this.subject,
           })
-        } 
+        } else if (data.flash_cards == true) {
+          this.navCtrl.push(FlashCard, {
+            topic: this.topics[i],
+            subject: this.subject,
+          })
+        }
       }
     });
   }
