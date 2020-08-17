@@ -234,6 +234,10 @@ export class LoginPage {
 
 
   handleAuthError(err) {
+    if(err.status === 0) {
+      return this.showNoInternetConnection();
+    }
+    
     const errors = [];
 
     err.error.errors && (Object.entries(err.error.errors)

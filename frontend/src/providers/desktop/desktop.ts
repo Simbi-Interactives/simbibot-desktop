@@ -9,8 +9,8 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class DesktopProvider {
-  // baseurl = `/api/v1`;
-  baseurl = `http://localhost:3000/api/v1`; // change b4 push
+  baseurl = `/api/v1`;
+  // baseurl = `http://localhost:3000/api/v1`; // change b4 push
   constructor(public http: HttpClient) {
   }
 
