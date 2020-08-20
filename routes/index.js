@@ -389,7 +389,7 @@ router.get('/user_examination_report_avg/:user_id', (req, res) => {
 
   db.serialize(() => {
     db.all(
-      `SELECT *, count(*) as attempts, AVG(score) as aggregate_score from examattempts JOIN superexams on examattempts.exam_id = superexams.id join subjects on examattempts.subject_id = subjects.id join topics on examattempts.recommended_topic = topics.id where user_id = ${user_id}`,
+      `SELECT *, count(*) as attempts, AVG(score) as aggregate_score from examattempts JOIN superexams on examattempts.exam_id = superexams.id join topics on examattempts.recommended_topic = topics.id join subjects on examattempts.subject_id = subjects.id where user_id = ${user_id} GROUP By ExamAttempts.subject_id`,
       (err, data) => {
         if (err) {
           console.log(err);
@@ -417,19 +417,23 @@ router.get('/user_evaluation_report_avg/:user_id', (req, res) => {
   })
 });
 
-router.get('/user_examination_all/:user_id/:exam_id', (req, res) => {
+router.get('/user_examination_all/:user_id/:exam_id/:subject_id', (req, res) => {
   const user_id = req.params.user_id;
   const exam_id = req.params.exam_id;
+  const subject_id = req.params.subject_id;
 
   db.serialize(() => {
-    db.all(`select * from examattempts join superexams on examattempts.exam_id = superexams.id join topics on examattempts.recommended_topic = topics.id join subjects on examattempts.subject_id = subjects.id where user_id=${user_id} AND exam_id=${exam_id}`, (err, data) => {
-      if(err) {
-        console.log(err);
-        return res.status(422).send(err);
-      }
+    db.all(
+      `select * from examattempts join superexams on examattempts.exam_id = superexams.id join topics on examattempts.recommended_topic = topics.id join subjects on examattempts.subject_id = subjects.id where user_id=${user_id} AND ExamAttempts.subject_id=${subject_id}`,
+      (err, data) => {
+        if (err) {
+          console.log(err);
+          return res.status(422).send(err);
+        }
 
-      return res.status(200).send(data);
-    });
+        return res.status(200).send(data);
+      }
+    );
   })
 });
 
@@ -467,7 +471,7 @@ router.get('/evaluations_by_subject_for_line_chart/:subject_id', (req, res) => {
 router.get('/evaluations_avg_score_on_subject/:subject_id', (req, res) => {
   const subject_id = req.params.subject_id;
   db.serialize(() => {
-    db.all(`select *, count (*) as attempts, AVG(score) as aggregate_score FROM evaluations Inner JOIN users on evaluations.user_id = users.id JOIN subjects on evaluations.subject_id = subjects.id JOIN  topics on evaluations.topic_id = topics.id where evaluations.subject_id = ${subject_id}  Group By evaluations.topic_id `, (err, data) => {
+    db.all(`select *, evaluations.user_id as uid, count (*) as attempts, AVG(score) as aggregate_score FROM evaluations Inner JOIN users on evaluations.user_id = users.id JOIN subjects on evaluations.subject_id = subjects.id JOIN  topics on evaluations.topic_id = topics.id where evaluations.subject_id = ${subject_id}  Group By evaluations.topic_id `, (err, data) => {
       if(err) {
         console.log(err);
         return res.status(422).send(err);

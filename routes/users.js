@@ -45,7 +45,7 @@ router.post("/create_teacher", async (req, res) => {
         `select * from users where email='${data.email}'`,
         [],
         async (err, data) => {
-          if (err) {  
+          if (err) {
             console.log(err);
             return res.status(422).send(err);
           }
@@ -222,13 +222,11 @@ router.post("/bulk_upload_student", upload.single("file"), async (req, res) => {
     header: ["firstname", "lastname", "email", "password"],
   });
 
-  
   if (studentsArray.length < 1) return res.status(200).send("success");
-  
+
   if (studentsArray[0].firstname.includes("firstname"))
-  studentsArray.splice(0, 1);
-  
-  
+    studentsArray.splice(0, 1);
+
   try {
     async.each(
       studentsArray,
@@ -239,11 +237,11 @@ router.post("/bulk_upload_student", upload.single("file"), async (req, res) => {
             const hash = await bcrypt.hash(student.password, salt);
 
             db.run(
-              `insert into users(firstname, lastname, email, password, usertype, created_at, updated_at) values('${
+              `insert into users(firstname, lastname, email, password, usertype, created_at, updated_at) SELECT * FROM (SELECT '${
                 student.firstname
               }', '${student.lastname}', '${
                 student.email
-              }', '${hash}', 'student', '${new Date().toISOString()}', '${new Date().toISOString()}')`,
+              }', '${hash}', 'student', '${new Date().toISOString()}', '${new Date().toISOString()}') as tmp WHERE NOT EXISTS (SELECT email FROM Users WHERE email='${student.email}') LIMIT 1`,
               [],
               (err) => {
                 if (err) {

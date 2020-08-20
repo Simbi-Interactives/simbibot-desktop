@@ -96,7 +96,7 @@ export class MyApp {
     this.pages = [
       { title: "Home", component: HomePage, icon: "home" },
       {
-        title: "Report",
+        title: "Performances",
         component: StudentresultsPage,
         icon: "folder-open"
       },

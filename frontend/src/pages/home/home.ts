@@ -58,6 +58,11 @@ export class HomePage {
     })
   }
 
+  getExamLogo(name: string) {
+    console.log('exam name ', name)
+    return config.exams.find(exam => exam.name == name.toLowerCase())['image_url']
+  }
+
   gotoTopicPage(i, subjectFiltered) {
     let subject = subjectFiltered;
     this.navCtrl.push(

@@ -46,9 +46,9 @@
           <ion-card-content>
             <img
                   class="center img"
-                  [src]="exam.image_url"
+                  [src]="getExamLogo(exam.name)"
                   alt=""
-                  *ngIf="exam.image_url != null"
+                  *ngIf="getExamLogo(exam.name)"
                 />
             <p>
               

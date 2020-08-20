@@ -73,7 +73,7 @@ export class TeacherevaluationresultPage {
   viewPerfomances(evals) {
     console.log(evals);
     this.navCtrl.push(StudentresultsPage, {
-      user: evals.user_id
+      user: evals.uid
     });
   }
 }

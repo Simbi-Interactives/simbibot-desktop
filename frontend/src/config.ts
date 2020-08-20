@@ -23,6 +23,20 @@ export const config = {
 
   super_exam_id: 1,
 
+  exams: [
+    {
+      name: "waec",
+      background_color: "rgb(52, 14, 103)",
+      image_url: "assets/imgs/waec.png",
+    },
+    {
+
+      name: "utme",
+      background_color: "#1e4a32",
+      image_url: "assets/imgs/jamblogo.png",
+    }
+  ],
+
   version: '1.0.1',
   db_name: 'data.db'
 };

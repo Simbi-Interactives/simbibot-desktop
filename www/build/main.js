@@ -1003,7 +1003,7 @@ var SubscriptionProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_device__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__paywithcard_paywithcard__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__paywithcard_paywithcard__ = __webpack_require__(487);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1246,10 +1246,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
   and Angular DI.
 */
 var DesktopProvider = /** @class */ (function () {
-    // baseurl = `http://localhost:3000/api/v1`; // change b4 push
     function DesktopProvider(http) {
         this.http = http;
-        this.baseurl = "/api/v1";
+        // baseurl = `/api/v1`;
+        this.baseurl = "http://localhost:3000/api/v1"; // change b4 push
     }
     DesktopProvider.prototype.checkIfTeacherHasubscribed = function () {
         return this.http.get(this.baseurl + "/users/is_teacher_created");
@@ -1337,8 +1337,8 @@ var DesktopProvider = /** @class */ (function () {
     DesktopProvider.prototype.fetchEvaluationAverage = function (user_id) {
         return this.http.get(this.baseurl + "/app/user_evaluation_report_avg/" + user_id);
     };
-    DesktopProvider.prototype.fetchAllExamAttempt = function (user_id, exam_id) {
-        return this.http.get(this.baseurl + "/app/user_examination_all/" + user_id + "/" + exam_id);
+    DesktopProvider.prototype.fetchAllExamAttempt = function (user_id, exam_id, subject_id) {
+        return this.http.get(this.baseurl + "/app/user_examination_all/" + user_id + "/" + exam_id + "/" + subject_id);
     };
     DesktopProvider.prototype.fetchAllEvaluationAttempt = function (user_id, subject_id, topic_id) {
         return this.http.get(this.baseurl + "/app/user_evaluation_all/" + user_id + "/" + subject_id + "/" + topic_id);
@@ -1363,10 +1363,9 @@ var DesktopProvider = /** @class */ (function () {
     };
     DesktopProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]])
     ], DesktopProvider);
     return DesktopProvider;
-    var _a;
 }());
 
 //# sourceMappingURL=desktop.js.map
@@ -1407,7 +1406,7 @@ var map = {
 		482
 	],
 	"../pages/flash-cards/flash-cards.module": [
-		500
+		501
 	],
 	"../pages/lesson-note/lesson-note.module": [
 		483
@@ -1416,16 +1415,16 @@ var map = {
 		484
 	],
 	"../pages/login/login.module": [
-		502
+		500
 	],
 	"../pages/match-cards/match-cards.module": [
 		485
 	],
 	"../pages/onboarding/onboarding.module": [
-		486
+		488
 	],
 	"../pages/paywithcard/paywithcard.module": [
-		487
+		486
 	],
 	"../pages/postutme/postutme.module": [
 		489
@@ -1434,10 +1433,10 @@ var map = {
 		503
 	],
 	"../pages/quizresult/quizresult.module": [
-		490
+		491
 	],
 	"../pages/register/register.module": [
-		491
+		490
 	],
 	"../pages/studentreportdetails/studentreportdetails.module": [
 		492
@@ -1452,13 +1451,13 @@ var map = {
 		495
 	],
 	"../pages/teacherevaluationresult/teacherevaluationresult.module": [
-		499
+		497
 	],
 	"../pages/teacherexaminationresult/teacherexaminationresult.module": [
 		496
 	],
 	"../pages/topic/topic.module": [
-		497
+		498
 	]
 };
 function webpackAsyncContext(req) {
@@ -2153,23 +2152,24 @@ var CreatestudentPage = /** @class */ (function () {
             _this.uploading = false;
             _this.fetchUsers();
             _this.toastCtrl.create({
-                message: 'Bulk Upload Done'
+                message: 'Bulk upload completed successfully',
+                duration: 1000,
             }).present();
         }, function (err) {
             _this.uploading = false;
             _this.toastCtrl.create({
-                message: 'An error occured'
+                message: 'An error occured',
+                duration: 1000,
             }).present();
         });
     };
     CreatestudentPage.prototype.pageChange = function (p) {
-        console.log(p);
         this.page = p;
         this.fetchUsers();
     };
     CreatestudentPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-createstudent',template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/createstudent/createstudent.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Create Student</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div class="cont" >\n    <ion-row padding> \n      <ion-col col-4>\n        <ion-card>\n          <ion-card-content>\n            <ion-item>\n              <ion-label>Bulk Upload</ion-label>\n              <ion-input type="file" (change)="selectFile($event)" accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"></ion-input>\n            </ion-item>\n\n            <a href="assets/template.xlsx" download>Download template</a>\n            <button [disabled]="!bulkuploadfile || uploading" (click)="uploadStudent() " ion-button full>Upload</button>\n          </ion-card-content>\n        </ion-card>\n        <br>\n        <ion-card>\n          <ion-card-content>\n            <h3>Add new Student</h3>\n            <br>\n\n            <form [formGroup]="createStudentForm" (submit)="submit()">\n              <ion-item>\n                <ion-label floating>Student ID</ion-label>\n                <ion-input type="text" formControlName="email" value=""></ion-input>\n              </ion-item>\n              <br>\n              <ion-item>\n                <ion-label floating>First Name</ion-label>\n                <ion-input type="text" formControlName="firstname"></ion-input>\n              </ion-item>\n              <br>\n              <ion-item>\n                <ion-label floating>Last Name</ion-label>\n                <ion-input type="text" formControlName="lastname"></ion-input>\n              </ion-item>\n              <br>\n              <ion-item>\n                <ion-label floating>Password</ion-label>\n                <ion-input type="password" formControlName="password"></ion-input>\n              </ion-item>\n              <br>\n              <button type="submit" ion-button full round [disabled]="!createStudentForm.valid"> Create Student</button>\n            </form>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n\n      <!-- <ion-col col-1></ion-col> -->\n\n      <ion-col col-7 *ngIf="loaded | async">\n        <ion-card>\n          <ion-card-content>\n            <h1>Students: <strong>{{users.metric}}</strong></h1>\n          </ion-card-content>\n        </ion-card>\n        <br>\n\n        <ion-card>\n          <ion-card-content>\n            <div class="table-responsive">\n              <table class="table table-bordered">\n                <thead>\n                  <tr>\n                    <th  scope="col">#</th>\n                    <th scope="col">FirstName</th>\n                    <th scope="col">LastName</th>\n                    <th scope="col">Email Address</th>\n                  </tr>\n                </thead>\n      \n                <tbody>\n                  <tr *ngFor="let user of users.data  | paginate: { id: \'server\', itemsPerPage: users.limit, currentPage: page, totalItems: users.metric, numberOfPages: users.total }; let i = index"> \n                    <td>{{i + 1}}</td>\n                    <td>{{user.firstname}}</td>\n                    <td>{{user.lastname}}</td>\n                    <td>{{user.email}}</td>\n                  </tr>\n\n                  <br>\n                  <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>\n                </tbody>\n              </table>\n            </div>\n            <br>\n\n\n          </ion-card-content>\n        </ion-card>\n        \n      </ion-col>\n    </ion-row>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/createstudent/createstudent.html"*/,
+            selector: 'page-createstudent',template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/createstudent/createstudent.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Create Student</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div class="cont">\n    <ion-row padding>\n      <ion-col col-5>\n        <ion-card>\n          <ion-card-content>\n            <ion-list>\n              <ion-list-header>\n                <ion-label\n                  >The bulk upload feature allows you to upload multiple\n                  information at once from an excel file.</ion-label\n                >\n              </ion-list-header>\n              <ion-item>\n                <ion-label\n                  >Download the excel file template (Click here to\n                  download).</ion-label\n                >\n              </ion-item>\n              <ion-item>\n                <ion-label>\n                  Fill your students\' details in the file starting from the\n                  second row and save the updated file.</ion-label\n                >\n              </ion-item>\n              <ion-item>\n                <ion-label>\n                  Click on the "choose file" button here to upload the updated\n                  excel file</ion-label\n                >\n              </ion-item>\n            </ion-list>\n\n            <ion-item>\n              <ion-label>Bulk Upload</ion-label>\n              <ion-input\n                type="file"\n                (change)="selectFile($event)"\n                accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"\n              ></ion-input>\n            </ion-item>           \n            <ion-item>\n              <ion-label>\n                <a href="assets/template.xlsx" download>Download template</a>\n              </ion-label>\n            </ion-item>\n\n            <button\n              [disabled]="!bulkuploadfile || uploading"\n              (click)="uploadStudent() "\n              ion-button\n              full\n            >\n              Upload\n            </button>\n          </ion-card-content>\n        </ion-card>\n        <br />\n        <ion-card>\n          <ion-card-content>\n            <h3>Add new Student</h3>\n            <br />\n\n            <form [formGroup]="createStudentForm" (submit)="submit()">\n              <ion-item>\n                <ion-label floating>Student ID</ion-label>\n                <ion-input\n                  type="text"\n                  formControlName="email"\n                  value=""\n                ></ion-input>\n              </ion-item>\n              <br />\n              <ion-item>\n                <ion-label floating>First Name</ion-label>\n                <ion-input type="text" formControlName="firstname"></ion-input>\n              </ion-item>\n              <br />\n              <ion-item>\n                <ion-label floating>Last Name</ion-label>\n                <ion-input type="text" formControlName="lastname"></ion-input>\n              </ion-item>\n              <br />\n              <ion-item>\n                <ion-label floating>Password</ion-label>\n                <ion-input\n                  type="password"\n                  formControlName="password"\n                ></ion-input>\n              </ion-item>\n              <br />\n              <button\n                type="submit"\n                ion-button\n                full\n                round\n                [disabled]="!createStudentForm.valid"\n              >\n                Create Student\n              </button>\n            </form>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n\n      <!-- <ion-col col-1></ion-col> -->\n\n      <ion-col col-7 *ngIf="loaded | async">\n        <ion-card>\n          <ion-card-content>\n            <h1>Students: <strong>{{users.metric}}</strong></h1>\n          </ion-card-content>\n        </ion-card>\n        <br />\n\n        <ion-card>\n          <ion-card-content>\n            <div class="table-responsive">\n              <table class="table table-bordered">\n                <thead>\n                  <tr>\n                    <th scope="col">#</th>\n                    <th scope="col">FirstName</th>\n                    <th scope="col">LastName</th>\n                    <th scope="col">Email Address</th>\n                  </tr>\n                </thead>\n\n                <tbody>\n                  <tr\n                    *ngFor="let user of users.data  | paginate: { id: \'server\', itemsPerPage: users.limit, currentPage: page, totalItems: users.metric, numberOfPages: users.total }; let i = index"\n                  >\n                    <td>{{i + 1}}</td>\n                    <td>{{user.firstname}}</td>\n                    <td>{{user.lastname}}</td>\n                    <td>{{user.email}}</td>\n                  </tr>\n\n                  <br />\n                  <pagination-controls id="server"\n                    (pageChange)="pageChange($event)"\n                  ></pagination-controls>\n                </tbody>\n              </table>\n            </div>\n            <br />\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n    </ion-row>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/createstudent/createstudent.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__providers_desktop_desktop__["a" /* DesktopProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]])
     ], CreatestudentPage);
@@ -2378,7 +2378,7 @@ var OnboardingPage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return config; });
 var config = {
-    base_url: "https://learn.simbibot.com/api/",
+    base_url: "https://playground.simbibot.com/api/",
     /**
      * Version name  is the name of the version of this app for this duplicate
      */
@@ -2398,6 +2398,18 @@ var config = {
     storybook: "Sweet Sixteen",
     forgotPassword: "https://learn.simbibot.com/password/reset",
     super_exam_id: 1,
+    exams: [
+        {
+            name: "waec",
+            background_color: "rgb(52, 14, 103)",
+            image_url: "assets/imgs/waec.png",
+        },
+        {
+            name: "utme",
+            background_color: "#1e4a32",
+            image_url: "assets/imgs/jamblogo.png",
+        }
+    ],
     version: '1.0.1',
     db_name: 'data.db'
 };
@@ -3333,7 +3345,7 @@ var FlashCard = /** @class */ (function () {
     ], FlashCard.prototype, "flashcards", void 0);
     FlashCard = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-flashcards",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/flash-cards/flash-cards.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu" color="brown"></ion-icon>\n    </button>\n    <ion-title>{{ topic.topic }}</ion-title>\n    <ion-buttons end>\n      <button\n        ion-button\n        color="dark"\n        class="timer"\n        (click)="UndoDissmis()"\n        tooltip="Click to undo dismiss"\n        navTooltip\n      >\n        <ion-icon name="ios-undo" color="dark" class="calc-icon"></ion-icon>\n      </button>\n      <!-- <button\n        ion-button\n        color="dark"\n        class="timer danger"\n        (click)="showGuides()"\n      >\n        <ion-icon name="ios-alert" color="danger" class="calc-icon"></ion-icon>\n      </button> -->\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="loaded | async" class="flash-container">\n    <!-- flashcards Interface-->\n    <div class="flash-cards">\n      <div [ngClass]="{\'flash-done\': true, \'show\': learningDone === true}">\n        <p class="emoji" *ngIf="studyAgain.size > 0">😍</p>\n        <p class="emoji" *ngIf="studyAgain.size === 0">🎊</p>\n        <h1>Nice Work!</h1>\n        <p *ngIf="studyAgain.size > 0">\n          Keep practicing to master the {{studyAgain.size}} remaining\n        </p>\n        <p *ngIf="studyAgain.size === 0">You\'ve learned everything</p>\n        <br />\n        <!-- <br /> -->\n        <button\n          class="global-btn enroll-btn"\n          ion-button\n          (click)="restartWithStudyAgain()"\n          *ngIf="studyAgain.size > 0"\n        >\n          Practice again\n        </button>\n        <br />\n        <button\n          class="global-btn tertiary-btn--outline"\n          ion-button\n          (click)="restart()"\n        >\n          Restart all cards\n        </button>\n        <br />\n        <button\n          class="global-btn tertiary-btn--outline"\n          ion-button\n          (click)="openLessonNote()"\n        >\n          Read lesson note\n        </button>\n      </div>\n      <div\n        *ngFor="let card of flashCardData; let i = index;"\n        [ngClass]="{\'flash-card\' : true, \'active\': i === flashCardData.length - 1}"\n        [attr.data-id]="card.id"\n      >\n        <div class="flash-card-status">\n          <!-- {{ card.title }} -->\n        </div>\n        <!-- tutorial buttons -->\n        <button\n          ion-button\n          color="dark"\n          class="guide-btn left"\n          *ngIf="i === 0"\n          tooltip="Drag card to the left to practice again"\n          positionV="top"\n          duration="900000"\n          arrow\n          [active]="displayLeftDragGuide"\n        ></button>\n        <button\n          ion-button\n          color="dark"\n          class="guide-btn right"\n          *ngIf="i === 0"\n          tooltip="Drag card to the right if understood"\n          positionV="bottom"\n          duration="900000"\n          arrow\n          [active]="displayRightDragGuide"\n        ></button>\n        <button\n          ion-button\n          color="dark"\n          class="guide-btn right flip"\n          *ngIf="i === 0"\n          tooltip="Tap card to view explanation"\n          positionV="center"\n          duration="900000"\n          arrow\n          [active]="displayFlipGuide"\n        ></button>\n        <!-- end of tutorial buttons -->\n        <!-- <div class="flash-card--inner"> -->\n        <div\n          class="flash-card--front"\n          (mousedown)="handleTouchStart($event)"\n          (mousemove)="handleTouchMove($event)"\n          (mouseup)="handleTouchEnd($event)"\n        >\n          <h1 [innerHTML]="card.title"></h1>\n          <div class="flash-card--options">\n            <button\n              ion-button\n              color="light"\n              class="timer"\n              (click)="playAudio(card.title)"\n            >\n              <ion-icon\n                name="ios-volume-up"\n                color="dark"\n                class="calc-icon"\n              ></ion-icon>\n              <button\n                ion-button\n                color="dark"\n                class="guide-btn sound-guide"\n                *ngIf="i === 0"\n                tooltip="Click to listen to audio"\n                arrow\n                [active]="displaySoundGuide"\n                duration="900000"\n              ></button>\n            </button>\n            <!-- <button ion-button color="light" class="timer">\n              <ion-icon\n                name="md-star-outline"\n                color="dark"\n                class="calc-icon"\n              ></ion-icon>\n            </button> -->\n          </div>\n        </div>\n        <div\n          class="flash-card--back"\n          (mousedown)="handleTouchStart($event)"\n          (mousemove)="handleTouchMove($event)"\n          (mouseup)="handleTouchEnd($event)"\n        >\n          <h1 [innerHTML]="card.content"></h1>\n          <div class="flash-card--options">\n            <button\n              ion-button\n              color="light"\n              (click)="playAudio(card.content)"\n              tooltip="Click to listen to audio"\n              positionV="bottom"\n              positionH="right"\n              arrow\n            >\n              <ion-icon\n                name="ios-volume-up"\n                color="dark"\n                class="calc-icon"\n              ></ion-icon>\n            </button>\n            <!-- <button ion-button color="light">\n              <ion-icon\n                name="md-star-outline"\n                color="dark"\n                class="calc-icon"\n              ></ion-icon>\n            </button> -->\n          </div>\n        </div>\n        <!-- </div> -->\n      </div>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/flash-cards/flash-cards.html"*/
+            selector: "page-flashcards",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/flash-cards/flash-cards.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu" color="brown"></ion-icon>\n    </button>\n    <ion-title>{{ topic.topic }}</ion-title>\n    <ion-buttons end>\n      <button\n        ion-button\n        color="dark"\n        class="timer"\n        (click)="UndoDissmis()"\n        tooltip="Click to undo dismiss"\n        navTooltip\n      >\n        <ion-icon name="ios-undo" color="dark" class="calc-icon"></ion-icon>\n      </button>\n      <!-- <button\n        ion-button\n        color="dark"\n        class="timer danger"\n        (click)="showGuides()"\n      >\n        <ion-icon name="ios-alert" color="danger" class="calc-icon"></ion-icon>\n      </button> -->\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="loaded | async" class="flash-container">\n    <!-- flashcards Interface-->\n    <div class="flash-cards">\n      <div [ngClass]="{\'flash-done\': true, \'show\': learningDone === true}">\n        <p class="emoji" *ngIf="studyAgain.size > 0">😍</p>\n        <p class="emoji" *ngIf="studyAgain.size === 0">🎊</p>\n        <h1>Nice Work!</h1>\n        <p *ngIf="studyAgain.size > 0">\n          Keep practicing to master the {{studyAgain.size}} remaining\n        </p>\n        <p *ngIf="studyAgain.size === 0">You\'ve learned everything</p>\n        <br />\n        <!-- <br /> -->\n        <button\n          class="global-btn enroll-btn"\n          ion-button\n          (click)="restartWithStudyAgain()"\n          *ngIf="studyAgain.size > 0"\n        >\n          Practice again\n        </button>\n        <br />\n        <button\n          class="global-btn tertiary-btn--outline"\n          ion-button\n          (click)="restart()"\n        >\n          Restart all cards\n        </button>\n        <br />\n        <button\n          class="global-btn tertiary-btn--outline"\n          ion-button\n          (click)="openLessonNote()"\n        >\n          Read lesson note\n        </button>\n      </div>\n      <div\n        *ngFor="let card of flashCardData; let i = index;"\n        [ngClass]="{\'flash-card\' : true, \'active\': i === flashCardData.length - 1}"\n        [attr.data-id]="card.id"\n      >\n        <div class="flash-card-status">\n          <!-- {{ card.title }} -->\n        </div>\n        <!-- tutorial buttons -->\n        <button\n          ion-button\n          color="dark"\n          class="guide-btn left"\n          *ngIf="i === 0"\n          tooltip="Drag card to the left to practice again"\n          positionV="top"\n          duration="900000"\n          arrow\n          [active]="displayLeftDragGuide"\n        ></button>\n        <button\n          ion-button\n          color="dark"\n          class="guide-btn right"\n          *ngIf="i === 0"\n          tooltip="Drag card to the right if understood"\n          positionV="bottom"\n          duration="900000"\n          arrow\n          [active]="displayRightDragGuide"\n        ></button>\n        <button\n          ion-button\n          color="dark"\n          class="guide-btn right flip"\n          *ngIf="i === 0"\n          tooltip="Tap card to view explanation"\n          positionV="center"\n          duration="900000"\n          arrow\n          [active]="displayFlipGuide"\n        ></button>\n        <!-- end of tutorial buttons -->\n        <!-- <div class="flash-card--inner"> -->\n        <div\n          class="flash-card--front"\n          (mousedown)="handleTouchStart($event)"\n          (mousemove)="handleTouchMove($event)"\n          (mouseup)="handleTouchEnd($event)"\n        >\n          <h1 [innerHTML]="card.title"></h1>\n          <div class="flash-card--options">\n            <!-- <button\n              ion-button\n              color="light"\n              class="timer"\n              (click)="playAudio(card.title)"\n            >\n              <ion-icon\n                name="ios-volume-up"\n                color="dark"\n                class="calc-icon"\n              ></ion-icon>\n              <button\n                ion-button\n                color="dark"\n                class="guide-btn sound-guide"\n                *ngIf="i === 0"\n                tooltip="Click to listen to audio"\n                arrow\n                [active]="displaySoundGuide"\n                duration="900000"\n              ></button>\n            </button> -->\n            <!-- <button ion-button color="light" class="timer">\n              <ion-icon\n                name="md-star-outline"\n                color="dark"\n                class="calc-icon"\n              ></ion-icon>\n            </button> -->\n          </div>\n        </div>\n        <div\n          class="flash-card--back"\n          (mousedown)="handleTouchStart($event)"\n          (mousemove)="handleTouchMove($event)"\n          (mouseup)="handleTouchEnd($event)"\n        >\n          <h1 [innerHTML]="card.content"></h1>\n          <div class="flash-card--options">\n            <!-- <button\n              ion-button\n              color="light"\n              (click)="playAudio(card.content)"\n              tooltip="Click to listen to audio"\n              positionV="bottom"\n              positionH="right"\n              arrow\n            >\n              <ion-icon\n                name="ios-volume-up"\n                color="dark"\n                class="calc-icon"\n              ></ion-icon>\n            </button> -->\n            <!-- <button ion-button color="light">\n              <ion-icon\n                name="md-star-outline"\n                color="dark"\n                class="calc-icon"\n              ></ion-icon>\n            </button> -->\n          </div>\n        </div>\n        <!-- </div> -->\n      </div>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/flash-cards/flash-cards.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
@@ -3501,20 +3513,21 @@ var TeacherevaluationresultPage = /** @class */ (function () {
     TeacherevaluationresultPage.prototype.viewPerfomances = function (evals) {
         console.log(evals);
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__studentresults_studentresults__["a" /* StudentresultsPage */], {
-            user: evals.user_id
+            user: evals.uid
         });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('lineChart'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _a || Object)
     ], TeacherevaluationresultPage.prototype, "lineCanvas", void 0);
     TeacherevaluationresultPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-teacherevaluationresult',template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/teacherevaluationresult/teacherevaluationresult.html"*/'<!--\n  Generated template for the TeacherevaluationresultPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Evaluation Result </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div class="cont">\n    <ion-row>\n      <ion-col col-4>\n        <ion-card *ngIf="subjectLoaded">\n          <ion-card-content>\n            <ion-item *ngFor="let subject of subjects">\n              <button ion-button item-start clear color="dark"> {{subject.name}}</button>\n              <button ion-button item-end (click)="fetchChartData(subject)">View Results</button>\n            </ion-item>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n  \n  \n      <ion-col col-8 padding>\n        <h3>{{currentSubject | titlecase}}</h3>\n        <br>\n      <ion-card>\n          <ion-card-content>\n            <canvas #lineChart></canvas>\n          </ion-card-content>\n        </ion-card >\n\n        <br>\n\n          <ion-card *ngIf="aggregatesLoaded">\n            <ion-card-content>\n              <div class="table-responsive">\n                <table class="table table-bordered">\n                  <thead>\n                    <th  scope="col">#</th>\n                    <th scope="col">Fullname</th>\n                    <th scope="col">Topic</th>\n                    <th scope="col">Subject</th>\n                    <th scope="col">Attempts</th>\n                    <th scope="col">Avg Score</th>\n                    <th scope="col"></th>\n                  </thead>\n\n                  <tbody>\n                    <tr *ngFor="let aggregate of aggregates; let i =index">\n                    <td>{{i}}</td>\n                    <td>{{aggregate.firstname + \' \' + aggregate.lastname}}</td>\n                    <td>{{aggregate.topic}}</td>\n                    <td>{{aggregate.name}}</td>\n                    <td>{{aggregate.attempts}}</td>\n                    <td>{{aggregate.aggregate_score | number: \'1.2-2\'}}</td>\n                    <td>\n                      <button ion-button round (click)="viewPerfomances(aggregate)">View Students Result</button>\n                    </td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n            </ion-card-content>\n          </ion-card>\n      </ion-col>\n    </ion-row> \n  </div>\n  \n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/teacherevaluationresult/teacherevaluationresult.html"*/,
+            selector: 'page-teacherevaluationresult',template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/teacherevaluationresult/teacherevaluationresult.html"*/'<!--\n  Generated template for the TeacherevaluationresultPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Evaluation Result </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div class="cont">\n    <ion-row>\n      <ion-col col-4>\n        <ion-card *ngIf="subjectLoaded">\n          <ion-card-content>\n            <ion-item *ngFor="let subject of subjects">\n              <button ion-button item-start clear color="dark"> {{subject.name}}</button>\n              <button ion-button item-end (click)="fetchChartData(subject)">View Results</button>\n            </ion-item>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n  \n  \n      <ion-col col-8 padding>\n        <h3>{{currentSubject}}</h3>\n        <br>\n      <ion-card>\n          <ion-card-content>\n            <canvas #lineChart></canvas>\n          </ion-card-content>\n        </ion-card >\n\n        <br>\n\n          <ion-card *ngIf="aggregatesLoaded">\n            <ion-card-content>\n              <div class="table-responsive">\n                <table class="table table-bordered">\n                  <thead>\n                    <th  scope="col">#</th>\n                    <th scope="col">Fullname</th>\n                    <th scope="col">Topic</th>\n                    <th scope="col">Subject</th>\n                    <th scope="col">Attempts</th>\n                    <th scope="col">Avg Score</th>\n                    <th scope="col"></th>\n                  </thead>\n\n                  <tbody>\n                    <tr *ngFor="let aggregate of aggregates; let i =index">\n                    <td>{{i}}</td>\n                    <td>{{aggregate.firstname + \' \' + aggregate.lastname}}</td>\n                    <td>{{aggregate.topic}}</td>\n                    <td>{{aggregate.name}}</td>\n                    <td>{{aggregate.attempts}}</td>\n                    <td>{{aggregate.aggregate_score | number: \'1.2-2\'}}</td>\n                    <td>\n                      <button ion-button round (click)="viewPerfomances(aggregate)">View Students Result</button>\n                    </td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n            </ion-card-content>\n          </ion-card>\n      </ion-col>\n    </ion-row> \n  </div>\n  \n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/teacherevaluationresult/teacherevaluationresult.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */]) === "function" && _d || Object])
     ], TeacherevaluationresultPage);
     return TeacherevaluationresultPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=teacherevaluationresult.js.map
@@ -3559,6 +3572,7 @@ var StudentreportdetailsPage = /** @class */ (function () {
         var user;
         this.type = this.navParams.get('type');
         this.extras = this.navParams.get('body');
+        console.log('extras ', this.extras);
         if (this.extras.user_id != undefined) {
             user = this.extras.user_id;
         }
@@ -3573,7 +3587,7 @@ var StudentreportdetailsPage = /** @class */ (function () {
             });
         }
         else {
-            this.desktopProvider.fetchAllExamAttempt(user, this.extras.exam_id).subscribe(function (response) {
+            this.desktopProvider.fetchAllExamAttempt(user, this.extras.exam_id, this.extras.subject_id).subscribe(function (response) {
                 console.log(response);
                 _this.data = response;
             });
@@ -3684,7 +3698,7 @@ var TeacherexaminationresultPage = /** @class */ (function () {
     ], TeacherexaminationresultPage.prototype, "lineCanvas", void 0);
     TeacherexaminationresultPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-teacherexaminationresult',template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/teacherexaminationresult/teacherexaminationresult.html"*/'<!--\n  Generated template for the TeacherexaminationresultPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Examination Result</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div>\n    <ion-row>\n      <ion-col col-4>\n        <ion-card *ngIf="examsLoaded">\n          <ion-card-content>\n            <ion-item *ngFor="let exam of exams">\n              <button ion-button item-start clear color="dark"> {{exam.name}}</button>\n              <button ion-button item-end (click)="fetchExamChartScores(exam)">View Performance</button>\n            </ion-item>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n\n\n      <ion-col col-8 padding>\n        <h3>{{currentExam | titlecase}}</h3>\n        <br>\n        <ion-card>\n          <ion-card-content>\n            <canvas #lineChart></canvas>\n          </ion-card-content>\n        </ion-card>\n\n        <br>\n        <ion-card>\n          <ion-card-content>\n            <div class="table-responsive">\n              <table class="table table-bordered">\n                <thead>\n                  <tr>\n                    <th  scope="col">#</th>\n                    <th scope="col">FullName</th>\n                    <th scope="col">Subject</th>\n                    <th scope="col">Attempts</th>\n                    <th scope="col">Avg Score</th>\n                    <th scope="col">Recommended Topic</th>\n                    <th scope="col"></th>\n                  </tr>\n                </thead>\n\n                <tbody>\n                  <tr *ngFor="let exam of aggregates; let i = index;">\n                    <td>{{i}}</td>\n                    <td>{{exam.firstname + \' \' + exam.lastname}}</td>\n                    <td>{{exam.name}}</td>\n                    <td>{{exam.attempts}}</td>\n                    <td>{{exam.aggregate_score | number: \'1.2-2\' }}</td>\n                    <td>{{exam.topic}}</td>\n                    <td>\n                      <button ion-button round (click)="viewPerformances(exam)">View Students Performances</button>\n                    </td>\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n    </ion-row>\n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/teacherexaminationresult/teacherexaminationresult.html"*/,
+            selector: 'page-teacherexaminationresult',template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/teacherexaminationresult/teacherexaminationresult.html"*/'<!--\n  Generated template for the TeacherexaminationresultPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Examination Result</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div>\n    <ion-row>\n      <ion-col col-4>\n        <ion-card *ngIf="examsLoaded">\n          <ion-card-content>\n            <ion-item *ngFor="let exam of exams">\n              <button ion-button item-start clear color="dark"> {{exam.name}}</button>\n              <button ion-button item-end (click)="fetchExamChartScores(exam)">View Performance</button>\n            </ion-item>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n\n\n      <ion-col col-8 padding>\n        <h3>{{currentExam}}</h3>\n        <br>\n        <ion-card>\n          <ion-card-content>\n            <canvas #lineChart></canvas>\n          </ion-card-content>\n        </ion-card>\n\n        <br>\n        <ion-card>\n          <ion-card-content>\n            <div class="table-responsive">\n              <table class="table table-bordered">\n                <thead>\n                  <tr>\n                    <th  scope="col">#</th>\n                    <th scope="col">FullName</th>\n                    <th scope="col">Subject</th>\n                    <th scope="col">Attempts</th>\n                    <th scope="col">Avg Score</th>\n                    <th scope="col">Recommended Topic</th>\n                    <th scope="col"></th>\n                  </tr>\n                </thead>\n\n                <tbody>\n                  <tr *ngFor="let exam of aggregates; let i = index;">\n                    <td>{{i}}</td>\n                    <td>{{exam.firstname + \' \' + exam.lastname}}</td>\n                    <td>{{exam.name}}</td>\n                    <td>{{exam.attempts}}</td>\n                    <td>{{exam.aggregate_score | number: \'1.2-2\' }}</td>\n                    <td>{{exam.topic}}</td>\n                    <td>\n                      <button ion-button round (click)="viewPerformances(exam)">View Students Performances</button>\n                    </td>\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n    </ion-row>\n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/teacherexaminationresult/teacherexaminationresult.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_desktop_desktop__["a" /* DesktopProvider */]])
     ], TeacherexaminationresultPage);
@@ -4038,48 +4052,10 @@ var MatchCardsModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnboardingPageModule", function() { return OnboardingPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__onboarding__ = __webpack_require__(339);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var OnboardingPageModule = /** @class */ (function () {
-    function OnboardingPageModule() {
-    }
-    OnboardingPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */]),
-            ],
-        })
-    ], OnboardingPageModule);
-    return OnboardingPageModule;
-}());
-
-//# sourceMappingURL=onboarding.module.js.map
-
-/***/ }),
-
-/***/ 487:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaywithCardPageModule", function() { return PaywithCardPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paywithcard__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paywithcard__ = __webpack_require__(487);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4109,7 +4085,7 @@ var PaywithCardPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 488:
+/***/ 487:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4189,6 +4165,44 @@ var PaywithCardPage = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 488:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnboardingPageModule", function() { return OnboardingPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__onboarding__ = __webpack_require__(339);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var OnboardingPageModule = /** @class */ (function () {
+    function OnboardingPageModule() {
+    }
+    OnboardingPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__onboarding__["a" /* OnboardingPage */]),
+            ],
+        })
+    ], OnboardingPageModule);
+    return OnboardingPageModule;
+}());
+
+//# sourceMappingURL=onboarding.module.js.map
+
+/***/ }),
+
 /***/ 489:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4232,44 +4246,6 @@ var PostutmePageModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuizresultPageModule", function() { return QuizresultPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__quizresult__ = __webpack_require__(150);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var QuizresultPageModule = /** @class */ (function () {
-    function QuizresultPageModule() {
-    }
-    QuizresultPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__quizresult__["a" /* QuizresultPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__quizresult__["a" /* QuizresultPage */]),
-            ],
-        })
-    ], QuizresultPageModule);
-    return QuizresultPageModule;
-}());
-
-//# sourceMappingURL=quizresult.module.js.map
-
-/***/ }),
-
-/***/ 491:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterPageModule", function() { return RegisterPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
@@ -4300,6 +4276,44 @@ var RegisterPageModule = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=register.module.js.map
+
+/***/ }),
+
+/***/ 491:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuizresultPageModule", function() { return QuizresultPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__quizresult__ = __webpack_require__(150);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var QuizresultPageModule = /** @class */ (function () {
+    function QuizresultPageModule() {
+    }
+    QuizresultPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__quizresult__["a" /* QuizresultPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__quizresult__["a" /* QuizresultPage */]),
+            ],
+        })
+    ], QuizresultPageModule);
+    return QuizresultPageModule;
+}());
+
+//# sourceMappingURL=quizresult.module.js.map
 
 /***/ }),
 
@@ -4501,74 +4515,6 @@ var TeacherexaminationresultPageModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopicPageModule", function() { return TopicPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__topic__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_pipes_module__ = __webpack_require__(498);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-var TopicPageModule = /** @class */ (function () {
-    function TopicPageModule() {
-    }
-    TopicPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [__WEBPACK_IMPORTED_MODULE_2__topic__["a" /* TopicPage */]],
-            imports: [__WEBPACK_IMPORTED_MODULE_3__pipes_pipes_module__["a" /* PipesModule */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__topic__["a" /* TopicPage */])]
-        })
-    ], TopicPageModule);
-    return TopicPageModule;
-}());
-
-//# sourceMappingURL=topic.module.js.map
-
-/***/ }),
-
-/***/ 498:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PipesModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_search__ = __webpack_require__(866);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-var PipesModule = /** @class */ (function () {
-    function PipesModule() {
-    }
-    PipesModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [__WEBPACK_IMPORTED_MODULE_1__search_search__["a" /* SearchFilterPipe */]],
-            imports: [],
-            exports: [__WEBPACK_IMPORTED_MODULE_1__search_search__["a" /* SearchFilterPipe */]]
-        })
-    ], PipesModule);
-    return PipesModule;
-}());
-
-//# sourceMappingURL=pipes.module.js.map
-
-/***/ }),
-
-/***/ 499:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeacherevaluationresultPageModule", function() { return TeacherevaluationresultPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
@@ -4602,7 +4548,113 @@ var TeacherevaluationresultPageModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 498:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopicPageModule", function() { return TopicPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__topic__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_pipes_module__ = __webpack_require__(499);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var TopicPageModule = /** @class */ (function () {
+    function TopicPageModule() {
+    }
+    TopicPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [__WEBPACK_IMPORTED_MODULE_2__topic__["a" /* TopicPage */]],
+            imports: [__WEBPACK_IMPORTED_MODULE_3__pipes_pipes_module__["a" /* PipesModule */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__topic__["a" /* TopicPage */])]
+        })
+    ], TopicPageModule);
+    return TopicPageModule;
+}());
+
+//# sourceMappingURL=topic.module.js.map
+
+/***/ }),
+
+/***/ 499:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PipesModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_search__ = __webpack_require__(866);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var PipesModule = /** @class */ (function () {
+    function PipesModule() {
+    }
+    PipesModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [__WEBPACK_IMPORTED_MODULE_1__search_search__["a" /* SearchFilterPipe */]],
+            imports: [],
+            exports: [__WEBPACK_IMPORTED_MODULE_1__search_search__["a" /* SearchFilterPipe */]]
+        })
+    ], PipesModule);
+    return PipesModule;
+}());
+
+//# sourceMappingURL=pipes.module.js.map
+
+/***/ }),
+
 /***/ 500:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageModule", function() { return LoginPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(96);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var LoginPageModule = /** @class */ (function () {
+    function LoginPageModule() {
+    }
+    LoginPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */]),
+            ],
+        })
+    ], LoginPageModule);
+    return LoginPageModule;
+}());
+
+//# sourceMappingURL=login.module.js.map
+
+/***/ }),
+
+/***/ 501:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4650,44 +4702,6 @@ var FlashCardModule = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=flash-cards.module.js.map
-
-/***/ }),
-
-/***/ 502:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageModule", function() { return LoginPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(96);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var LoginPageModule = /** @class */ (function () {
-    function LoginPageModule() {
-    }
-    LoginPageModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */]),
-            ],
-        })
-    ], LoginPageModule);
-    return LoginPageModule;
-}());
-
-//# sourceMappingURL=login.module.js.map
 
 /***/ }),
 
@@ -4763,7 +4777,7 @@ var AboutPage = /** @class */ (function () {
     };
     AboutPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-about",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/about/about.html"*/'<ion-header>\n  <div class="bg-head">\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu" color="brown"></ion-icon>\n      </button>\n      <ion-title text-center class="about-title">\n        About SimbiBot\n      </ion-title>\n    </ion-navbar>\n  </div>\n</ion-header>\n\n<ion-content>\n  <img\n    src="../../assets/imgs/simbi-girl.png"\n    alt="simbi"\n    class="simbi-girl img-center"\n  />\n  <div class="about-content">\n    <div class="about-text">\n      <p>\n        SimbiBot is a learning partner that helps you learn, master and evaluate\n        yourself in any topic across all subjects.\n      </p>\n      <p>\n        SimbiBot also helps you prepare to pass and excel in your exams (such as\n        Common Entrance, BECE, WAEC, NECO, UTME and PUTME).\n      </p>\n      <p>\n        SimbiBot is available on web (www.simbibot.com) and mobile app stores.\n      </p>\n      <p>For more info contact us: care@simbibot.com Tel:09066450210</p>\n      <div class="social-icons">\n        <a\n          href="https://twitter.com/SimbiBot"\n          target="_blank"\n          rel="no_referer"\n          class="twitter-icon"\n        ></a>\n        <a\n          href="https://instagram.com/simbibot/"\n          target="_blank"\n          rel="no_referer"\n          class="instagram-icon"\n        ></a>\n        <a\n          href="https://www.facebook.com/simbibot/"\n          target="_blank"\n          rel="no_referer"\n          class="facebook-icon"\n        ></a>\n      </div>\n      <button class="share-btn" (click)="share()">Share</button>\n      <p>Version {{ config.version }}</p>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/about/about.html"*/
+            selector: "page-about",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/about/about.html"*/'<ion-header>\n  <div class="bg-head">\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu" color="brown"></ion-icon>\n      </button>\n      <ion-title text-center class="about-title">\n        About SimbiBot\n      </ion-title>\n    </ion-navbar>\n  </div>\n</ion-header>\n\n<ion-content>\n  <img\n    src="../../assets/imgs/simbi-girl.png"\n    alt="simbi"\n    class="simbi-girl img-center"\n  />\n  <div class="about-content">\n    <div class="about-text">\n      <p>\n        SimbiBot is a learning partner that helps you learn, master and evaluate\n        yourself in any topic across all subjects.\n      </p>\n      <p>\n        SimbiBot also helps you prepare to pass and excel in your exams (such as\n        Common Entrance, BECE, WAEC, NECO, UTME and PUTME).\n      </p>\n      <p>\n        SimbiBot is available on web (www.simbibot.com) and mobile app stores.\n      </p>\n      <p>For more info contact us: care@simbibot.com Tel:09066450210</p>\n      <div class="social-icons">\n        <a\n          href="https://twitter.com/SimbiBot"\n          target="_blank"\n          rel="no_referer"\n          class="twitter-icon"\n        ></a>\n        <a\n          href="https://instagram.com/simbibot/"\n          target="_blank"\n          rel="no_referer"\n          class="instagram-icon"\n        ></a>\n        <a\n          href="https://www.facebook.com/simbibot/"\n          target="_blank"\n          rel="no_referer"\n          class="facebook-icon"\n        ></a>\n      </div>\n      <!-- <button class="share-btn" (click)="share()">Share</button>\n      <p>Version {{ config.version }}</p> -->\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/about/about.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__["a" /* SocialSharing */]])
     ], AboutPage);
@@ -5356,8 +5370,8 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_list_list__ = __webpack_require__(889);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_syllabus_syllabus__ = __webpack_require__(890);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_login_login_module__ = __webpack_require__(502);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_register_register_module__ = __webpack_require__(491);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_login_login_module__ = __webpack_require__(500);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_register_register_module__ = __webpack_require__(490);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(544);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(545);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_offline_offline__ = __webpack_require__(27);
@@ -5371,17 +5385,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_forms__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_common_http__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_network__ = __webpack_require__(473);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pipes_pipes_module__ = __webpack_require__(498);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pipes_pipes_module__ = __webpack_require__(499);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_zip__ = __webpack_require__(335);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_file__ = __webpack_require__(338);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_sqlite__ = __webpack_require__(336);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_sqlite_db_copy__ = __webpack_require__(337);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_native_audio__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_topic_topic_module__ = __webpack_require__(497);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_onboarding_onboarding_module__ = __webpack_require__(486);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_paywithcard_paywithcard_module__ = __webpack_require__(487);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_topic_topic_module__ = __webpack_require__(498);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_onboarding_onboarding_module__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_paywithcard_paywithcard_module__ = __webpack_require__(486);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_quiz_quiz_module__ = __webpack_require__(503);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_quizresult_quizresult_module__ = __webpack_require__(490);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_quizresult_quizresult_module__ = __webpack_require__(491);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_examsubjects_examsubjects_module__ = __webpack_require__(482);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__providers_subscription_subscription__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_subscription_subscription_module__ = __webpack_require__(494);
@@ -5403,13 +5417,13 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__pages_postutme_postutme_module__ = __webpack_require__(489);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__pages_studentresults_studentresults_module__ = __webpack_require__(493);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__pages_studentreportdetails_studentreportdetails_module__ = __webpack_require__(492);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__pages_teacherevaluationresult_teacherevaluationresult_module__ = __webpack_require__(499);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__pages_teacherevaluationresult_teacherevaluationresult_module__ = __webpack_require__(497);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__pages_teacherexaminationresult_teacherexaminationresult_module__ = __webpack_require__(496);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__pages_activationpage_activationpage_module__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__pages_lesson_note_lesson_note_module__ = __webpack_require__(483);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_59__pages_lesson_outline_lesson_outline_module__ = __webpack_require__(484);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_60__pages_match_cards_match_cards_module__ = __webpack_require__(485);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__pages_flash_cards_flash_cards_module__ = __webpack_require__(500);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__pages_flash_cards_flash_cards_module__ = __webpack_require__(501);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5530,20 +5544,20 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/lesson-note/lesson-note.module#LessonNoteModule', name: 'lessonNote-page', segment: 'lesson-note', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/lesson-outline/lesson-outline.module#LessonOutlinePageModule', name: 'lessonOutline-page', segment: 'lesson-outline', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/match-cards/match-cards.module#MatchCardsModule', name: 'matchcards-page', segment: 'match-cards', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/onboarding/onboarding.module#OnboardingPageModule', name: 'OnboardingPage', segment: 'onboarding', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/paywithcard/paywithcard.module#PaywithCardPageModule', name: 'PaywithCardPage', segment: 'paywithcard', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/onboarding/onboarding.module#OnboardingPageModule', name: 'OnboardingPage', segment: 'onboarding', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/postutme/postutme.module#PostutmePageModule', name: 'PostutmePage', segment: 'postutme', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/quizresult/quizresult.module#QuizresultPageModule', name: 'QuizresultPage', segment: 'quizresult', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/quizresult/quizresult.module#QuizresultPageModule', name: 'QuizresultPage', segment: 'quizresult', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/studentreportdetails/studentreportdetails.module#StudentreportdetailsPageModule', name: 'StudentreportdetailsPage', segment: 'studentreportdetails', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/studentresults/studentresults.module#StudentresultsPageModule', name: 'StudentresultsPage', segment: 'studentresults', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/subscription/subscription.module#SubscriptionPageModule', name: 'SubscriptionPage', segment: 'subscription', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherdashboard/teacherdashboard.module#TeacherdashboardPageModule', name: 'TeacherdashboardPage', segment: 'teacherdashboard', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherexaminationresult/teacherexaminationresult.module#TeacherexaminationresultPageModule', name: 'TeacherexaminationresultPage', segment: 'teacherexaminationresult', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/topic/topic.module#TopicPageModule', name: 'TopicPage', segment: 'topic', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/teacherevaluationresult/teacherevaluationresult.module#TeacherevaluationresultPageModule', name: 'TeacherevaluationresultPage', segment: 'teacherevaluationresult', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/flash-cards/flash-cards.module#FlashCardModule', name: 'flashcards-page', segment: 'flash-cards', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/topic/topic.module#TopicPageModule', name: 'TopicPage', segment: 'topic', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/flash-cards/flash-cards.module#FlashCardModule', name: 'flashcards-page', segment: 'flash-cards', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/quiz/quiz.module#QuizPageModule', name: 'QuizPage', segment: 'quiz', priority: 'low', defaultHistory: [] }
                     ]
                 })
@@ -7052,7 +7066,7 @@ var MyApp = /** @class */ (function () {
         this.pages = [
             { title: "Home", component: __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */], icon: "home" },
             {
-                title: "Report",
+                title: "Performances",
                 component: __WEBPACK_IMPORTED_MODULE_20__pages_studentresults_studentresults__["a" /* StudentresultsPage */],
                 icon: "folder-open"
             },
@@ -7201,30 +7215,15 @@ var MyApp = /** @class */ (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Nav */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Nav */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Nav */]) === "function" && _a || Object)
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/app/app.html"*/'<ion-menu [content]="content" class="menu">\n  <ion-header>\n    <div class="menu-bg">\n      <ion-title text-center\n        ><img src="assets/imgs/simbi.png" class="img-src" alt=""\n      /></ion-title>\n      <h3 class="simbi-text" text-center>\n        Your Interactive Learning Assistant.\n      </h3>\n    </div>\n  </ion-header>\n\n  <ion-content>\n   \n\n    <ion-list class="padding-top">\n      <button\n        [ngClass]="p.title == activePage ? \'active-menu\' : \'\'"\n        menuClose\n        ion-item\n        no-lines\n        *ngFor="let p of pages"\n        (click)="openPage(p)"\n      >\n        <span class="menu-icon"><ion-icon [name]="p.icon"></ion-icon></span\n        ><span class="menu-text">{{ p.title }}</span>\n      </button>\n      <!-- For offline sidebar  -->\n      <!-- <button\n        [ngClass]="Activation == activePage ? \'active-menu\' : \'\'"\n        *ngIf="!hasSubscribed"\n        menuClose\n        ion-item\n        no-lines\n        (click)="openPageManually(subscriptionPage)"\n      >\n        <span class="menu-icon"><ion-icon name="compass"></ion-icon></span\n        ><span class="menu-text">Activation</span>\n      </button> -->\n      <!-- <button\n        *ngIf="hasSubscribed"\n        [ngClass]="Updates == activePage ? \'active-menu\' : \'\'"\n        menuClose\n        ion-item\n        no-lines\n        (click)="openPageManually(updatesPage)"\n      >\n        <span class="menu-icon"><ion-icon name="refresh"></ion-icon></span\n        ><span class="menu-text">Updates</span>\n      </button> -->\n      <!-- <button ion-item no-lines (click)="openWhatssapLink()">\n        <span class="menu-icon"\n          ><ion-icon\n            name="people"\n            class="icon-color"\n            color="light"\n          ></ion-icon></span\n        ><span class="menu-text">Join Community</span>\n      </button> -->\n      <button ion-item no-lines (click)="openPageManually(aboutPage)">\n        <span class="menu-icon"\n          ><ion-icon\n            name="information-circle"\n            class="icon-color"\n            color="light"\n          ></ion-icon></span\n        ><span class="menu-text">About Simbi</span>\n      </button>\n    </ion-list>\n  </ion-content>\n\n  <ion-footer>\n    <button ion-item no-lines (click)="logOut()">\n      <span class="menu-icon"\n        ><ion-icon name="log-out" color="light"></ion-icon></span\n      ><span class="menu-text">Log Out</span>\n    </button>\n  </ion-footer>\n</ion-menu>\n  <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/app/app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* Platform */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */],
-            __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */],
-            __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_8__providers_offline_offline__["a" /* OfflineProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
-            __WEBPACK_IMPORTED_MODULE_18__providers_session_session__["a" /* SessionProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_13__ionic_native_native_audio__["a" /* NativeAudio */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_local_notifications__["a" /* LocalNotifications */],
-            __WEBPACK_IMPORTED_MODULE_16__providers_desktop_desktop__["a" /* DesktopProvider */]
-            // private installReferrer: TealiumInstallReferrer,
-            // private _installReferrer: InstallReferrer,
-        ])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* MenuController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_8__providers_offline_offline__["a" /* OfflineProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__providers_offline_offline__["a" /* OfflineProvider */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_18__providers_session_session__["a" /* SessionProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_18__providers_session_session__["a" /* SessionProvider */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_13__ionic_native_native_audio__["a" /* NativeAudio */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13__ionic_native_native_audio__["a" /* NativeAudio */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_local_notifications__["a" /* LocalNotifications */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_local_notifications__["a" /* LocalNotifications */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_16__providers_desktop_desktop__["a" /* DesktopProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_16__providers_desktop_desktop__["a" /* DesktopProvider */]) === "function" && _q || Object])
     ], MyApp);
     return MyApp;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 }());
 
 //# sourceMappingURL=app.component.js.map
@@ -7799,10 +7798,12 @@ var LoginPage = /** @class */ (function () {
         this.desktopProvider = desktopProvider;
         this.appPreferences = appPreferences;
         this.showPassword = false;
+        this.pageTitle = 'LOGIN';
         this.currentMessage = "Can I get your email?";
         this.userTypeForm = this.formBuilder.group({
             isStudent: ["", [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required]],
         });
+        this.userTypeForm.setValue({ isStudent: true });
         this.loginForm = this.formBuilder.group({
             email: ["", [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required]],
             password: ["", [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].minLength(6)]]
@@ -7818,7 +7819,14 @@ var LoginPage = /** @class */ (function () {
         });
         this.menuController.swipeEnable(false);
     }
-    LoginPage.prototype.ionViewDidLoad = function () {
+    LoginPage.prototype.ionViewDidLoad = function () { };
+    LoginPage.prototype.onSliderChanged = function (e) {
+        if (e.getActiveIndex() === 1) {
+            this.pageTitle = 'CREATE ACCOUNT';
+        }
+        else {
+            this.pageTitle = 'LOGIN';
+        }
     };
     /*
       verifyEmailAddress() {
@@ -8047,7 +8055,7 @@ var LoginPage = /** @class */ (function () {
     ], LoginPage.prototype, "slides", void 0);
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-login",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/login/login.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>Login</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div class="cont">\n    <ion-slides pager="false" #slides>\n      <ion-slide>\n        <ion-card>\n          <ion-card-content padding>\n            <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />\n            <br />\n            <!-- <form\n              [formGroup]="loginForm"\n              (ngSubmit)="verifyEmailAddress()"\n              *ngIf="!showLogin"\n            >\n              <ion-item>\n                <ion-label class="email-label" stacked>\n                  <ion-icon name="ios-mail"></ion-icon>Email Address\n                </ion-label>\n                <ion-input\n                  type="email"\n                  aria-required="true"\n                  [(ngModel)]="email"\n                  formControlName="email"\n                  class="email-input"\n                  aria-placeholder="Enter your email"\n                ></ion-input>\n              </ion-item>\n              <br />\n              <button\n                *ngIf="!showLogin"\n                ion-button\n                class="global-btn login-btn"\n              >\n                Get started\n              </button>\n            </form> -->\n            <div [formGroup]="userTypeForm">\n              <ion-list radio-group formControlName="isStudent">\n                <ion-item>\n                  <ion-label>Login as a Student</ion-label>\n                  <ion-radio slot="start" value="true"></ion-radio>\n                </ion-item>\n\n                <ion-item>\n                  <ion-label>Login as Admin</ion-label>\n                  <ion-radio slot="start" value="false"></ion-radio>\n                </ion-item>\n              </ion-list>\n            </div>\n            <br />\n            <br />\n            <form [formGroup]="loginForm" (ngSubmit)="loginUser()">\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-mail"></ion-icon>Student ID\n                </ion-label>\n                <ion-input\n                  type="text"\n                  aria-required="true"\n                  formControlName="email"\n                  class="email-input"\n                  aria-placeholder="Enter your student ID"\n                ></ion-input>\n              </ion-item>\n\n              <br />\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="key"></ion-icon>Password\n                </ion-label>\n                <ion-input\n                  type="password"\n                  aria-required="true"\n                  formControlName="password"\n                  *ngIf="!showPassword"\n                ></ion-input>\n                <ion-input\n                  type="text"\n                  aria-required="true"\n                  formControlName="password"\n                  *ngIf="showPassword"\n                ></ion-input>\n                <ion-label position="fixed" class="show-password">\n                  <ion-icon\n                    name="eye"\n                    *ngIf="showPassword"\n                    (click)="toggleShowPassword()"\n                  ></ion-icon>\n                  <ion-icon\n                    name="eye-off"\n                    *ngIf="!showPassword"\n                    (click)="toggleShowPassword()"\n                  ></ion-icon>\n                </ion-label>\n              </ion-item>\n              <br />\n              <!-- <div>\n                <button\n                  ion-button\n                  clear\n                  color="dark"\n                  (tap)="forgotPassword()"\n                  class="link-btn"\n                  text-center\n                >\n                  Forgot Password ?\n                </button>\n              </div> -->\n\n              <button ion-button type="submit" class="global-btn login-btn">\n                Login\n              </button>\n            </form>\n            <br />\n            <button\n              ion-button\n              clear\n              color="dark"\n              (tap)="next()"\n              class="link-btn"\n              text-center\n            >\n              Click here to Sign up.\n            </button>\n          </ion-card-content>\n        </ion-card>\n      </ion-slide>\n      <ion-slide>\n        <ion-card>\n          <ion-card-content padding>\n            <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />\n            <br />\n            <!-- Sign up form student details centric -->\n            <form [formGroup]="registerUserBody" (ngSubmit)="registerUser()">\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-person"></ion-icon>School Name\n                </ion-label>\n                <ion-input\n                  type="type"\n                  aria-required="true"\n                  formControlName="name"\n                ></ion-input>\n              </ion-item>\n              <!-- <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-person"></ion-icon>First Name\n                </ion-label>\n                <ion-input\n                  type="type"\n                  aria-required="true"\n                  formControlName="firstname"\n                ></ion-input>\n              </ion-item>\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-person"></ion-icon>Last Name\n                </ion-label>\n                <ion-input\n                  type="type"\n                  aria-required="true"\n                  formControlName="lastname"\n                ></ion-input>\n              </ion-item> -->\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-mail"></ion-icon>Email Address\n                </ion-label>\n                <ion-input\n                  type="email"\n                  aria-required="true"\n                  formControlName="email"\n                ></ion-input>\n              </ion-item>\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-call"></ion-icon>Phone Number\n                </ion-label>\n                <ion-input\n                  type="number"\n                  aria-required="true"\n                  formControlName="phone"\n                ></ion-input>\n              </ion-item>\n\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-person"></ion-icon>Address\n                </ion-label>\n                <ion-input\n                  type="type"\n                  aria-required="true"\n                  formControlName="address"\n                ></ion-input>\n              </ion-item>\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="key"></ion-icon>Password\n                </ion-label>\n                <ion-input\n                  type="password"\n                  aria-required="true"\n                  formControlName="password"\n                  *ngIf="!showPassword"\n                ></ion-input>\n                <ion-input\n                  type="input"\n                  aria-required="true"\n                  formControlName="password"\n                  *ngIf="showPassword"\n                ></ion-input>\n                <ion-label position="fixed" class="show-password">\n                  <ion-icon\n                    name="eye"\n                    *ngIf="showPassword"\n                    (click)="toggleShowPassword()"\n                  ></ion-icon>\n                  <ion-icon\n                    name="eye-off"\n                    *ngIf="!showPassword"\n                    (click)="toggleShowPassword()"\n                  ></ion-icon>\n                </ion-label>\n              </ion-item>\n              <br />\n              <button\n                [disabled]="!registerUserBody.valid"\n                type="submit"\n                ion-button\n                class="global-btn login-btn"\n              >\n                Proceed\n              </button>\n            </form>\n            <!-- End Sign up form  tudent details centric-->\n            <br />\n            <button\n              ion-button\n              clear\n              color="dark"\n              (tap)="prev()"\n              class="link-btn"\n              text-center\n            >\n              Already have an account? Login.\n            </button>\n          </ion-card-content>\n        </ion-card>\n      </ion-slide>\n    </ion-slides>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/login/login.html"*/
+            selector: "page-login",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/login/login.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>{{ pageTitle }}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div class="cont">\n    <ion-slides\n      pager="false"\n      #slides\n      (ionSlideDidChange)="onSliderChanged($event)"\n    >\n      <ion-slide>\n        <ion-card>\n          <ion-card-content padding>\n            <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />\n            <br />\n            <!-- <form\n              [formGroup]="loginForm"\n              (ngSubmit)="verifyEmailAddress()"\n              *ngIf="!showLogin"\n            >\n              <ion-item>\n                <ion-label class="email-label" stacked>\n                  <ion-icon name="ios-mail"></ion-icon>Email Address\n                </ion-label>\n                <ion-input\n                  type="email"\n                  aria-required="true"\n                  [(ngModel)]="email"\n                  formControlName="email"\n                  class="email-input"\n                  aria-placeholder="Enter your email"\n                ></ion-input>\n              </ion-item>\n              <br />\n              <button\n                *ngIf="!showLogin"\n                ion-button\n                class="global-btn login-btn"\n              >\n                Get started\n              </button>\n            </form> -->\n            <div [formGroup]="userTypeForm">\n              <ion-list radio-group formControlName="isStudent">\n                <ion-item>\n                  <ion-label>Login as a Student</ion-label>\n                  <ion-radio slot="start" value="true" checked></ion-radio>\n                </ion-item>\n\n                <ion-item>\n                  <ion-label>Login as Admin</ion-label>\n                  <ion-radio slot="start" value="false"></ion-radio>\n                </ion-item>\n              </ion-list>\n            </div>\n            <br />\n            <br />\n            <form [formGroup]="loginForm" (ngSubmit)="loginUser()">\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-mail"></ion-icon>\n                  {{ userTypeForm.controls.isStudent.value == \'false\' ? \'Email\'\n                  : \'Student ID\' }}\n                </ion-label>\n                <ion-input\n                  type="text"\n                  aria-required="true"\n                  formControlName="email"\n                  class="email-input"\n                  aria-placeholder="Enter your student ID"\n                ></ion-input>\n              </ion-item>\n\n              <br />\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="key"></ion-icon>Password\n                </ion-label>\n                <ion-input\n                  type="password"\n                  aria-required="true"\n                  formControlName="password"\n                  *ngIf="!showPassword"\n                ></ion-input>\n                <ion-input\n                  type="text"\n                  aria-required="true"\n                  formControlName="password"\n                  *ngIf="showPassword"\n                ></ion-input>\n                <ion-label position="fixed" class="show-password">\n                  <ion-icon\n                    name="eye"\n                    *ngIf="showPassword"\n                    (click)="toggleShowPassword()"\n                  ></ion-icon>\n                  <ion-icon\n                    name="eye-off"\n                    *ngIf="!showPassword"\n                    (click)="toggleShowPassword()"\n                  ></ion-icon>\n                </ion-label>\n              </ion-item>\n              <br />\n              <!-- <div>\n                <button\n                  ion-button\n                  clear\n                  color="dark"\n                  (tap)="forgotPassword()"\n                  class="link-btn"\n                  text-center\n                >\n                  Forgot Password ?\n                </button>\n              </div> -->\n\n              <button ion-button type="submit" class="global-btn login-btn">\n                Login\n              </button>\n            </form>\n            <br />\n            <button\n              ion-button\n              clear\n              color="dark"\n              (tap)="next()"\n              class="link-btn"\n              text-center\n            >\n              Don\'t have an account yet? Click here to sign up.\n            </button>\n          </ion-card-content>\n        </ion-card>\n      </ion-slide>\n      <ion-slide>\n        <ion-card>\n          <ion-card-content padding>\n            <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />\n            <br />\n            <span\n            >Create an administrator account that will be used in managing all\n            operations on the platform. NOTE: Internet connection is needed to\n            signup your account!</span\n            >\n            <br />\n            <!-- Sign up form student details centric -->\n            <form [formGroup]="registerUserBody" (ngSubmit)="registerUser()">\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-person"></ion-icon>School Name\n                </ion-label>\n                <ion-input\n                  type="type"\n                  aria-required="true"\n                  formControlName="name"\n                ></ion-input>\n              </ion-item>\n              <!-- <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-person"></ion-icon>First Name\n                </ion-label>\n                <ion-input\n                  type="type"\n                  aria-required="true"\n                  formControlName="firstname"\n                ></ion-input>\n              </ion-item>\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-person"></ion-icon>Last Name\n                </ion-label>\n                <ion-input\n                  type="type"\n                  aria-required="true"\n                  formControlName="lastname"\n                ></ion-input>\n              </ion-item> -->\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-mail"></ion-icon>Email Address\n                </ion-label>\n                <ion-input\n                  type="email"\n                  aria-required="true"\n                  formControlName="email"\n                ></ion-input>\n              </ion-item>\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-call"></ion-icon>Phone Number\n                </ion-label>\n                <ion-input\n                  type="number"\n                  aria-required="true"\n                  formControlName="phone"\n                ></ion-input>\n              </ion-item>\n\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="ios-person"></ion-icon>Address\n                </ion-label>\n                <ion-input\n                  type="type"\n                  aria-required="true"\n                  formControlName="address"\n                ></ion-input>\n              </ion-item>\n              <ion-item>\n                <ion-label stacked>\n                  <ion-icon name="key"></ion-icon>Password\n                </ion-label>\n                <ion-input\n                  type="password"\n                  aria-required="true"\n                  formControlName="password"\n                  *ngIf="!showPassword"\n                ></ion-input>\n                <ion-input\n                  type="input"\n                  aria-required="true"\n                  formControlName="password"\n                  *ngIf="showPassword"\n                ></ion-input>\n                <ion-label position="fixed" class="show-password">\n                  <ion-icon\n                    name="eye"\n                    *ngIf="showPassword"\n                    (click)="toggleShowPassword()"\n                  ></ion-icon>\n                  <ion-icon\n                    name="eye-off"\n                    *ngIf="!showPassword"\n                    (click)="toggleShowPassword()"\n                  ></ion-icon>\n                </ion-label>\n              </ion-item>\n              <br />\n              <button\n                [disabled]="!registerUserBody.valid"\n                type="submit"\n                ion-button\n                class="global-btn login-btn"\n              >\n                Proceed\n              </button>\n            </form>\n            <!-- End Sign up form  tudent details centric-->\n            <br />\n            <button\n              ion-button\n              clear\n              color="dark"\n              (tap)="prev()"\n              class="link-btn"\n              text-center\n            >\n              Already have an account? Login.\n            </button>\n          </ion-card-content>\n        </ion-card>\n      </ion-slide>\n    </ion-slides>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/login/login.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */],
@@ -8077,11 +8085,12 @@ var LoginPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__topic_topic__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__examsubjects_examsubjects__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_desktop_desktop__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__postutme_postutme__ = __webpack_require__(472);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_session_session__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__topic_topic__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__examsubjects_examsubjects__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_desktop_desktop__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__postutme_postutme__ = __webpack_require__(472);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_session_session__ = __webpack_require__(39);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8091,6 +8100,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -8136,9 +8146,13 @@ var HomePage = /** @class */ (function () {
             }).present();
         });
     };
+    HomePage.prototype.getExamLogo = function (name) {
+        console.log('exam name ', name);
+        return __WEBPACK_IMPORTED_MODULE_2__config__["a" /* config */].exams.find(function (exam) { return exam.name == name.toLowerCase(); })['image_url'];
+    };
     HomePage.prototype.gotoTopicPage = function (i, subjectFiltered) {
         var subject = subjectFiltered;
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__topic_topic__["a" /* TopicPage */], {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__topic_topic__["a" /* TopicPage */], {
             subject: subject,
             questionType: "practice"
         }, {
@@ -8149,7 +8163,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.gotoSubjects = function (exam) {
         if (exam.has_subexam == 0) {
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__examsubjects_examsubjects__["a" /* ExamsubjectsPage */], {
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__examsubjects_examsubjects__["a" /* ExamsubjectsPage */], {
                 exam: exam
             }, {
                 animate: true,
@@ -8158,7 +8172,7 @@ var HomePage = /** @class */ (function () {
             });
         }
         else {
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__postutme_postutme__["a" /* PostutmePage */], { exam: exam }, {
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__postutme_postutme__["a" /* PostutmePage */], { exam: exam }, {
                 animate: true,
                 animation: "transition-ios",
                 direction: "forward"
@@ -8167,16 +8181,12 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-home",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/home/home.html"*/'<ion-header>\n  <div class="bg-head">\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu" color="brown"></ion-icon>\n      </button>\n      <ion-title text-center\n        ><img src="assets/imgs/simbibot-blue.png" alt=""\n      /></ion-title>\n    </ion-navbar>\n    <div class="cont">\n      <ion-searchbar [(ngModel)]="searchInput" class="search-bar"></ion-searchbar>\n      <p class="learn-more"><strong> To learn more from the comfort of your mobile device anywhere you are, simply search for SimbiBot on playstore and install.</strong></p>\n    </div>\n  </div>\n</ion-header>\n\n<ion-content overflow-scroll = "true">\n  <!-- <ion-card\n    (click)="gotoSubjects()"\n    [ngStyle]="{ \'background-color\': config.background_color }"\n    class="banner-card"\n  >\n    <ion-row>\n      <ion-col col-6>\n        <img [src]="config.logo_dir" class="logo" alt="" />\n      </ion-col>\n      <ion-col col-6>\n        <br />\n        <h3 [ngStyle]="{ color: config.text_color }">Prepare for</h3>\n        <h1 [ngStyle]="{ color: config.text_color }">\n          {{ config.version_name | titlecase }}\n        </h1>\n        <p [ngStyle]="{ color: config.text_color }">Click Here</p>\n      </ion-col>\n    </ion-row>\n  </ion-card> -->\n  <div *ngIf="loaded && examLoaded" class="cont">\n    <h1 class="greeting-text">Welcome {{user.firstname | titlecase}}</h1>\n    <br />\n    <br />\n    <h2>Practice Exams</h2>\n    <ion-row>\n      <ion-col col-3 *ngFor="let exam of exams">\n        <ion-card (click)="gotoSubjects(exam)" >\n          <ion-card-content>\n            <img\n                  class="center img"\n                  [src]="exam.img"\n                  alt=""\n                  *ngIf="exam.img != null"\n                />\n            <p>\n              \n              <strong> {{ exam.name }} </strong>\n            </p>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n    </ion-row>\n\n    <br>\n    <h2 >Learn any topic</h2>\n    <ion-row class="animated fadeInUp">\n      <ion-col\n        *ngFor="\n          let subject of subjects | searchFilter: searchInput;\n          let i = index\n        "\n        col-3\n      >\n        <div>\n          <ion-card (click)="gotoTopicPage(i, subject)">\n            <ion-card-content>\n              <ion-card-title>\n                <img\n                  class="center img"\n                  [src]="subject.image_url"\n                  alt=""\n                  *ngIf="subject.image_url != null"\n                />\n                <p\n                  [ngStyle]="{ \'background-color\': subject.color }"\n                  class="p-bg"\n                  *ngIf="subject.image_url == null"\n                ></p>\n              </ion-card-title>\n              <p\n                class="center line"\n                [ngStyle]="{ \'border-bottom-color\': subject.color }"\n              ></p>\n              <p>\n                <strong> {{ subject.name | titlecase }} </strong>\n              </p>\n            </ion-card-content>\n          </ion-card>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <!-- <div class="subject-card" *ngFor="let subject of subjects | searchFilter : searchInput; let i = index; " [ngStyle]="{\'background-color\' : subject.color}" (tap)="gotoTopicPage(i)">\n      <ion-row>\n        <ion-col col-4>\n        <img [src]="subject.image_url" class="img-center" alt="" [ngClass]="i == 1 ? \'.move_img_left\' : \'\'">\n        </ion-col>\n        <ion-col col-8>\n          <h3>{{subject.name}}</h3>\n        </ion-col>\n      </ion-row>\n        <h3> </h3> -->\n    <!-- </div> -->\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/home/home.html"*/
+            selector: "page-home",template:/*ion-inline-start:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/home/home.html"*/'<ion-header>\n  <div class="bg-head">\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu" color="brown"></ion-icon>\n      </button>\n      <ion-title text-center\n        ><img src="assets/imgs/simbibot-blue.png" alt=""\n      /></ion-title>\n    </ion-navbar>\n    <div class="cont">\n      <ion-searchbar [(ngModel)]="searchInput" class="search-bar"></ion-searchbar>\n      <p class="learn-more"><strong> To learn more from the comfort of your mobile device anywhere you are, simply search for SimbiBot on playstore and install.</strong></p>\n    </div>\n  </div>\n</ion-header>\n\n<ion-content overflow-scroll = "true">\n  <!-- <ion-card\n    (click)="gotoSubjects()"\n    [ngStyle]="{ \'background-color\': config.background_color }"\n    class="banner-card"\n  >\n    <ion-row>\n      <ion-col col-6>\n        <img [src]="config.logo_dir" class="logo" alt="" />\n      </ion-col>\n      <ion-col col-6>\n        <br />\n        <h3 [ngStyle]="{ color: config.text_color }">Prepare for</h3>\n        <h1 [ngStyle]="{ color: config.text_color }">\n          {{ config.version_name | titlecase }}\n        </h1>\n        <p [ngStyle]="{ color: config.text_color }">Click Here</p>\n      </ion-col>\n    </ion-row>\n  </ion-card> -->\n  <div *ngIf="loaded && examLoaded" class="cont">\n    <h1 class="greeting-text">Welcome {{user.firstname | titlecase}}</h1>\n    <br />\n    <br />\n    <h2>Practice Exams</h2>\n    <ion-row>\n      <ion-col col-3 *ngFor="let exam of exams">\n        <ion-card (click)="gotoSubjects(exam)" >\n          <ion-card-content>\n            <img\n                  class="center img"\n                  [src]="getExamLogo(exam.name)"\n                  alt=""\n                  *ngIf="getExamLogo(exam.name)"\n                />\n            <p>\n              \n              <strong> {{ exam.name }} </strong>\n            </p>\n          </ion-card-content>\n        </ion-card>\n      </ion-col>\n    </ion-row>\n\n    <br>\n    <h2 >Learn any topic</h2>\n    <ion-row class="animated fadeInUp">\n      <ion-col\n        *ngFor="\n          let subject of subjects | searchFilter: searchInput;\n          let i = index\n        "\n        col-3\n      >\n        <div>\n          <ion-card (click)="gotoTopicPage(i, subject)">\n            <ion-card-content>\n              <ion-card-title>\n                <img\n                  class="center img"\n                  [src]="subject.image_url"\n                  alt=""\n                  *ngIf="subject.image_url != null"\n                />\n                <p\n                  [ngStyle]="{ \'background-color\': subject.color }"\n                  class="p-bg"\n                  *ngIf="subject.image_url == null"\n                ></p>\n              </ion-card-title>\n              <p\n                class="center line"\n                [ngStyle]="{ \'border-bottom-color\': subject.color }"\n              ></p>\n              <p>\n                <strong> {{ subject.name }} </strong>\n              </p>\n            </ion-card-content>\n          </ion-card>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <!-- <div class="subject-card" *ngFor="let subject of subjects | searchFilter : searchInput; let i = index; " [ngStyle]="{\'background-color\' : subject.color}" (tap)="gotoTopicPage(i)">\n      <ion-row>\n        <ion-col col-4>\n        <img [src]="subject.image_url" class="img-center" alt="" [ngClass]="i == 1 ? \'.move_img_left\' : \'\'">\n        </ion-col>\n        <ion-col col-8>\n          <h3>{{subject.name}}</h3>\n        </ion-col>\n      </ion-row>\n        <h3> </h3> -->\n    <!-- </div> -->\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/shadrach/Documents/Brimatel/simbibotdesktopbackend/frontend/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_6__providers_session_session__["a" /* SessionProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_desktop_desktop__["a" /* DesktopProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_7__providers_session_session__["a" /* SessionProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__providers_session_session__["a" /* SessionProvider */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__providers_desktop_desktop__["a" /* DesktopProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_desktop_desktop__["a" /* DesktopProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _f || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=home.js.map
