@@ -23,6 +23,7 @@ export class StudentreportdetailsPage {
     let user;
     this.type = this.navParams.get('type');
     this.extras = this.navParams.get('body');
+    console.log('extras ', this.extras)
 
     if(this.extras.user_id != undefined) {
       user = this.extras.user_id
@@ -38,7 +39,7 @@ export class StudentreportdetailsPage {
         this.data = response;
       });
      } else {
-      this.desktopProvider.fetchAllExamAttempt(user, this.extras.exam_id).subscribe((response: any) => {
+      this.desktopProvider.fetchAllExamAttempt(user, this.extras.exam_id, this.extras.subject_id).subscribe((response: any) => {
         console.log(response);
         this.data = response;
       })

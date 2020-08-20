@@ -9,8 +9,8 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class DesktopProvider {
-  baseurl = `/api/v1`;
-  // baseurl = `http://localhost:3000/api/v1`; // change b4 push
+  // baseurl = `/api/v1`;
+  baseurl = `http://localhost:3000/api/v1`; // change b4 push
   constructor(public http: HttpClient) {
   }
 
@@ -129,8 +129,8 @@ export class DesktopProvider {
     return this.http.get(`${this.baseurl}/app/user_evaluation_report_avg/${user_id}`);
   }
 
-  public fetchAllExamAttempt(user_id, exam_id) {
-    return this.http.get(`${this.baseurl}/app/user_examination_all/${user_id}/${exam_id}`);
+  public fetchAllExamAttempt(user_id, exam_id, subject_id) {
+    return this.http.get(`${this.baseurl}/app/user_examination_all/${user_id}/${exam_id}/${subject_id}`);
   }
 
   public fetchAllEvaluationAttempt(user_id, subject_id, topic_id) {

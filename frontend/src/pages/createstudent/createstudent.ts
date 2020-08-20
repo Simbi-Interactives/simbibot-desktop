@@ -87,21 +87,22 @@ export class CreatestudentPage {
         this.fetchUsers();
 
         this.toastCtrl.create({
-          message: 'Bulk Upload Done'
+          message: 'Bulk upload completed successfully',
+          duration: 1000,
         }).present();
 
       }, (err: any) => {
 
         this.uploading = false;
         this.toastCtrl.create({
-          message: 'An error occured'
+          message: 'An error occured',
+          duration: 1000,
         }).present();
 
       });
   }
 
   pageChange(p) {
-    console.log(p);
     this.page = p;
     this.fetchUsers();
   }

@@ -46,9 +46,9 @@
           <ion-card-content>
             <img
                   class="center img"
-                  [src]="exam.img"
+                  [src]="exam.image_url"
                   alt=""
-                  *ngIf="exam.img != null"
+                  *ngIf="exam.image_url != null"
                 />
             <p>
               
@@ -90,7 +90,7 @@
                 [ngStyle]="{ 'border-bottom-color': subject.color }"
               ></p>
               <p>
-                <strong> {{ subject.name | titlecase }} </strong>
+                <strong> {{ subject.name }} </strong>
               </p>
             </ion-card-content>
           </ion-card>

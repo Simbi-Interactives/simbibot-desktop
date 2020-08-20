@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-navbar>
     <ion-title text-center>Create Student</ion-title>
@@ -6,49 +5,105 @@
 </ion-header>
 
 <ion-content padding>
-
-  <div class="cont" >
-    <ion-row padding> 
-      <ion-col col-4>
+  <div class="cont">
+    <ion-row padding>
+      <ion-col col-5>
         <ion-card>
           <ion-card-content>
+            <ion-list>
+              <ion-list-header>
+                <ion-label
+                  >The bulk upload feature allows you to upload multiple
+                  information at once from an excel file.</ion-label
+                >
+              </ion-list-header>
+              <ion-item>
+                <ion-label
+                  >Download the excel file template (Click here to
+                  download).</ion-label
+                >
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  Fill your students' details in the file starting from the
+                  second row and save the updated file.</ion-label
+                >
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  Click on the "choose file" button here to upload the updated
+                  excel file</ion-label
+                >
+              </ion-item>
+            </ion-list>
+
             <ion-item>
               <ion-label>Bulk Upload</ion-label>
-              <ion-input type="file" (change)="selectFile($event)" accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"></ion-input>
+              <ion-input
+                type="file"
+                (change)="selectFile($event)"
+                accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              ></ion-input>
+            </ion-item>           
+            <ion-item>
+              <ion-label>
+                <a href="assets/template.xlsx" download>Download template</a>
+              </ion-label>
             </ion-item>
 
-            <a href="assets/template.xlsx" download>Download template</a>
-            <button [disabled]="!bulkuploadfile || uploading" (click)="uploadStudent() " ion-button full>Upload</button>
+            <button
+              [disabled]="!bulkuploadfile || uploading"
+              (click)="uploadStudent() "
+              ion-button
+              full
+            >
+              Upload
+            </button>
           </ion-card-content>
         </ion-card>
-        <br>
+        <br />
         <ion-card>
           <ion-card-content>
             <h3>Add new Student</h3>
-            <br>
+            <br />
 
             <form [formGroup]="createStudentForm" (submit)="submit()">
               <ion-item>
                 <ion-label floating>Student ID</ion-label>
-                <ion-input type="text" formControlName="email" value=""></ion-input>
+                <ion-input
+                  type="text"
+                  formControlName="email"
+                  value=""
+                ></ion-input>
               </ion-item>
-              <br>
+              <br />
               <ion-item>
                 <ion-label floating>First Name</ion-label>
                 <ion-input type="text" formControlName="firstname"></ion-input>
               </ion-item>
-              <br>
+              <br />
               <ion-item>
                 <ion-label floating>Last Name</ion-label>
                 <ion-input type="text" formControlName="lastname"></ion-input>
               </ion-item>
-              <br>
+              <br />
               <ion-item>
                 <ion-label floating>Password</ion-label>
-                <ion-input type="password" formControlName="password"></ion-input>
+                <ion-input
+                  type="password"
+                  formControlName="password"
+                ></ion-input>
               </ion-item>
-              <br>
-              <button type="submit" ion-button full round [disabled]="!createStudentForm.valid"> Create Student</button>
+              <br />
+              <button
+                type="submit"
+                ion-button
+                full
+                round
+                [disabled]="!createStudentForm.valid"
+              >
+                Create Student
+              </button>
             </form>
           </ion-card-content>
         </ion-card>
@@ -62,7 +117,7 @@
             <h1>Students: <strong>{{users.metric}}</strong></h1>
           </ion-card-content>
         </ion-card>
-        <br>
+        <br />
 
         <ion-card>
           <ion-card-content>
@@ -70,32 +125,33 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th  scope="col">#</th>
+                    <th scope="col">#</th>
                     <th scope="col">FirstName</th>
                     <th scope="col">LastName</th>
                     <th scope="col">Email Address</th>
                   </tr>
                 </thead>
-      
+
                 <tbody>
-                  <tr *ngFor="let user of users.data  | paginate: { id: 'server', itemsPerPage: users.limit, currentPage: page, totalItems: users.metric, numberOfPages: users.total }; let i = index"> 
+                  <tr
+                    *ngFor="let user of users.data  | paginate: { id: 'server', itemsPerPage: users.limit, currentPage: page, totalItems: users.metric, numberOfPages: users.total }; let i = index"
+                  >
                     <td>{{i + 1}}</td>
                     <td>{{user.firstname}}</td>
                     <td>{{user.lastname}}</td>
                     <td>{{user.email}}</td>
                   </tr>
 
-                  <br>
-                  <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+                  <br />
+                  <pagination-controls id="server"
+                    (pageChange)="pageChange($event)"
+                  ></pagination-controls>
                 </tbody>
               </table>
             </div>
-            <br>
-
-
+            <br />
           </ion-card-content>
         </ion-card>
-        
       </ion-col>
     </ion-row>
   </div>

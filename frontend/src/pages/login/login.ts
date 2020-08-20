@@ -49,6 +49,7 @@ export class LoginPage {
   loginForm: FormGroup;
   registerUserBody: FormGroup;
   showPassword: boolean = false;
+  pageTitle: string = 'LOGIN'
   @ViewChild("slides") slides: Slides;
 
   constructor(
@@ -72,9 +73,10 @@ export class LoginPage {
     this.userTypeForm = this.formBuilder.group({
       isStudent: ["", [Validators.required]],
     });
+    this.userTypeForm.setValue({ isStudent: true })
 
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required]],      
+      email: ["", [Validators.required]],
       password: ["", [Validators.required, Validators.minLength(6)]]
     });
 
@@ -90,9 +92,16 @@ export class LoginPage {
     this.menuController.swipeEnable(false);
   }
 
-  ionViewDidLoad() {
-  }
+  ionViewDidLoad() {}
 
+  onSliderChanged(e) {    
+    if (e.getActiveIndex() === 1) {
+      this.pageTitle = 'CREATE ACCOUNT'
+    } else {
+      this.pageTitle = 'LOGIN'
+      
+    }
+  }
   /*
     verifyEmailAddress() {
       // skip all actions if user has not entered their email    
@@ -133,11 +142,11 @@ export class LoginPage {
   loginUser() {
     if (this.loginForm.invalid || this.userTypeForm.invalid) return;
     // if(!this.password || this.password.lenght === 0) return;    
-    
+
     if (this.userTypeForm.controls.isStudent.value === "false") return this.loginAsAdmin();
 
     // prevent student or teacher login if app hasn't been activated or the activation key has expired
-    if(!this.session.isActivated()) return this.alertMessage('You cannot login until your account has been activated, contact your admin or teacher for more info.')
+    if (!this.session.isActivated()) return this.alertMessage('You cannot login until your account has been activated, contact your admin or teacher for more info.')
 
     let loader = this.loadingCtrl.create({
       cssClass: "my-loading"
@@ -146,7 +155,7 @@ export class LoginPage {
     loader.present();
 
     this.desktopProvider.login(this.loginForm.value).subscribe((resp: any) => {
-      loader.dismiss();      
+      loader.dismiss();
 
       this.session.newUser(resp);
 
@@ -180,12 +189,12 @@ export class LoginPage {
             loader.dismiss();
 
             console.log('admin login ', response)
-            await this.session.newUser({...response.data, usertype: 'teacher'})
+            await this.session.newUser({ ...response.data, usertype: 'teacher' })
 
             // check if admin is activated on the desktop
-            if(this.session.isActivated())  this.navCtrl.setRoot(TeacherdashboardPage);
+            if (this.session.isActivated()) this.navCtrl.setRoot(TeacherdashboardPage);
             else this.navCtrl.setRoot(ActivationPage);
-                        
+
           },
             (err: any) => {
               console.log('admin login error ', err)
@@ -213,7 +222,7 @@ export class LoginPage {
             .subscribe(async (response: any) => {
               console.log('registered ', response)
               loader.dismiss();
-              await this.session.newUser({...response.data, usertype: 'teacher'});
+              await this.session.newUser({ ...response.data, usertype: 'teacher' });
               this.createLocalTeacherAccount(response.data)
             },
               (err: any) => {
@@ -234,10 +243,10 @@ export class LoginPage {
 
 
   handleAuthError(err) {
-    if(err.status === 0) {
+    if (err.status === 0) {
       return this.showNoInternetConnection();
     }
-    
+
     const errors = [];
 
     err.error.errors && (Object.entries(err.error.errors)

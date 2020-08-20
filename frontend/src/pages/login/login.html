@@ -1,12 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <ion-title text-center>Login</ion-title>
+    <ion-title text-center>{{ pageTitle }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div class="cont">
-    <ion-slides pager="false" #slides>
+    <ion-slides
+      pager="false"
+      #slides
+      (ionSlideDidChange)="onSliderChanged($event)"
+    >
       <ion-slide>
         <ion-card>
           <ion-card-content padding>
@@ -43,7 +47,7 @@
               <ion-list radio-group formControlName="isStudent">
                 <ion-item>
                   <ion-label>Login as a Student</ion-label>
-                  <ion-radio slot="start" value="true"></ion-radio>
+                  <ion-radio slot="start" value="true" checked></ion-radio>
                 </ion-item>
 
                 <ion-item>
@@ -57,7 +61,9 @@
             <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
               <ion-item>
                 <ion-label stacked>
-                  <ion-icon name="ios-mail"></ion-icon>Student ID
+                  <ion-icon name="ios-mail"></ion-icon>
+                  {{ userTypeForm.controls.isStudent.value == 'false' ? 'Email'
+                  : 'Student ID' }}
                 </ion-label>
                 <ion-input
                   type="text"
@@ -125,7 +131,7 @@
               class="link-btn"
               text-center
             >
-              Click here to Sign up.
+              Don't have an account yet? Click here to sign up.
             </button>
           </ion-card-content>
         </ion-card>
@@ -134,6 +140,12 @@
         <ion-card>
           <ion-card-content padding>
             <img src="assets/imgs/simbibot-blue.png" class="logo" alt="" />
+            <br />
+            <span
+            >Create an administrator account that will be used in managing all
+            operations on the platform. NOTE: Internet connection is needed to
+            signup your account!</span
+            >
             <br />
             <!-- Sign up form student details centric -->
             <form [formGroup]="registerUserBody" (ngSubmit)="registerUser()">
