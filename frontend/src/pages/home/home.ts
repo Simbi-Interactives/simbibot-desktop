@@ -58,8 +58,7 @@ export class HomePage {
     })
   }
 
-  getExamLogo(name: string) {
-    console.log('exam name ', name)
+  getExamLogo(name: string) {    
     return config.exams.find(exam => exam.name == name.toLowerCase())['image_url']
   }
 

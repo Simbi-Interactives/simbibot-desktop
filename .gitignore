@@ -4,4 +4,4 @@ data.db
 /build
 /uploads
 /www
-*.soucemaps
+*/.sourcemaps
