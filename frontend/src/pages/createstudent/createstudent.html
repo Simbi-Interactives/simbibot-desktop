@@ -17,12 +17,12 @@
                   information at once from an excel file.</ion-label
                 >
               </ion-list-header>
-              <ion-item>
+              <!-- <ion-item>
                 <ion-label
                   >Download the excel file template (Click here to
                   download).</ion-label
                 >
-              </ion-item>
+              </ion-item> -->
               <ion-item>
                 <ion-label>
                   Fill your students' details in the file starting from the
@@ -47,7 +47,8 @@
             </ion-item>
             <ion-item>
               <ion-label>
-                <a href="assets/template.xlsx" download>Download template</a>
+                <a href="assets/template.xlsx" download>Download the excel file template (Click here to
+                  download)</a>
               </ion-label>
             </ion-item>
 
@@ -126,9 +127,9 @@
                 <thead>
                   <tr>
                     <th scope="col">No: </th>
-                    <th scope="col">FirstName</th>
-                    <th scope="col">LastName</th>
-                    <th scope="col">Email Address</th>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
                     <th scope="col">Edit Student</th>
                   </tr>
                 </thead>
@@ -138,9 +139,9 @@
                     *ngFor="let user of users.data  | paginate: { id: 'server', itemsPerPage: users.limit, currentPage: page, totalItems: users.metric, numberOfPages: users.total }; let i = index"
                   >
                     <td>{{i + 1}}</td>
+                    <td>{{user.email}}</td>
                     <td>{{user.firstname}}</td>
                     <td>{{user.lastname}}</td>
-                    <td>{{user.email}}</td>
                     <td>
                       <button                        
                         (click)="editStudentDetails(user)"
