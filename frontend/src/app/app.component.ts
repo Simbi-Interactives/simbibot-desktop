@@ -213,6 +213,7 @@ export class MyApp {
           },
         )
       }
+      console.log('teacher ', res)
       if (res.data) {
         let session = this.session.checkUser();
         const activation_key = this.session.getActivationKey();
@@ -236,7 +237,7 @@ export class MyApp {
         }
       } else {
         console.log('e no work');
-        this.rootPage = CreateteacherPage;
+        this.rootPage = LoginPage;
       }
     })
   }

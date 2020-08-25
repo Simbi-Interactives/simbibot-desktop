@@ -9,4 +9,8 @@ page-createstudent {
         text-overflow: inherit;
         white-space: normal;
     }
+
+    .card-md .item-md.item-block .item-inner {
+        border-bottom: 1px solid #dedede;
+    }
 }
