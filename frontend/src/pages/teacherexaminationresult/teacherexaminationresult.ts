@@ -43,6 +43,7 @@ export class TeacherexaminationresultPage {
 
   fetchExamChartScores(exam) {
     this.desktopProvider.fetchExaminationForChartScores(exam.id).subscribe((response: any) => {
+      this.currentExam = exam.name;
       this.fetchExamAggregates(exam.id);
       this.data = response;
       let labels = this.data.map((val) => {

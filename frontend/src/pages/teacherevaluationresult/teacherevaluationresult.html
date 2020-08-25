@@ -51,8 +51,8 @@
                   </thead>
 
                   <tbody>
-                    <tr *ngFor="let aggregate of aggregates; let i =index">
-                    <td>{{i}}</td>
+                    <tr *ngFor="let aggregate of aggregates; let i = index">
+                    <td>{{i + 1}}</td>
                     <td>{{aggregate.firstname + ' ' + aggregate.lastname}}</td>
                     <td>{{aggregate.topic}}</td>
                     <td>{{aggregate.name}}</td>

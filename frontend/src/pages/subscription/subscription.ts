@@ -16,7 +16,7 @@ import { NetworkProvider } from "../../providers/network/network";
 import { Device } from "@ionic-native/device";
 import { Storage } from "@ionic/storage";
 import { HomePage } from "../home/home";
-import { PaywithCardPage } from '../paywithcard/paywithcard'
+// import { PaywithCardPage } from '../editstudent/editstudent'
 import { config } from "../../config";
 
 @IonicPage()
@@ -97,8 +97,8 @@ export class SubscriptionPage {
   }
 
   openPaywithcardInfo = () => {
-    const modal = this.modalController.create(PaywithCardPage);
-    modal.present();
+    // const modal = this.modalController.create(PaywithCardPage);
+    // modal.present();
   }
 
   async checkIfUserHasSubscribed() {

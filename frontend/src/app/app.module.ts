@@ -8,7 +8,7 @@ import { HomePage } from "../pages/home/home";
 import { ActivationPage } from "../pages/activationpage/activationpage";
 import { ListPage } from "../pages/list/list";
 import { SyllabusPage } from "../pages/syllabus/syllabus";
-import { PaywithCardPage } from "../pages/paywithcard/paywithcard";
+// import { EditStudentPageMModule } from "../pages/editstudent/editstudent";
 
 import { LoginPageModule } from "../pages/login/login.module";
 import { RegisterPageModule } from "../pages/register/register.module";
@@ -38,7 +38,7 @@ import { SqliteDbCopy } from "@ionic-native/sqlite-db-copy";
 import { NativeAudio } from "@ionic-native/native-audio";
 import { TopicPageModule } from "../pages/topic/topic.module";
 import { OnboardingPageModule } from "../pages/onboarding/onboarding.module";
-import { PaywithCardPageModule } from "../pages/paywithcard/paywithcard.module";
+import { EditStudentPageModule } from "../pages/editstudent/editstudent.module";
 import { QuizPageModule } from "../pages/quiz/quiz.module";
 import { QuizresultPageModule } from "../pages/quizresult/quizresult.module";
 import { ExamsubjectsPageModule } from "../pages/examsubjects/examsubjects.module";
@@ -83,7 +83,7 @@ import { FlashCardModule } from "../pages/flash-cards/flash-cards.module";
     RegisterPageModule,
     TopicPageModule,
     OnboardingPageModule,
-    PaywithCardPageModule,
+    EditStudentPageModule,
     QuizPageModule,
     QuizresultPageModule,
     LessonNoteModule,

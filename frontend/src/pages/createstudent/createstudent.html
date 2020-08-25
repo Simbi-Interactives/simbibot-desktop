@@ -10,7 +10,7 @@
       <ion-col col-5>
         <ion-card>
           <ion-card-content>
-            <ion-list>
+            <ion-list class="instruction-list">
               <ion-list-header>
                 <ion-label
                   >The bulk upload feature allows you to upload multiple
@@ -44,7 +44,7 @@
                 (change)="selectFile($event)"
                 accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
               ></ion-input>
-            </ion-item>           
+            </ion-item>
             <ion-item>
               <ion-label>
                 <a href="assets/template.xlsx" download>Download template</a>
@@ -125,10 +125,11 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">No: </th>
                     <th scope="col">FirstName</th>
                     <th scope="col">LastName</th>
                     <th scope="col">Email Address</th>
+                    <th scope="col">Edit Student</th>
                   </tr>
                 </thead>
 
@@ -140,10 +141,20 @@
                     <td>{{user.firstname}}</td>
                     <td>{{user.lastname}}</td>
                     <td>{{user.email}}</td>
+                    <td>
+                      <button                        
+                        (click)="editStudentDetails(user)"
+                        ion-button
+                        full
+                      >
+                        Edit
+                      </button>
+                    </td>
                   </tr>
 
                   <br />
-                  <pagination-controls id="server"
+                  <pagination-controls
+                    id="server"
                     (pageChange)="pageChange($event)"
                   ></pagination-controls>
                 </tbody>
