@@ -223,15 +223,15 @@ export class MyApp {
   }
 
   subscribeToEvents() {
-    this.events.subscribe(AppEvents.USER_AUTH, () => {
-      console.log( 'offline ', this.networkProvider.isOffline())
-      if(!this.networkProvider.isOffline()) {
-        this.desktopProvider.synchronizeData()
-          .subscribe(response => {
-            console.log('sync response ', response);
-          })
-      }
-    })
+    // this.events.subscribe(AppEvents.USER_AUTH, () => {
+    //   console.log( 'offline ', this.networkProvider.isOffline())
+    //   if(!this.networkProvider.isOffline()) {
+    //     this.desktopProvider.synchronizeData()
+    //       .subscribe(response => {
+    //         console.log('sync response ', response);
+    //       })
+    //   }
+    // })
   }
 
   openPage(page) {
