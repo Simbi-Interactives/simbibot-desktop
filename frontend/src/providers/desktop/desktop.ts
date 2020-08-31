@@ -9,14 +9,19 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class DesktopProvider {
-  baseurl = `/api/v1`;
-  // baseurl = `http://localhost:3000/api/v1`; // change b4 push
+  // baseurl = `/api/v1`;
+  baseurl = `http://localhost:3000/api/v1`; // change b4 push
   constructor(public http: HttpClient) {
   }
 
 
   public checkIfTeacherHasubscribed() {
     return this.http.get(`${this.baseurl}/users/is_teacher_created`);
+  }
+
+  public synchronizeData(user_id) {
+    console.log('sync data')
+    return this.http.get(`${this.baseurl}/app/synchronize_data/${user_id}`);
   }
 
   public createTeacher(data) {
@@ -55,6 +60,10 @@ export class DesktopProvider {
     const form_data = new FormData;
     form_data.append('file', file);
     return this.http.post(`${this.baseurl}/users/bulk_upload_student`, form_data);
+  }
+
+  public sendReadingData(data) {
+    return this.http.post(`${this.baseurl}/app/tracks/record`, data);
   }
 
   public fetchSubjects() {

@@ -9,6 +9,11 @@ export class SessionProvider {
     localStorage.setItem('user', JSON.stringify(data));
   }
 
+  public newAdmin(data) {
+    localStorage.setItem('school_id', JSON.stringify(data.id));
+    localStorage.setItem('user', JSON.stringify(data));
+  }
+
   public getUser() {
     let user = JSON.parse(localStorage.getItem('user'));
     return user;

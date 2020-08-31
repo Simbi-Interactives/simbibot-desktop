@@ -91,24 +91,33 @@ export class LessonNote {
         time_spent: 0,
         started_at: new Date().toISOString(),
         completed_at: null
-      }
+      }      
       this.startReadingInterval();
     });
   }
 
 
   ionViewWillLeave() {
-    console.log('will leave')
     this.tts.speak("")
 
-    // if (this.timer) clearInterval(this.timer);
-    // this.sendReadingData();
+    if (this.timer) clearInterval(this.timer);
+    this.sendReadingData();
   }
 
   startReadingInterval() {
+    this.readingData.started_at = new Date().toISOString();
+    this.readingData.time_spent = 0;
+    this.isSendingLearningData = false;
+
     this.timer = setInterval(() => {
       this.readingData.time_spent += 1;
     })
+  }
+
+
+  clearReadingInterval() {
+    if(!this.timer) return;
+    clearInterval(this.timer);
   }
 
   createLessons() {
@@ -145,28 +154,27 @@ export class LessonNote {
       .catch((error: any) => console.log('cannot stop ', error))
   }
 
-  // sendReadingData() {
-  //   if (this.isSendingLearningData) return;
+  sendReadingData() {
+    if (this.isSendingLearningData) return;
 
-  //   this.readingData.completed_at = new Date().toISOString();
-  //   const diff = new Date(this.readingData.completed_at).getTime() - new Date(this.readingData.started_at).getTime();
+    this.readingData.completed_at = new Date().toISOString();
+    const diff = new Date(this.readingData.completed_at).getTime() - new Date(this.readingData.started_at).getTime();
 
-  //   if (diff < (60 * 1000)) {
-  //     console.log('less than a minute ', diff)
-  //     return;
-  //   }
+    if (diff < (60 * 1000)) return;
 
-  //   this.readingData.user_id = this.user.id;
-  //   console.log('reading data ', this.readingData);
-  //   this.isSendingLearningData = true;
+    this.readingData.user_id = this.user.id;
+    this.isSendingLearningData = true;
 
-  //   this.learningProvider.sendReadingData(this.readingData)
-  // }
+  this.desktopProvider.sendReadingData(this.readingData)
+    .subscribe(res => console.log('lesson note data sent ', res))    
+
+    this.clearReadingInterval()
+  }
 
   async skipToEvaluation(test_type) {
     console.log('send data ')
 
-    // this.sendReadingData();
+    this.sendReadingData();
     this.fetchQuestion(test_type)
       .subscribe((response: any) => {
         console.log('que ', response)

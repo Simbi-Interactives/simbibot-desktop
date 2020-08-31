@@ -1,5 +1,5 @@
 export const config = {
-  base_url: "https://learn.simbibot.com/api/", // change b4 push
+  base_url: "https://playground.simbibot.com/api/", // change b4 push
   /**
    * Version name  is the name of the version of this app for this duplicate
    */

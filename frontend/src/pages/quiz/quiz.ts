@@ -51,6 +51,8 @@ export class QuizPage {
   totalExamQuestionCount: number = 0;
   hasSubmitted: boolean = false;
   currentEvaluationId: number;
+  learningData: any;
+  isSendingLearningData: boolean;
 
   @ViewChild("quizcard") quizcard: ElementRef;
   shake: boolean = false;
@@ -100,10 +102,47 @@ export class QuizPage {
     this.width = ((this.currentIndex + 1) / this.questions.length) * 100;
   }
 
+  ionViewWillEnter() {
+    console.log('user ', this.user);
+    this.storage.get("user").then(user => {
+      this.user = user;
+      this.learningData = {
+        user_id: this.user.id,
+        user_name: this.user.full_name,
+        topic_id: this.topic.id,
+        subject_id: this.subject.id,
+        topic_name: this.topic.topic,
+        subject_name: this.subject.name,
+        track_type: "learning",
+        time_spent: 0,
+        started_at: new Date().toISOString(),
+        completed_at: null
+      }
+
+      if (this.test_type == 0) {
+        this.startLearningInterval();
+      }
+
+    })
+
+  }
 
 
   ionViewWillLeave() {
     if (this.timer) clearInterval(this.timer);
+    this.shareUserTrack();
+  }
+
+  startLearningInterval() {
+    console.log('learning data ', this.learningData)
+    this.timer = setInterval(() => {
+      this.learningData.time_spent += 1;
+    })
+  }
+
+  clearLearningInterval() {
+    if (!this.timer) return;
+    clearInterval(this.timer);
   }
 
   createQuestions(que) {
@@ -301,7 +340,7 @@ export class QuizPage {
   }
 
   showDoneAlert() {
-    // this.shareUserTrack();
+    this.shareUserTrack();
     const alert = this.alertController.create({
       title: "Congratulation",
       subTitle: `You have completed your lesson on ${this.topic.topic}`,
@@ -419,9 +458,9 @@ export class QuizPage {
 
     if (this.test_type == 1) {
       this.desktopProvider.updateInitialEvaluation(body).subscribe((response: any) => {
-        console.log(response);
+        console.log('success ', response);
       }, (err: any) => {
-        console.log(err);
+        console.log('error ', err);
       });
     }
 
@@ -461,12 +500,26 @@ export class QuizPage {
   }
 
   shareUserTrack() {
-    console.log('share track ', this.user.id, this.topic.id)
-    this.userProvider
-      .updateUserTrack(this.user.id, this.topic.id)
-      .subscribe((response: any) => {
-        console.log(response);
-      });
+    if (!this.learningData || this.test_type != 0) return;
+    if (this.isSendingLearningData) return;
+
+    this.learningData.completed_at = new Date().toISOString();
+    const diff = new Date(this.learningData.completed_at).getTime() - new Date(this.learningData.started_at).getTime();
+
+    if (diff < (60 * 1000)) return;
+
+
+    this.learningData.user_id = this.user.id;
+    this.isSendingLearningData = true;
+
+    this.desktopProvider.sendReadingData(this.learningData)
+      .subscribe(res => {
+        this.isSendingLearningData = true;
+        // console.log('interactive data sent ', res)
+      }, (err) => {
+        this.isSendingLearningData = false;
+      })
+    this.clearLearningInterval();
   }
 
   tryTestAgain() {
@@ -568,6 +621,7 @@ export class QuizPage {
       user_id: user.id,
       completed_at: null,
       end_time: null,
+      start_time: new Date().toISOString(),
       score: 0
     };
     this.desktopProvider.storeInitialEvaluation(body).subscribe((response: any) => {
@@ -647,7 +701,7 @@ export class QuizPage {
             counts[topic_id] = counts[topic_id] + 1;
           }
 
-          if(!recommended_topic) recommended_topic = topic_id;
+          if (!recommended_topic) recommended_topic = topic_id;
 
           if (counts[topic_id] > counts[recommended_topic]) {
             recommended_topic = topic_id;
@@ -663,7 +717,7 @@ export class QuizPage {
     }
 
     if (this.questionType == "normal") {
-      
+
       let exam_update = {
         score: this.scores,
         end_time: new Date(Date.now()),

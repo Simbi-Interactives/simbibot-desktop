@@ -12,17 +12,13 @@
           <ion-card-content>
             <ion-list class="instruction-list">
               <ion-list-header>
-                <ion-label
-                  >The bulk upload feature allows you to upload multiple
-                  information at once from an excel file.</ion-label
-                >
+                <ion-label>
+                  <h1><strong>Bulk Upload</strong></h1>
+                </ion-label>
               </ion-list-header>
-              <!-- <ion-item>
-                <ion-label
-                  >Download the excel file template (Click here to
-                  download).</ion-label
-                >
-              </ion-item> -->
+              <ion-item>
+                <ion-label>Download the excel file template.</ion-label>
+              </ion-item>
               <ion-item>
                 <ion-label>
                   Fill your students' details in the file starting from the
@@ -38,7 +34,7 @@
             </ion-list>
 
             <ion-item>
-              <ion-label>Bulk Upload</ion-label>
+              <!-- <ion-label>Bulk Upload</ion-label> -->
               <ion-input
                 type="file"
                 (change)="selectFile($event)"
@@ -47,8 +43,9 @@
             </ion-item>
             <ion-item>
               <ion-label>
-                <a href="assets/template.xlsx" download>Download the excel file template (Click here to
-                  download)</a>
+                <a href="assets/template.xlsx" download
+                  >Download the excel file template (Click here to download)</a
+                >
               </ion-label>
             </ion-item>
 
@@ -65,7 +62,7 @@
         <br />
         <ion-card>
           <ion-card-content>
-            <h3>Add new Student</h3>
+            <h1><strong> Add new Student</strong></h1>
             <br />
 
             <form [formGroup]="createStudentForm" (submit)="submit()">
@@ -126,7 +123,7 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">No: </th>
+                    <th scope="col">No:</th>
                     <th scope="col">Student ID</th>
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
@@ -143,7 +140,7 @@
                     <td>{{user.firstname}}</td>
                     <td>{{user.lastname}}</td>
                     <td>
-                      <button                        
+                      <button
                         (click)="editStudentDetails(user)"
                         ion-button
                         full
@@ -154,12 +151,15 @@
                   </tr>
 
                   <br />
-                  <pagination-controls
-                    id="server"
-                    (pageChange)="pageChange($event)"
-                  ></pagination-controls>
+                 
                 </tbody>
               </table>
+               <pagination-controls
+                    class="student-pagination"
+                    id="server"
+                    (pageChange)="pageChange($event)"
+                    responsive="true"
+                  ></pagination-controls>
             </div>
             <br />
           </ion-card-content>

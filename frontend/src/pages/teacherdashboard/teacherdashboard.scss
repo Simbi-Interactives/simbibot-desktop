@@ -1,20 +1,25 @@
 page-teacherdashboard {
-    .img {
-        width: 150px;
-        height: 150px;
-        object-fit: contain;
-        padding: 20px;
-        display: block;
-        margin: 0 auto;
-    }
+  .img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    padding: 20px;
+    display: block;
+    margin: 0 auto;
+  }
 
-    button{
-        text-align: center;
-    }
-    
-    .cont {
-        width: 75%;
-        margin: 0 auto;
-        display: block;
-    }
+  button {
+    text-align: center;
+  }
+
+  .cont {
+    width: 75%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  button.logout-btn {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+  }
 }

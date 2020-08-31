@@ -2,8 +2,64 @@ var express = require('express');
 var router = express.Router();
 var db = require('../database/db');
 var util = require('util');
+var DataSyncService = require('../services/data_sync')
 
 const runasync = util.promisify(db.all.bind(db));
+const dataSyncService = DataSyncService();
+
+router.get("/synchronize_data/:user_id",async (req, res) => {
+  const user_id = req.params.user_id;
+  try {
+    console.log('----------------------------------------------------------sync data---------------------------------------------------------')
+    let p2 = dataSyncService.synchronizeData({type: "exam", fileName: "examattempts.csv", id: user_id});
+    let p1 = dataSyncService.synchronizeData({
+      type: "evaluation",
+      fileName: "evaluations.csv",
+      id: user_id,
+    });
+
+    Promise.all([p1, p2])
+      .then(data => {
+        console.log('----------------success syncing data------------ ', data)
+        return res.status(200).send({success: true, data});
+      })
+      .catch(err => {
+        console.log('---------------error syncing data---------------- ')
+        return res.status(422).send(err);
+      })
+  } catch (e) {
+    console.log(e);
+    return res.status(422).send(err);
+  }
+});
+
+
+router.post("/tracks/record", (req, res) => {
+  const body = req.body;
+
+  db.serialize(() => {
+    db.run(
+      `INSERT INTO tracks (track_type, time_spent, topic_id, subject_id, user_id, topic_name, subject_name, user_name, started_at, completed_at, created_at, updated_at) 
+       values (
+         '${body.track_type}', '${body.time_spent}', '${body.topic_id}', '${
+        body.subject_id
+      }', 
+         '${body.user_id}', '${body.topic_name}', '${body.subject_name}', '${
+        body.user_name
+      }',
+         '${body.started_at}', '${body.completed_at}',          
+         '${new Date().toISOString()}', '${new Date().toISOString()}') `,
+      function (err) {
+        if (err) {
+          console.log(err);
+          return res.status(422).send(err);
+        }
+
+        return res.status(200).json({success: true});
+      }
+    );
+  });
+});
 
 router.get('/fetch_subjects', (req, res) => {
   try {
@@ -41,7 +97,6 @@ router.get('/fetch_topics/:subject_id', (req, res) => {
     return res.status(422).send(e);
   }
 });
-
 
 router.get("/fetch_keypoints_count/:topic_id", (req, res) => {
   try {
