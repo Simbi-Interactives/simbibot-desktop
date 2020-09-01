@@ -1,9 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { DesktopProvider } from '../../providers/desktop/desktop';
 import { Chart } from "chart.js";
 import { StudentreportdetailsPage } from '../studentreportdetails/studentreportdetails';
 import { StudentresultsPage } from '../studentresults/studentresults';
+import {saveAs} from 'file-saver'
 
 @IonicPage()
 @Component({
@@ -21,7 +22,7 @@ export class TeacherevaluationresultPage {
   aggregatesLoaded: Promise<boolean>;
   private lineChart: Chart; 
   @ViewChild('lineChart') lineCanvas: ElementRef;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private desktopProvider: DesktopProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private desktopProvider: DesktopProvider, private loader: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -75,5 +76,21 @@ export class TeacherevaluationresultPage {
     this.navCtrl.push(StudentresultsPage, {
       user: evals.uid
     });
+  }
+
+
+
+  exportResult() {
+    const loader = this.loader.create();
+    loader.present()
+      .then(_ => {
+        this.desktopProvider.exportEvalResults()
+          .subscribe((res: any) => {            
+            saveAs(res, 'evaluation.csv')
+            loader.dismiss();            
+          }, (err) => {
+            loader.dismiss();
+          })
+      })
   }
 }

@@ -9,8 +9,8 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class DesktopProvider {
-  baseurl = `/api/v1`;
-  // baseurl = `http://localhost:3000/api/v1`; // change b4 push
+  // baseurl = `/api/v1`;
+  baseurl = `http://localhost:3000/api/v1`; // change b4 push
   constructor(public http: HttpClient) {
   }
 
@@ -22,6 +22,14 @@ export class DesktopProvider {
   public synchronizeData(user_id) {
     console.log('sync data')
     return this.http.get(`${this.baseurl}/app/synchronize_data/${user_id}`);
+  }
+
+  public exportExamResults() {
+    return this.http.get(`${this.baseurl}/app/export_results/examination`, {responseType: 'blob'});
+  }
+
+  public exportEvalResults() {
+    return this.http.get(`${this.baseurl}/app/export_results/evaluation`, { responseType: 'blob' });
   }
 
   public createTeacher(data) {

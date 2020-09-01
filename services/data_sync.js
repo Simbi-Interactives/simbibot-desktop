@@ -11,8 +11,8 @@ function DataSyncService() {
       const p1 = createEvaluationBackup();
       const p2 = createExaminationBackup();
       Promise.all([p1, p2])
-        .then(val => resolve(true))
-        .catch(err => reject(false))
+        .then(val => resolve(val))
+        .catch(err => reject(err))
     });
   }
 
@@ -40,7 +40,7 @@ function DataSyncService() {
             fastcsv
               .write(data, { headers: true })
               .on("finish", async () => {
-                resolve(true);
+                resolve({path: filePath});
               })
               .on("error", () => {
                 reject(false);
@@ -77,7 +77,7 @@ function DataSyncService() {
             fastcsv
               .write(data, { headers: true })
               .on("finish", async () => {
-                resolve(true);
+                resolve({ path: filePath });
               })
               .on("error", () => {
                 reject(false);
@@ -89,6 +89,7 @@ function DataSyncService() {
     });
   }
 
+  /*
   function synchronizeEvaluations() {
     return new Promise(async (resolve, reject) => {    
       const filePath = process.cwd() + "/data_sync/evaluations.csv";
@@ -185,8 +186,9 @@ function DataSyncService() {
                
     });
   }
-
-  function synchronizeData({type, fileName, id}) {
+*/
+  
+function synchronizeData({type, fileName, id}) {
     return new Promise(async (resolve, reject) => {
       const filePath = `${process.cwd()}/data_sync/${fileName}`;
 
@@ -230,8 +232,10 @@ function DataSyncService() {
   }
 
   return {
-    createDataBackup,  
-    synchronizeData
+    createDataBackup,
+    synchronizeData,
+    createExaminationBackup,
+    createEvaluationBackup
   };
 }
 
