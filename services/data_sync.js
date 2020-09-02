@@ -1,7 +1,7 @@
 var db = require("../database/db");
 const fastcsv = require("fast-csv");
 const fs = require("fs");
-// const path = require("path");
+const path = require("path");
 const got = require("got");
 const FormData = require("form-data");
 
@@ -11,8 +11,8 @@ function DataSyncService() {
       const p1 = createEvaluationBackup();
       const p2 = createExaminationBackup();
       Promise.all([p1, p2])
-        .then(val => resolve(val))
-        .catch(err => reject(err))
+        .then((val) => resolve(val))
+        .catch((err) => reject(err));
     });
   }
 
@@ -29,18 +29,19 @@ function DataSyncService() {
             }
 
             if (data.length === 0) return resolve(true);
+            const dirPath = path.join(process.cwd(), "data_sync");
 
-            if (!fs.existsSync(process.cwd() + "/data_sync")) {
-              fs.mkdirSync(process.cwd() + "/data_sync");
+            if (!fs.existsSync(dirPath)) {
+              fs.mkdirSync(dirPath);
             }
 
-            const filePath = process.cwd() + "/data_sync/evaluations.csv";
+            const filePath = dirPath + "/evaluations.csv";
             const evalStream = fs.createWriteStream(filePath);
-
+            console.log('dir ', dirPath, ' file', filePath)
             fastcsv
               .write(data, { headers: true })
               .on("finish", async () => {
-                resolve({path: filePath});
+                resolve({ path: filePath });
               })
               .on("error", () => {
                 reject(false);
@@ -66,12 +67,13 @@ function DataSyncService() {
 
             if (data.length === 0) return resolve(true);
 
+            const dirPath = path.join(process.cwd(), "data_sync");
 
-            if (!fs.existsSync(process.cwd() + "/data_sync")) {
-              fs.mkdirSync(process.cwd() + "/data_sync");
+            if (!fs.existsSync(dirPath)) {
+              fs.mkdirSync(dirPath);
             }
 
-            const filePath = process.cwd() + "/data_sync/examattempts.csv";
+            const filePath = dirPath + "/examattempts.csv";
             const evalStream = fs.createWriteStream(filePath);
 
             fastcsv
@@ -187,8 +189,8 @@ function DataSyncService() {
     });
   }
 */
-  
-function synchronizeData({type, fileName, id}) {
+
+  function synchronizeData({ type, fileName, id }) {
     return new Promise(async (resolve, reject) => {
       const filePath = `${process.cwd()}/data_sync/${fileName}`;
 
@@ -225,7 +227,11 @@ function synchronizeData({type, fileName, id}) {
 
         resolve(res.body);
       } catch (e) {
-        console.log(`${type} upload error `, e.response.body, e.response.status);
+        console.log(
+          `${type} upload error `,
+          e.response.body,
+          e.response.status
+        );
         reject(e.response.body);
       }
     });
@@ -235,7 +241,7 @@ function synchronizeData({type, fileName, id}) {
     createDataBackup,
     synchronizeData,
     createExaminationBackup,
-    createEvaluationBackup
+    createEvaluationBackup,
   };
 }
 
