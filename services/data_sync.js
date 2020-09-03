@@ -29,11 +29,11 @@ function DataSyncService() {
             }
 
             if (data.length === 0) return resolve(true);
-            const dirPath = path.join(process.cwd(), "data_sync");
+            const dirPath = path.join(process.cwd(), "data");
 
-            if (!fs.existsSync(dirPath)) {
-              fs.mkdirSync(dirPath);
-            }
+            // if (!fs.existsSync(dirPath)) {
+            //   fs.mkdirSync(dirPath);
+            // }
 
             const filePath = dirPath + "/evaluations.csv";
             const evalStream = fs.createWriteStream(filePath);
@@ -67,11 +67,11 @@ function DataSyncService() {
 
             if (data.length === 0) return resolve(true);
 
-            const dirPath = path.join(process.cwd(), "data_sync");
+            const dirPath = path.join(process.cwd(), "data");
 
-            if (!fs.existsSync(dirPath)) {
-              fs.mkdirSync(dirPath);
-            }
+            // if (!fs.existsSync(dirPath)) {
+            //   fs.mkdirSync(dirPath);
+            // }
 
             const filePath = dirPath + "/examattempts.csv";
             const evalStream = fs.createWriteStream(filePath);
@@ -94,7 +94,7 @@ function DataSyncService() {
   /*
   function synchronizeEvaluations() {
     return new Promise(async (resolve, reject) => {    
-      const filePath = process.cwd() + "/data_sync/evaluations.csv";
+      const filePath = process.cwd() + "/data/evaluations.csv";
 
         if(!fs.existsSync(filePath)) {        
             return reject({
@@ -142,7 +142,7 @@ function DataSyncService() {
 
   function synchronizeExamAttempts() {
     return new Promise(async (resolve, reject) => {
-      const filePath = process.cwd() + "/data_sync/examattempts.csv";
+      const filePath = process.cwd() + "/data/examattempts.csv";
 
         if (!fs.existsSync(filePath)) {
           return reject({ success: false, message: "No backup file found for examinations" });
@@ -192,7 +192,7 @@ function DataSyncService() {
 
   function synchronizeData({ type, fileName, id }) {
     return new Promise(async (resolve, reject) => {
-      const filePath = `${process.cwd()}/data_sync/${fileName}`;
+      const filePath = `${process.cwd()}/data/${fileName}`;
 
       if (!fs.existsSync(filePath)) {
         return reject({
