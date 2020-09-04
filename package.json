@@ -11,7 +11,7 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "build:exe": "cd frontend && ionic build --prod &&  cd .. && electron-builder",
-    "build:32bit": "cd frontend && ionic build --prod &&  cd .. && electron-builder -- --ia32"
+    "build:32bit": "cd frontend && ionic build --prod &&  cd .. && electron-builder -w --ia32"
   },
   "build": {
     "appId": "com.simbibotdesktop.app",

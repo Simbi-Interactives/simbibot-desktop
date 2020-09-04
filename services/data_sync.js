@@ -20,7 +20,7 @@ function DataSyncService() {
     return new Promise((resolve, reject) => {
       db.serialize(() => {
         db.all(
-          `SELECT * FROM Evaluations WHERE status = 'completed' AND  datetime(completed_at ) Not NULL ORDER by datetime(completed_at)`,
+          `SELECT * FROM Evaluations JOIN (SELECT id as uid, firstname, email from Users)  on Evaluations.user_id = uid JOIN (SELECT name as subject_name, id as subject_uid FROM Subjects) on Evaluations.subject_id = subject_uid JOIN (SELECT topic, id as topic_uid FROM Topics) on Evaluations.topic_id = topic_uid WHERE status = 'completed' AND  datetime(completed_at ) Not NULL ORDER by datetime(completed_at)`,
           [],
           (err, data) => {
             if (err) {
@@ -31,13 +31,13 @@ function DataSyncService() {
             if (data.length === 0) return resolve(true);
             const dirPath = path.join(process.cwd(), "data");
 
-            // if (!fs.existsSync(dirPath)) {
-            //   fs.mkdirSync(dirPath);
-            // }
+            if (!fs.existsSync(dirPath)) {
+              fs.mkdirSync(dirPath);
+            }
 
             const filePath = dirPath + "/evaluations.csv";
             const evalStream = fs.createWriteStream(filePath);
-            console.log('dir ', dirPath, ' file', filePath)
+            // console.log('dir ', dirPath, ' file', filePath)
             fastcsv
               .write(data, { headers: true })
               .on("finish", async () => {
@@ -57,21 +57,22 @@ function DataSyncService() {
     return new Promise((resolve, reject) => {
       db.serialize(() => {
         db.all(
-          `SELECT * FROM ExamAttempts WHERE completed_at is NOT NULL ORDER by datetime(completed_at)`,
+          `SELECT * FROM ExamAttempts  JOIN (SELECT id as uid, firstname, email from Users)  on ExamAttempts.user_id = uid JOIN (SELECT name as subject_name, id as subject_uid FROM Subjects) on ExamAttempts.subject_id = subject_uid WHERE completed_at is NOT NULL ORDER by datetime(completed_at)`,
           [],
           (err, data) => {
             if (err) {
               console.log(err);
-              throw Error("Error reading evaluation data from database");
+              throw Error("Error reading exams data from database");
             }
 
             if (data.length === 0) return resolve(true);
 
             const dirPath = path.join(process.cwd(), "data");
-
-            // if (!fs.existsSync(dirPath)) {
-            //   fs.mkdirSync(dirPath);
-            // }
+            
+            if (!fs.existsSync(dirPath)) {
+              // console.log('no data dir')
+              fs.mkdirSync(dirPath);
+            }
 
             const filePath = dirPath + "/examattempts.csv";
             const evalStream = fs.createWriteStream(filePath);
