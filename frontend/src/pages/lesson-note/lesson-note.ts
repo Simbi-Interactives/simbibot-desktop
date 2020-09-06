@@ -41,12 +41,12 @@ export class LessonNote {
   timer: any;
   isSendingLearningData: boolean = false;
   isPlayingAudio: boolean = false;
-  
+
 
   @ViewChild("quizcard") quizcard: ElementRef;
   shake: boolean = false;
   shakeGreen: boolean = false;
-
+  startTime: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -74,9 +74,6 @@ export class LessonNote {
   }
 
   ionViewDidLoad() {
-  }
-
-  ionViewWillEnter() {
     this.storage.get("user").then(user => {
       this.user = user;
 
@@ -91,9 +88,14 @@ export class LessonNote {
         time_spent: 0,
         started_at: new Date().toISOString(),
         completed_at: null
-      }      
+      }
+      this.startTime = new Date().toISOString();
       this.startReadingInterval();
     });
+  }
+
+  ionViewWillEnter() {
+
   }
 
 
@@ -116,7 +118,7 @@ export class LessonNote {
 
 
   clearReadingInterval() {
-    if(!this.timer) return;
+    if (!this.timer) return;
     clearInterval(this.timer);
   }
 
@@ -131,14 +133,14 @@ export class LessonNote {
   playAudio(lesson) {
     if (this.isPlayingAudio) return this.stopAudio();
     // console.log('text ', text);
-    const clean = sanitizeHtml(`${lesson.title} . ${lesson.content}` , {
+    const clean = sanitizeHtml(`${lesson.title} . ${lesson.content}`, {
       allowedTags: [],
       allowedAtrributes: {}
     });
     console.log('clean ', clean);
 
     this.isPlayingAudio = true;
-    this.tts.speak({text: clean, rate: 0.75} )
+    this.tts.speak({ text: clean, rate: 0.75 })
       .then(() => {
         console.log('done playing')
         this.isPlayingAudio = false;
@@ -156,6 +158,20 @@ export class LessonNote {
 
   sendReadingData() {
     if (this.isSendingLearningData) return;
+    console.log('data', this.readingData)
+
+    this.readingData = {
+      user_id: this.user.id,
+      user_name: this.user.full_name,
+      topic_id: this.topic.id,
+      subject_id: this.subject.id,
+      topic_name: this.topic.topic,
+      subject_name: this.subject.name,
+      track_type: "reading",
+      time_spent: 0,
+      started_at: this.startTime,
+      completed_at: null
+    }
 
     this.readingData.completed_at = new Date().toISOString();
     const diff = new Date(this.readingData.completed_at).getTime() - new Date(this.readingData.started_at).getTime();
@@ -165,8 +181,8 @@ export class LessonNote {
     this.readingData.user_id = this.user.id;
     this.isSendingLearningData = true;
 
-  this.desktopProvider.sendReadingData(this.readingData)
-    .subscribe(res => console.log('lesson note data sent ', res))    
+    this.desktopProvider.sendReadingData(this.readingData)
+      .subscribe(res => console.log('lesson note data sent ', res))
 
     this.clearReadingInterval()
   }
@@ -178,7 +194,7 @@ export class LessonNote {
     this.fetchQuestion(test_type)
       .subscribe((response: any) => {
         console.log('que ', response)
-        
+
         this.loaded = Promise.resolve(true);
 
         if (response) {
@@ -191,15 +207,15 @@ export class LessonNote {
           });
         }
       });
-    
+
     // this.fetchQuestion(test_type).then(data => {
-     
+
     // })
   }
 
   fetchQuestion(test_type) {
-    const practice = test_type == 0 ? true : false;   
-    return this.desktopProvider.fetchQuestionsForEvaluation(this.topic.id)    
+    const practice = test_type == 0 ? true : false;
+    return this.desktopProvider.fetchQuestionsForEvaluation(this.topic.id)
   }
 
   next() {
