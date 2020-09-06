@@ -1,4 +1,5 @@
 export const Keys = {
+    LAST_SYNC_TIME: 'LAST_SYNC_TIME',
     NOTIFICATIONS: 'notifications',
     USER: 'user',
     PUTME: 'putme',

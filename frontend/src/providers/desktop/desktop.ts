@@ -19,6 +19,19 @@ export class DesktopProvider {
     return this.http.get(`${this.baseurl}/users/is_teacher_created`);
   }
 
+  public synchronizeData(user_id) {
+    console.log('sync data')
+    return this.http.get(`${this.baseurl}/app/synchronize_data/${user_id}`);
+  }
+
+  public exportExamResults() {
+    return this.http.get(`${this.baseurl}/app/export_results/examination`, {responseType: 'blob'});
+  }
+
+  public exportEvalResults() {
+    return this.http.get(`${this.baseurl}/app/export_results/evaluation`, { responseType: 'blob' });
+  }
+
   public createTeacher(data) {
     return this.http.post(`${this.baseurl}/users/create_teacher`, data);
   }
@@ -43,6 +56,10 @@ export class DesktopProvider {
     return this.http.post(`${this.baseurl}/users/create_student`, data);
   }
 
+  public editStudent(userId, data) {
+    return this.http.post(`${this.baseurl}/users/edit_student/${userId}`, data);
+  }
+
   public fetchStudents(page) {
     return this.http.get(`${this.baseurl}/users/fetch_student?page=${page}`);
   }
@@ -51,6 +68,10 @@ export class DesktopProvider {
     const form_data = new FormData;
     form_data.append('file', file);
     return this.http.post(`${this.baseurl}/users/bulk_upload_student`, form_data);
+  }
+
+  public sendReadingData(data) {
+    return this.http.post(`${this.baseurl}/app/tracks/record`, data);
   }
 
   public fetchSubjects() {

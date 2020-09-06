@@ -26,6 +26,7 @@ import { InappbrowserProvider } from '../../providers/inappbrowser/inappbrowser'
 import { config } from '../../config'
 import { DesktopProvider } from "../../providers/desktop/desktop";
 import { TeacherdashboardPage } from "../teacherdashboard/teacherdashboard";
+import { AppEvents } from "../../contants";
 
 /**
  * Generated class for the LoginPage page.
@@ -65,7 +66,8 @@ export class LoginPage {
     private session: SessionProvider,
     private menuController: MenuController,
     private desktopProvider: DesktopProvider,
-    public appPreferences: AppPreferences
+    public appPreferences: AppPreferences,
+    private events: Events
   ) {
 
     this.currentMessage = "Can I get your email?";
@@ -83,9 +85,7 @@ export class LoginPage {
     this.registerUserBody = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
       address: ["", [Validators.required]],
-      name: ["", [Validators.required]],
-      // firstname: ["", [Validators.required]],
-      // lastname: ["", [Validators.required]],
+      name: ["", [Validators.required]],     
       phone: ["", [Validators.required, Validators.minLength(11)]],
       password: ["", [Validators.required, Validators.minLength(6)]]
     });
@@ -164,7 +164,7 @@ export class LoginPage {
       if (resp.usertype == 'student') this.navCtrl.setRoot(HomePage);
 
       if (resp.usertype == 'admin') null;
-
+     
     }, (err: any) => {
       console.log(err)
       loader.dismiss();
@@ -220,14 +220,12 @@ export class LoginPage {
 
           this._authProvider.signup(this.registerUserBody.value)
             .subscribe(async (response: any) => {
-              console.log('registered ', response)
               loader.dismiss();
-              await this.session.newUser({ ...response.data, usertype: 'teacher' });
+              await this.session.newAdmin({ ...response.data, usertype: 'teacher' });
               this.createLocalTeacherAccount(response.data)
             },
               (err: any) => {
                 loader.dismiss();
-                console.log('registered error ', err)
                 this.handleAuthError(err)
               }
             )

@@ -41,12 +41,12 @@ export class LessonNote {
   timer: any;
   isSendingLearningData: boolean = false;
   isPlayingAudio: boolean = false;
-  
+
 
   @ViewChild("quizcard") quizcard: ElementRef;
   shake: boolean = false;
   shakeGreen: boolean = false;
-
+  startTime: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -74,9 +74,6 @@ export class LessonNote {
   }
 
   ionViewDidLoad() {
-  }
-
-  ionViewWillEnter() {
     this.storage.get("user").then(user => {
       this.user = user;
 
@@ -92,23 +89,37 @@ export class LessonNote {
         started_at: new Date().toISOString(),
         completed_at: null
       }
+      this.startTime = new Date().toISOString();
       this.startReadingInterval();
     });
   }
 
+  ionViewWillEnter() {
+
+  }
+
 
   ionViewWillLeave() {
-    console.log('will leave')
     this.tts.speak("")
 
-    // if (this.timer) clearInterval(this.timer);
-    // this.sendReadingData();
+    if (this.timer) clearInterval(this.timer);
+    this.sendReadingData();
   }
 
   startReadingInterval() {
+    this.readingData.started_at = new Date().toISOString();
+    this.readingData.time_spent = 0;
+    this.isSendingLearningData = false;
+
     this.timer = setInterval(() => {
       this.readingData.time_spent += 1;
     })
+  }
+
+
+  clearReadingInterval() {
+    if (!this.timer) return;
+    clearInterval(this.timer);
   }
 
   createLessons() {
@@ -122,14 +133,14 @@ export class LessonNote {
   playAudio(lesson) {
     if (this.isPlayingAudio) return this.stopAudio();
     // console.log('text ', text);
-    const clean = sanitizeHtml(`${lesson.title} . ${lesson.content}` , {
+    const clean = sanitizeHtml(`${lesson.title} . ${lesson.content}`, {
       allowedTags: [],
       allowedAtrributes: {}
     });
     console.log('clean ', clean);
 
     this.isPlayingAudio = true;
-    this.tts.speak({text: clean, rate: 0.75} )
+    this.tts.speak({ text: clean, rate: 0.75 })
       .then(() => {
         console.log('done playing')
         this.isPlayingAudio = false;
@@ -145,32 +156,45 @@ export class LessonNote {
       .catch((error: any) => console.log('cannot stop ', error))
   }
 
-  // sendReadingData() {
-  //   if (this.isSendingLearningData) return;
+  sendReadingData() {
+    if (this.isSendingLearningData) return;
+    console.log('data', this.readingData)
 
-  //   this.readingData.completed_at = new Date().toISOString();
-  //   const diff = new Date(this.readingData.completed_at).getTime() - new Date(this.readingData.started_at).getTime();
+    this.readingData = {
+      user_id: this.user.id,
+      user_name: this.user.full_name,
+      topic_id: this.topic.id,
+      subject_id: this.subject.id,
+      topic_name: this.topic.topic,
+      subject_name: this.subject.name,
+      track_type: "reading",
+      time_spent: 0,
+      started_at: this.startTime,
+      completed_at: null
+    }
 
-  //   if (diff < (60 * 1000)) {
-  //     console.log('less than a minute ', diff)
-  //     return;
-  //   }
+    this.readingData.completed_at = new Date().toISOString();
+    const diff = new Date(this.readingData.completed_at).getTime() - new Date(this.readingData.started_at).getTime();
 
-  //   this.readingData.user_id = this.user.id;
-  //   console.log('reading data ', this.readingData);
-  //   this.isSendingLearningData = true;
+    if (diff < (60 * 1000)) return;
 
-  //   this.learningProvider.sendReadingData(this.readingData)
-  // }
+    this.readingData.user_id = this.user.id;
+    this.isSendingLearningData = true;
+
+    this.desktopProvider.sendReadingData(this.readingData)
+      .subscribe(res => console.log('lesson note data sent ', res))
+
+    this.clearReadingInterval()
+  }
 
   async skipToEvaluation(test_type) {
     console.log('send data ')
 
-    // this.sendReadingData();
+    this.sendReadingData();
     this.fetchQuestion(test_type)
       .subscribe((response: any) => {
         console.log('que ', response)
-        
+
         this.loaded = Promise.resolve(true);
 
         if (response) {
@@ -183,15 +207,15 @@ export class LessonNote {
           });
         }
       });
-    
+
     // this.fetchQuestion(test_type).then(data => {
-     
+
     // })
   }
 
   fetchQuestion(test_type) {
-    const practice = test_type == 0 ? true : false;   
-    return this.desktopProvider.fetchQuestionsForEvaluation(this.topic.id)    
+    const practice = test_type == 0 ? true : false;
+    return this.desktopProvider.fetchQuestionsForEvaluation(this.topic.id)
   }
 
   next() {

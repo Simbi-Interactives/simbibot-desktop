@@ -1,7 +1,28 @@
 page-createstudent {
-    .cont {
-        width: 80%;
-        display: block;
-        margin: 0 auto;
-    }
+  .cont {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .instruction-list ion-label {
+    text-overflow: inherit;
+    white-space: normal;
+  }
+
+  .card-md .item-md.item-block .item-inner {
+    border-bottom: 1px solid #dedede;
+  }
+
+  .student-pagination .ngx-pagination .current {
+    background: rgb(0, 195, 255);
+  }
+
+   ul.ngx-pagination.responsive {
+    width: 400px;
+  }
+
+  .student-pagination {
+      width: 100%;
+  }
 }

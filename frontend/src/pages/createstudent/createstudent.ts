@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController, ModalCmp, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DesktopProvider } from '../../providers/desktop/desktop';
+import { EditStudentPage } from '../editstudent/editstudent';
 
 /**
  * Generated class for the CreatestudentPage page.
@@ -23,13 +24,13 @@ export class CreatestudentPage {
   page = 1;
 
   uploading = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder,private loadingCtrl:LoadingController, private alertCtrl: AlertController, private desktopProvider: DesktopProvider, private toastCtrl: ToastController) {
-      this.createStudentForm = this.formBuilder.group({
-        email: ['', [Validators.required]],
-        password: ['', [Validators.required]],
-        firstname: ['', [Validators.required]],
-        lastname: ['', [Validators.required]],
-      });
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private desktopProvider: DesktopProvider, private toastCtrl: ToastController) {
+    this.createStudentForm = this.formBuilder.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+    });
   }
 
   ionViewDidLoad() {
@@ -77,29 +78,43 @@ export class CreatestudentPage {
 
   selectFile(event) {
     console.log(event);
-    this.bulkuploadfile  = event.target.files[0];
+    this.bulkuploadfile = event.target.files[0];
   }
 
   uploadStudent() {
-      this.uploading = true;
-      this.desktopProvider.bulkUploadStudent(this.bulkuploadfile).subscribe((response: any) => {
-        this.uploading = false;
+    this.uploading = true;
+    this.desktopProvider.bulkUploadStudent(this.bulkuploadfile).subscribe((response: any) => {
+      this.uploading = false;
+      this.fetchUsers();
+
+      this.toastCtrl.create({
+        message: 'Bulk upload completed successfully',
+        duration: 1000,
+      }).present();
+
+    }, (err: any) => {
+
+      this.uploading = false;
+      this.toastCtrl.create({
+        message: 'An error occured',
+        duration: 1000,
+      }).present();
+
+    });
+  }
+
+  editStudentDetails(user) {
+    console.log('edit ', user);
+    let editModal = this.modalCtrl.create(EditStudentPage, { user })
+  
+    editModal.present();
+
+    editModal.onDidDismiss(data =>{
+      console.log('data ', data)
+      if(data.refresh === true) {
         this.fetchUsers();
-
-        this.toastCtrl.create({
-          message: 'Bulk upload completed successfully',
-          duration: 1000,
-        }).present();
-
-      }, (err: any) => {
-
-        this.uploading = false;
-        this.toastCtrl.create({
-          message: 'An error occured',
-          duration: 1000,
-        }).present();
-
-      });
+      }
+    })
   }
 
   pageChange(p) {

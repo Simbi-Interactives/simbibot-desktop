@@ -48,7 +48,7 @@ export class FlashCard {
   touchEndRect: any;
   cardToAnimate: any;
   learningDone: boolean = false;
-  isSendingLearningData: boolean = false;
+  hasSentLearningData: boolean = false;
   studyAgain: Set<any> = new Set();
   dismissTimeout: any;
   displayGuides: boolean = false;
@@ -168,7 +168,7 @@ export class FlashCard {
 
     this.readingData.started_at = new Date().toISOString();
     this.readingData.time_spent = 0;
-    this.isSendingLearningData = false;
+    this.hasSentLearningData = false;
 
     this.timer = setInterval(() => {
       this.readingData.time_spent += 1;
@@ -255,7 +255,7 @@ export class FlashCard {
   }
 
   handleTouchEnd(event) {
-    const cardToFlip = event.target.parentNode;    
+    const cardToFlip = event.target.parentNode;
 
     if (this.isAnimating) {
       this.stopAnimation(this.touchEndRect);
@@ -377,7 +377,7 @@ export class FlashCard {
   }
 
   flipCard(card) {
-   
+
     // const card = event.target.parentNode.parentNode;
 
     if (!card.classList.contains('active')) return;
@@ -462,28 +462,34 @@ export class FlashCard {
     // console.log('read ', this.readCards, ' remaining ', this.remainingCards);
     if (this.remainingCards.length > 0) this.remainingCards[this.remainingCards.length - 1].classList.add('active')
     this.learningDone = false;
+
     this.startReadingInterval();
   }
 
   sendReadingData() {
-    if (this.isSendingLearningData) return;
+    if (this.hasSentLearningData) return;
 
     this.readingData.completed_at = new Date().toISOString();
     const diff = new Date(this.readingData.completed_at).getTime() - new Date(this.readingData.started_at).getTime();
 
-    if (diff < (60 * 1000)) {
-      console.log('less than a minute ', diff)
-      return;
-    }
+    if (diff < (60 * 1000)) return;
 
     this.readingData.user_id = this.user.id;
-    // console.log('learning data ', this.readingData);
 
-    // this.learningProvider.sendReadingData(this.readingData)
+    this.hasSentLearningData = true;
+    this.destkopProvider.sendReadingData(this.readingData)
+      .subscribe(res => {
+        console.log('learning data sent ', res)
+      },
+        err => {
+          this.hasSentLearningData = false;
+          console.log('error sending learning data ', err)
+        })
+
     this.clearReadingInterval();
   }
 
-  openLessonNote() {    
+  openLessonNote() {
     return this.destkopProvider.fetchKeypoints(this.topic.id).subscribe(data => {
       return this.navCtrl.pop().then(val => {
         this.navCtrl.push(

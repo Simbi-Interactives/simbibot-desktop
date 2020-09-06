@@ -171,6 +171,50 @@ router.post("/create_student", async (req, res) => {
   }
 });
 
+router.post("/edit_student/:id", async (req, res) => {
+  const userId = req.params.id;
+  let body = req.body;
+
+  console.log(body);
+
+  try {
+    let hash;
+
+    if (body.password) {
+      const salt = await bcrypt.genSalt(5);
+      hash = await bcrypt.hash(body.password, salt);
+      body.password = hash;
+    }
+
+    let updateQuery = `UPDATE users SET `;
+    let entries = Object.entries(body);
+    for (let i = 0; i < entries.length; i++) {
+      console.log('index ', i)
+      const [key, value] = entries[i];
+      updateQuery += `${key} = case when coalesce("${value}", '') = '' then
+                        ${key}
+                    else
+                      "${value}"
+                    end${i < entries.length - 1 ? "," : ""}
+                    `;
+    }
+    console.log(updateQuery)
+    db.serialize(() => {
+      db.run((updateQuery += `WHERE id = '${userId}'`), [], (err) => {
+        if (err) {
+          console.log(err);
+          return res.status(422).send(err);
+        }
+
+        return res.status(200).json({ message: "Successful" });
+      });
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(422).send(e);
+  }
+});
+
 router.get("/fetch_student", async (req, res) => {
   let page = req.query.page;
   let limit = 10;
@@ -241,7 +285,9 @@ router.post("/bulk_upload_student", upload.single("file"), async (req, res) => {
                 student.firstname
               }', '${student.lastname}', '${
                 student.email
-              }', '${hash}', 'student', '${new Date().toISOString()}', '${new Date().toISOString()}') as tmp WHERE NOT EXISTS (SELECT email FROM Users WHERE email='${student.email}') LIMIT 1`,
+              }', '${hash}', 'student', '${new Date().toISOString()}', '${new Date().toISOString()}') as tmp WHERE NOT EXISTS (SELECT email FROM Users WHERE email='${
+                student.email
+              }') LIMIT 1`,
               [],
               (err) => {
                 if (err) {

@@ -6,3 +6,5 @@ data.db
 /uploads
 /www
 */.sourcemaps
+# /data_sync
+.vscode

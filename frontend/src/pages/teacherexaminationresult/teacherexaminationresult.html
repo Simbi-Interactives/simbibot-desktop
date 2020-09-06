@@ -7,6 +7,9 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center>Examination Result</ion-title>
+    <ion-buttons end padding>
+      <button ion-button color="light" (click)="exportResult()"><strong>Export</strong></button>      
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -18,7 +21,7 @@
           <ion-card-content>
             <ion-item *ngFor="let exam of exams">
               <button ion-button item-start clear color="dark"> {{exam.name}}</button>
-              <button ion-button item-end (click)="fetchExamChartScores(exam)">View Performance</button>
+              <button ion-button item-end (click)="fetchExamChartScores(exam)">View</button>
             </ion-item>
           </ion-card-content>
         </ion-card>
@@ -53,7 +56,7 @@
 
                 <tbody>
                   <tr *ngFor="let exam of aggregates; let i = index;">
-                    <td>{{i}}</td>
+                    <td>{{i + 1}}</td>
                     <td>{{exam.firstname + ' ' + exam.lastname}}</td>
                     <td>{{exam.name}}</td>
                     <td>{{exam.attempts}}</td>

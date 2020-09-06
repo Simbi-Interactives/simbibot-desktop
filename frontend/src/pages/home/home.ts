@@ -6,6 +6,7 @@ import { ExamsubjectsPage } from "../examsubjects/examsubjects";
 import { DesktopProvider } from "../../providers/desktop/desktop";
 import { PostutmePage } from "../postutme/postutme";
 import { SessionProvider } from "../../providers/session/session";
+import { AppEvents } from "../../contants";
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
@@ -30,6 +31,10 @@ export class HomePage {
     this.user = this.session.getUser();
     this.fetchSubjects();
     this.fetchSuperExams();
+  }
+
+  ionViewDidLoad() {
+    
   }
 
   fetchSubjects() {

@@ -7,6 +7,9 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center>Evaluation Result </ion-title>
+    <ion-buttons end padding>
+      <button ion-button color="light" (click)="exportResult()"><strong>Export</strong></button>      
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -18,7 +21,7 @@
           <ion-card-content>
             <ion-item *ngFor="let subject of subjects">
               <button ion-button item-start clear color="dark"> {{subject.name}}</button>
-              <button ion-button item-end (click)="fetchChartData(subject)">View Results</button>
+              <button ion-button item-end (click)="fetchChartData(subject)">View</button>
             </ion-item>
           </ion-card-content>
         </ion-card>
@@ -51,8 +54,8 @@
                   </thead>
 
                   <tbody>
-                    <tr *ngFor="let aggregate of aggregates; let i =index">
-                    <td>{{i}}</td>
+                    <tr *ngFor="let aggregate of aggregates; let i = index">
+                    <td>{{i + 1}}</td>
                     <td>{{aggregate.firstname + ' ' + aggregate.lastname}}</td>
                     <td>{{aggregate.topic}}</td>
                     <td>{{aggregate.name}}</td>

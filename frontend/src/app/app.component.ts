@@ -40,6 +40,8 @@ import { TeacherdashboardPage } from "../pages/teacherdashboard/teacherdashboard
 import { StudentresultsPage } from "../pages/studentresults/studentresults";
 import { ActivationPage } from "../pages/activationpage/activationpage";
 import { LessonNote } from "../pages/lesson-note/lesson-note";
+import { AppEvents, Keys } from "../contants";
+import { NetworkProvider } from "../providers/network/network";
 
 declare global {
   interface Window {
@@ -78,7 +80,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public storage: Storage,
     private menuController: MenuController,
-    private offlineProvider: OfflineProvider,
+    private networkProvider: NetworkProvider,
     private events: Events,
     private app: App,
     private session: SessionProvider,
@@ -112,24 +114,14 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      // initialize install referrer
-      // console.log('referrer ', this.installReferrer)
-
-      // this.installReferrer.setPersistent("referrer");
-      // this.installReferrer.setVolatile("referrer");
-
-      // this._installReferrer.getReferrer()
-      //   .then(data => {
-      //     // data is a array with all parameters received
-      //     console.log('data ', data)
-      //   })
-      //   .catch(err => { });
+      this.subscribeToEvents();
 
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
 
       this.keepSession();
+      this.syncData();
       // this.offlineProvider.unzipDatabase();
       this.statusBar.backgroundColorByHexString("#36BFE9");
       this.splashScreen.hide();
@@ -191,7 +183,56 @@ export class MyApp {
     });
   }
 
+  async syncData() {
+    const last_sync = await this.storage.get(Keys.LAST_SYNC_TIME)
+    if(!last_sync) {
+      return this.storage.set(Keys.LAST_SYNC_TIME, new Date().toISOString());
+    }
 
+    if(this.diffInDays(last_sync) < 7) return;
+
+    console.log('offline ', this.networkProvider.isOffline())
+
+    if (!this.networkProvider.isOffline()) {
+      const user_id = localStorage.getItem('school_id')
+      
+      this.desktopProvider.synchronizeData(user_id)
+        .subscribe((response: any) => {
+          if(response.success === true) {
+            this.storage.set(Keys.LAST_SYNC_TIME, new Date().toISOString());
+          }
+        }, (err) => {
+          console.log('sync error ', err);
+        })
+    }
+
+  }
+
+   diffInDays(last_sync){
+    let today = new Date().getTime();
+    let expiryTime = new Date(last_sync).getTime();
+
+    let diff = today - expiryTime;
+    diff = diff / 1000; // milliseconds to seconds
+    diff = diff / 60; // seconds to minutes
+    diff = diff / 60; // miutes to hours
+    diff = diff / 24; // hours to days;
+    console.log('diff in days', diff);
+    return diff;
+
+  }
+
+  subscribeToEvents() {
+    // this.events.subscribe(AppEvents.USER_AUTH, () => {
+    //   console.log( 'offline ', this.networkProvider.isOffline())
+    //   if(!this.networkProvider.isOffline()) {
+    //     this.desktopProvider.synchronizeData()
+    //       .subscribe(response => {
+    //         console.log('sync response ', response);
+    //       })
+    //   }
+    // })
+  }
 
   openPage(page) {
     this.nav.setRoot(page.component);
@@ -213,6 +254,7 @@ export class MyApp {
           },
         )
       }
+      console.log('teacher ', res)
       if (res.data) {
         let session = this.session.checkUser();
         const activation_key = this.session.getActivationKey();
@@ -236,7 +278,7 @@ export class MyApp {
         }
       } else {
         console.log('e no work');
-        this.rootPage = CreateteacherPage;
+        this.rootPage = LoginPage;
       }
     })
   }
