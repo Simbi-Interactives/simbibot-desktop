@@ -61,6 +61,8 @@ export class TopicPage {
     let modal = this.modalCtrl.create(OnboardingPage, {
       subject: this.subject,
       topic: this.topics[i]
+    }, {
+        cssClass: 'onboarding-modal'
     });
 
     modal.present();

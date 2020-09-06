@@ -41,7 +41,7 @@ export class LessonNote {
   timer: any;
   isSendingLearningData: boolean = false;
   isPlayingAudio: boolean = false;
-
+  errorMsg: string = "error"
 
   @ViewChild("quizcard") quizcard: ElementRef;
   shake: boolean = false;
@@ -103,7 +103,7 @@ export class LessonNote {
     this.tts.speak("")
 
     if (this.timer) clearInterval(this.timer);
-    this.sendReadingData();
+    // this.sendReadingData();
   }
 
   startReadingInterval() {
@@ -172,9 +172,13 @@ export class LessonNote {
       started_at: this.startTime,
       completed_at: null
     }
+    try {
 
-    this.readingData.completed_at = new Date().toISOString();
-    const diff = new Date(this.readingData.completed_at).getTime() - new Date(this.readingData.started_at).getTime();
+      this.readingData.completed_at = new Date().toISOString();
+      var diff = new Date(this.readingData.completed_at).getTime() - new Date(this.readingData.started_at).getTime();
+    } catch (e) {
+      this.errorMsg = e;
+    }
 
     if (diff < (60 * 1000)) return;
 
@@ -190,7 +194,7 @@ export class LessonNote {
   async skipToEvaluation(test_type) {
     console.log('send data ')
 
-    this.sendReadingData();
+    // this.sendReadingData();
     this.fetchQuestion(test_type)
       .subscribe((response: any) => {
         console.log('que ', response)

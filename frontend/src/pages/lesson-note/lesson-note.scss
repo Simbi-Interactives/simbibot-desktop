@@ -129,6 +129,7 @@ page-lesson-note {
   .col > .btn-skip,
   .btn-skip--wrapper {
     padding: 0;
+    
   }
 
   .btn-skip {
@@ -146,10 +147,15 @@ page-lesson-note {
   .btn-skip.learning {
     background: rgb(88, 148, 211);
     padding: 10px;
+    padding-right: 40px;
   }
   .btn-skip.evaluation {
     background: rgb(247, 182, 52);
     padding: 10px;
+    padding-right: 40px;
+  }
+
+  .btn-skip__subtitle {
   }
 
   .input-box {
