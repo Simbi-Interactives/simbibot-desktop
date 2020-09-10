@@ -10,7 +10,7 @@
     "postinstall": "electron-builder install-app-deps",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "publish": "build --mac --win -p always",
+    "publish": "electron-builder --mac --win -p always",
     "build:exe": "cd frontend && ionic build --prod &&  cd .. && electron-builder",
     "build:32bit": "cd frontend && ionic build --prod &&  cd .. && electron-builder -w --ia32"
   },
@@ -26,8 +26,13 @@
         {
           "target": "nsis",
           "arch": [
-            "x64",
-            "x32"
+            "x64"            
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"            
           ]
         }
       ],
