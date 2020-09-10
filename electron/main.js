@@ -1,6 +1,8 @@
 // https://github.com/electron/electron-quick-start/blob/master/main.js
 
 const electron = require('electron');
+require('electron-updater')(); // initilize automatic app updates
+
 // const server = require('../app');
 // Module to control application life.
 const app = electron.app;
