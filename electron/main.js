@@ -5,7 +5,7 @@ const electron = require('electron');
  autoUpdater.checkForUpdatesAndNotify();
 
 // const server = require('../app');
-// Module to control application life.
+// Module to cpontrol application life.
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
