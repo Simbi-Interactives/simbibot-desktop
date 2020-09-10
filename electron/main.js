@@ -2,7 +2,7 @@
 
 const electron = require('electron');
  const {autoUpdater} = require('electron-updater'); // initilize automatic app updates
- autoUpdater.checkForUpdatesAndNotify();
+ autoUpdater.checkForUpdatesAndNotify(); // works when app is packed
 
 // const server = require('../app');
 // Module to cpontrol application life.
