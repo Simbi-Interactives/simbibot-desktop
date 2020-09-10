@@ -10,6 +10,7 @@
     "postinstall": "electron-builder install-app-deps",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "publish": "build --mac --win -p always",
     "build:exe": "cd frontend && ionic build --prod &&  cd .. && electron-builder",
     "build:32bit": "cd frontend && ionic build --prod &&  cd .. && electron-builder -w --ia32"
   },
@@ -25,13 +26,21 @@
         {
           "target": "nsis",
           "arch": [
-            "x64"
+            "x64",
+            "x32"
           ]
         }
       ],
       "icon": "./simbibot.ico"
     },
-    "extends": null
+    "extends": null,
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "shadrach-tayo",
+        "repo": "simbibot-desktop"
+      }
+    ]
   },
   "dependencies": {
     "async": "^3.1.0",
@@ -39,6 +48,7 @@
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "electron-updater": "^4.3.4",
     "express": "~4.16.1",
     "fast-csv": "^4.3.1",
     "form-data": "^3.0.0",
