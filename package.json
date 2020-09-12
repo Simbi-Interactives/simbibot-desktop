@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "main": "electron/main.js",
   "author": "simbibot",
@@ -10,7 +10,7 @@
     "postinstall": "electron-builder install-app-deps",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "publish": "electron-builder --mac --win -p always",
+    "publish": "cd frontend && ionic build --prod &&  cd .. && electron-builder --mac --win -p always",
     "publish:mac": "cd frontend && ionic build --prod &&  cd .. && electron-builder --mac -p always",
     "build:exe": "cd frontend && ionic build --prod &&  cd .. && electron-builder",
     "build:32bit": "cd frontend && ionic build --prod &&  cd .. && electron-builder -w --ia32"
