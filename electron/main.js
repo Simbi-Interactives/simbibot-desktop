@@ -6,11 +6,6 @@ require("update-electron-app")({
   updateInterval: "5 minutes",
   logger: require("electron-log"),
 });
-//  const {autoUpdater} = require('electron-updater'); // initilize automatic app updates
- 
-//  autoUpdater.logger = require("electron-log");
-//  autoUpdater.logger.transports.file.level = "info";
-//  autoUpdater.checkForUpdatesAndNotify(); // works when app is packed
 
 // const server = require('../app');
 // Module to cpontrol application life.

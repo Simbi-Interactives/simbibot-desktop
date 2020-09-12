@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "main": "electron/main.js",
   "author": "simbibot",
@@ -55,7 +55,6 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "electron-log": "^4.2.4",
-    "electron-updater": "^4.3.4",
     "express": "~4.16.1",
     "fast-csv": "^4.3.1",
     "form-data": "^3.0.0",
