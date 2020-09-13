@@ -1,12 +1,13 @@
 {
   "name": "app",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "main": "electron/main.js",
   "author": "simbibot",
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
+    "dev:electron": "electron .",
     "postinstall": "electron-builder install-app-deps",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
@@ -73,6 +74,7 @@
     "electron": "^7.1.9",
     "electron-builder": "^22.2.0",
     "electron-rebuild": "^1.8.8",
+    "electron-reload": "^1.5.0",
     "nodemon": "^2.0.2"
   }
 }
