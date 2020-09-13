@@ -8,7 +8,7 @@ var xlsx = require("xlsx");
 const upload_dir = path.join(__dirname, "/../uploads");
 var upload = multer({ dest: upload_dir });
 
-const db = require("../database/db");
+const {db} = require("../database");
 const bcrypt = require("bcryptjs");
 
 router.get("/", function (req, res, next) {
