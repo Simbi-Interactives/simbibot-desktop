@@ -19,7 +19,7 @@ function checkDatabase() {
     fs.renameSync(localDbPath, dbPath);
   }
 
-  return initializeDatabase();
+  return initializeDatabase(dbPath);
 }
 
 module.exports.db = checkDatabase();

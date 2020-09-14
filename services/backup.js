@@ -1,4 +1,11 @@
 var { db, sqlite3 } = require("../database");
+const path = require('path')
+const fs = require('fs')
+const electron = require("electron");
+const fastcsv = require("fast-csv");
+
+
+const app = electron.app;
 
 module.exports = function BackUpAndUpdateService() {
     let localDb;
