@@ -22,7 +22,8 @@ autoUpdater.addListener("update-downloaded", async () => {
 
     await dataBackup.backUpUserData();
     await dataBackup.importUserData()
-    dataBackup.replaceDatabaseFile()
+    await dataBackup.replaceDatabaseFile()
+    await dataBackup.clearBackUp()
   } catch(err) {
     console.log('error upgrading database for upgrade', err)
   }

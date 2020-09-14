@@ -1,15 +1,14 @@
 var { db, sqlite3 } = require("../database");
-const path = require('path')
-const fs = require('fs')
+const path = require("path");
+const fs = require("fs");
 const electron = require("electron");
 const fastcsv = require("fast-csv");
-
 
 const app = electron.app;
 
 module.exports = function BackUpAndUpdateService() {
-    let localDb;
-    const localDbPath = __dirname + "/../data.db";
+  let localDb;
+  const localDbPath = __dirname + "/../data.db";
 
   function importUsersTable() {
     return new Promise((resolve, reject) => {
@@ -209,17 +208,35 @@ module.exports = function BackUpAndUpdateService() {
     });
   }
 
+  function clearBackUp() {
+    return new Promise((resolve) => {
+      const dataPath = path.join(app.getPath("userData"), "simbibot/data");
+
+      if (fs.existsSync(dataPath)) {
+        fs.rmdirSync(dataPath);
+        resolve(true);
+      }
+    });
+  }
+
   function replaceDatabaseFile() {
-    const simbiPath = path.join(app.getPath("userData"), "simbibot");
+    return new Promise((resolve, reject) => {
+      const simbiPath = path.join(app.getPath("userData"), "simbibot");
 
-    const dbPath = path.join(simbiPath, "simbibot_data.db");
-    const localDbPath = __dirname + "/../data.db";
+      const dbPath = path.join(simbiPath, "simbibot_data.db");
+      const localDbPath = __dirname + "/../data.db";
 
-    if (fs.existsSync(localDbPath) && fs.existsSync(dbPath)) {
-      fs.unlinkSync(dbPath);
-      fs.renameSync(localDbPath, dbPath);
-      console.log("database replace done");
-    }
+      try {
+        if (fs.existsSync(localDbPath) && fs.existsSync(dbPath)) {
+          fs.unlinkSync(dbPath);
+          fs.renameSync(localDbPath, dbPath);
+          resolve(true);
+          console.log("database replace done");
+        }
+      } catch (e) {
+        reject(false);
+      }
+    });
   }
 
   function exportUsersTable() {
@@ -365,6 +382,7 @@ module.exports = function BackUpAndUpdateService() {
   }
 
   return {
+    clearBackUp,
     backUpUserData,
     importUserData,
     replaceDatabaseFile,
