@@ -9,7 +9,8 @@ require("update-electron-app")({
   logger: require("electron-log"),
 });
 
-const dataSyncService = require("../services/data_sync")();
+const DataBackup = require("../services/backup");
+const dataBackup = DataBackup();
 
 // const server = require('../app');
 // Module to cpontrol application life.
@@ -19,13 +20,16 @@ const autoUpdater = electron.autoUpdater;
 autoUpdater.addListener("update-downloaded", async () => {
   try {
 
-    var backupRes = await dataSyncService.backUpUserData();
-    var importRes = await dataSyncService.importUserData()
-    autoUpdater.quitAndInstall();
-
+    await dataBackup.backUpUserData();
+    await dataBackup.importUserData()
+    dataBackup.replaceDatabaseFile()
   } catch(err) {
     console.log('error upgrading database for upgrade', err)
   }
+});
+
+autoUpdater.addListener("update-available", () => {
+  console.log('updates available.........')
 });
 
 // Module to create native browser window.
