@@ -232,6 +232,8 @@ module.exports = function BackUpAndUpdateService() {
           fs.renameSync(localDbPath, dbPath);
           resolve(true);
           console.log("database replace done");
+        } else {
+            resolve(true);
         }
       } catch (e) {
         reject(false);

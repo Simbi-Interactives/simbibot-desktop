@@ -59,6 +59,7 @@ function createWindow() {
         protocol: "file:",
         slashes: true,
       });
+      console.log('start url ', startUrl)
     mainWindow.loadURL(startUrl);
 
     // mainWindow.webContents.openDevTools();

@@ -79,3 +79,22 @@ async function add() {
 
 add();
 ```
+### PUBLISHING APP UPDATES USING GITHUB RELEASES
+
+In the package.json, go to the build#publish section,
+there you can change the repo to push to and the owner of the repo to host the release on your own repo
+
+- create a PUBLIC ACCESS TOKEN on your repo and add it to your environment as GH_TOKEN or GITHUB_TOKEN so the app can use it to pull updates from the repo.
+
+## WINDOWS
+To publish updates for windows run
+``` npm run publish:win ```
+To build  32bit updates run 
+ ``` npm run build:32bit```
+
+Make sure you commit your changes and push to the repo.
+
+## PUBLISHING RELEASES
+ after running the publish command, a github release draft is created on the target repository, go to the repo and edit the release and publish it.
+
+The app will automatically detect this updates and pull.
