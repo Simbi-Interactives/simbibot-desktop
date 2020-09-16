@@ -1,11 +1,14 @@
-var db = require("../database/db");
+var { db } = require("../database");
 const fastcsv = require("fast-csv");
 const fs = require("fs");
 const path = require("path");
 const got = require("got");
 const FormData = require("form-data");
 
-function DataSyncService() {
+const remoteServer = "https://learn.simbibot.com/api/schools-management/"; // change b4 push
+
+
+module.exports =  function DataSyncService() {
   function createDataBackup() {
     return new Promise((resolve, reject) => {
       const p1 = createEvaluationBackup();
@@ -68,7 +71,7 @@ function DataSyncService() {
             if (data.length === 0) return resolve(true);
 
             const dirPath = path.join(process.cwd(), "data");
-            
+
             if (!fs.existsSync(dirPath)) {
               // console.log('no data dir')
               fs.mkdirSync(dirPath);
@@ -92,104 +95,6 @@ function DataSyncService() {
     });
   }
 
-  /*
-  function synchronizeEvaluations() {
-    return new Promise(async (resolve, reject) => {    
-      const filePath = process.cwd() + "/data/evaluations.csv";
-
-        if(!fs.existsSync(filePath)) {        
-            return reject({
-              success: false,
-              message: "No backup file found for evaluations",
-            });
-        }
-
-        const formdata = new FormData();
-
-        let stream = fs.createReadStream(
-          filePath
-        );
-
-        formdata.append("result_file", stream, {
-          knownLength: fs.statSync(
-            filePath
-          ).size,
-        });
-
-        // console.log('stream ', stream)
-        formdata.append("type", "evaluation");
-
-        try {
-          const res = await got(
-            "https://playground.simbibot.com/api/schools-management/17/upload-result",
-            {
-              method: "POST",
-              body: formdata,
-              headers: {
-                Accept: "application/json",
-                ...formdata.getHeaders(),
-              },
-            }
-          );
-          console.log("evaluation csv uploaded  ", res.body);
-
-          resolve(res.body);
-        } catch (e) {
-          console.log("upload error ", e);
-          reject(e);
-        }                    
-      });
-    }
-
-  function synchronizeExamAttempts() {
-    return new Promise(async (resolve, reject) => {
-      const filePath = process.cwd() + "/data/examattempts.csv";
-
-        if (!fs.existsSync(filePath)) {
-          return reject({ success: false, message: "No backup file found for examinations" });
-        }
-
-      const formdata = new FormData();
-
-      let stream = fs.createReadStream(
-        filePath
-      );
-
-      formdata.append("result_file", stream, {
-        knownLength: fs.statSync(
-          filePath
-        ).size,
-      });
-
-      formdata.append("type", "exam");
-
-      try {
-        const res = await got(
-          "https://playground.simbibot.com/api/schools-management/17/upload-result",
-          {
-            method: "POST",
-            body: formdata,
-            headers: {
-              Accept: "application/json",
-              ...formdata.getHeaders(),
-            },
-          }
-        );
-        console.log("exam csv uploaded  ", res.body);
-
-        resolve(res.body);
-      } catch (e) {
-        console.log(
-          "exam upload error ",
-          e.response.body,
-          e.response.status
-        );
-        reject(e.response.body);
-      }
-               
-    });
-  }
-*/
 
   function synchronizeData({ type, fileName, id }) {
     return new Promise(async (resolve, reject) => {
@@ -213,17 +118,14 @@ function DataSyncService() {
       formdata.append("type", type);
 
       try {
-        const res = await got(
-          `https://playground.simbibot.com/api/schools-management/${id}/upload-result`,
-          {
-            method: "POST",
-            body: formdata,
-            headers: {
-              Accept: "application/json",
-              ...formdata.getHeaders(),
-            },
-          }
-        );
+        const res = await got(`${remoteServer}${id}/upload-result`, {
+          method: "POST",
+          body: formdata,
+          headers: {
+            Accept: "application/json",
+            ...formdata.getHeaders(),
+          },
+        });
         console.log(`${type}  csv uploaded`, res.body);
 
         resolve(res.body);
@@ -238,12 +140,11 @@ function DataSyncService() {
     });
   }
 
-  return {
+
+  return {    
     createDataBackup,
     synchronizeData,
     createExaminationBackup,
     createEvaluationBackup,
   };
 }
-
-module.exports = DataSyncService;

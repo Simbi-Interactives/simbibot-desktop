@@ -1,7 +1,7 @@
 var express = require("express");
 const fs = require("fs");
 var router = express.Router();
-var db = require("../database/db");
+var {db} = require("../database");
 var util = require("util");
 var DataSyncService = require("../services/data_sync");
 
@@ -14,6 +14,7 @@ router.get("/synchronize_data/:user_id", async (req, res) => {
     console.log(
       "----------------------------------------------------------sync data---------------------------------------------------------"
     );
+    
     let p2 = dataSyncService.synchronizeData({
       type: "exam",
       fileName: "examattempts.csv",

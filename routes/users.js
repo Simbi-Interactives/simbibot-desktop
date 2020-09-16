@@ -8,7 +8,7 @@ var xlsx = require("xlsx");
 const upload_dir = path.join(__dirname, "/../uploads");
 var upload = multer({ dest: upload_dir });
 
-const db = require("../database/db");
+const {db} = require("../database");
 const bcrypt = require("bcryptjs");
 
 router.get("/", function (req, res, next) {
@@ -188,8 +188,7 @@ router.post("/edit_student/:id", async (req, res) => {
 
     let updateQuery = `UPDATE users SET `;
     let entries = Object.entries(body);
-    for (let i = 0; i < entries.length; i++) {
-      console.log('index ', i)
+    for (let i = 0; i < entries.length; i++) {      
       const [key, value] = entries[i];
       updateQuery += `${key} = case when coalesce("${value}", '') = '' then
                         ${key}
@@ -197,8 +196,7 @@ router.post("/edit_student/:id", async (req, res) => {
                       "${value}"
                     end${i < entries.length - 1 ? "," : ""}
                     `;
-    }
-    console.log(updateQuery)
+    }    
     db.serialize(() => {
       db.run((updateQuery += `WHERE id = '${userId}'`), [], (err) => {
         if (err) {

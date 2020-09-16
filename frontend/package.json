@@ -5,7 +5,7 @@
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-    "dev": "ionic serve && electron .",
+    "dev": "BROWSER=None ionic serve --no-open && electron .",
     "server": "nodemon ./bin/www.js",
     "start": "ionic-app-scripts serve",
     "clean": "ionic-app-scripts clean",

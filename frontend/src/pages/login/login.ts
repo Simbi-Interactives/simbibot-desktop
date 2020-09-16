@@ -50,7 +50,7 @@ export class LoginPage {
   loginForm: FormGroup;
   registerUserBody: FormGroup;
   showPassword: boolean = false;
-  pageTitle: string = 'LOGIN'
+  pageTitle: string = 'LOGIN' // CHANGE B4 PUSH
   @ViewChild("slides") slides: Slides;
 
   constructor(

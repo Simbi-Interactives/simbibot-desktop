@@ -105,7 +105,7 @@ export class CreatestudentPage {
 
   editStudentDetails(user) {
     console.log('edit ', user);
-    let editModal = this.modalCtrl.create(EditStudentPage, { user })
+    let editModal = this.modalCtrl.create(EditStudentPage, { user }, { cssClass: "editstudent-modal"})
   
     editModal.present();
 
