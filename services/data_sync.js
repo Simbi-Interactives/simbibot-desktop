@@ -5,7 +5,7 @@ const path = require("path");
 const got = require("got");
 const FormData = require("form-data");
 
-const remoteServer = "https://learn.simbibot.com/api/schools-management/"; // change b4 push
+const remoteServer = "https://learn.simbibot.com/api/schools-management/";
 
 
 module.exports =  function DataSyncService() {
