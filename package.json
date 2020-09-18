@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.0.4",
+  "version": "0.0.2",
   "private": true,
   "main": "electron/main.js",
   "author": "simbibot",
@@ -45,8 +45,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "shadrach-tayo",
-        "repo": "simbi-desktop"
+        "owner": "Simbi-Interactives",
+        "repo": "simbibot-desktop"
       }
     ]
   },

@@ -4,7 +4,7 @@ const electron = require("electron");
 // require("electron-reload")(process.cwd()); // change b4 push
 
 require("update-electron-app")({
-  repo: "shadrach-tayo/simbi-desktop",
+  repo: "Simbi-Interactives/simbibot-desktop",
   updateInterval: "5 minutes",
   logger: require("electron-log"),
 });
