@@ -79,7 +79,7 @@ export class LoginPage {
 
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required]],
-      password: ["", [Validators.required, Validators.minLength(6)]]
+      password: ["", [Validators.required, Validators.minLength(3)]]
     });
 
     this.registerUserBody = this.formBuilder.group({
@@ -87,7 +87,7 @@ export class LoginPage {
       address: ["", [Validators.required]],
       name: ["", [Validators.required]],     
       phone: ["", [Validators.required, Validators.minLength(11)]],
-      password: ["", [Validators.required, Validators.minLength(6)]]
+      password: ["", [Validators.required, Validators.minLength(3)]]
     });
     this.menuController.swipeEnable(false);
   }

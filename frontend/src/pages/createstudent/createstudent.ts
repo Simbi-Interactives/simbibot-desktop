@@ -27,7 +27,7 @@ export class CreatestudentPage {
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private desktopProvider: DesktopProvider, private toastCtrl: ToastController) {
     this.createStudentForm = this.formBuilder.group({
       email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.minLength(3), Validators.required]],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
     });
@@ -110,8 +110,8 @@ export class CreatestudentPage {
     editModal.present();
 
     editModal.onDidDismiss(data =>{
-      console.log('data ', data)
-      if(data.refresh === true) {
+
+      if (data && data.refresh) {
         this.fetchUsers();
       }
     })

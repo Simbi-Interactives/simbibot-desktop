@@ -5,6 +5,7 @@ data.db
 /build
 /uploads
 /www
+/data
 */.sourcemaps
 # /data_sync
 .vscode

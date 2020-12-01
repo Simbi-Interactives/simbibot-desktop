@@ -14,7 +14,7 @@
     "publish": "cd frontend && ionic build --prod &&  cd .. && electron-builder --mac --win -p always",
     "publish:mac": "cd frontend && ionic build --prod &&  cd .. && electron-builder --mac -p always",
     "publish:win": "cd frontend && ionic build --prod &&  cd .. && electron-builder --win -p always",
-    "build:exe": "cd frontend && ionic build --prod &&  cd .. && electron-builder",
+    "build": "cd frontend && ionic build --prod &&  cd .. && electron-builder",
     "build:32bit": "cd frontend && ionic build --prod &&  cd .. && electron-builder -w --ia32"
   },
   "build": {

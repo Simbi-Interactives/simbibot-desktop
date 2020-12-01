@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title text-center>Create Student</ion-title>
+    <ion-title text-center>Create Students</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -119,6 +119,7 @@
 
         <ion-card>
           <ion-card-content>
+            <ion-searchbar [(ngModel)]="searchInput" class="search-bar"></ion-searchbar>
             <div class="table-responsive">
               <table class="table table-bordered">
                 <thead>
@@ -133,7 +134,7 @@
 
                 <tbody>
                   <tr
-                    *ngFor="let user of users.data  | paginate: { id: 'server', itemsPerPage: users.limit, currentPage: page, totalItems: users.metric, numberOfPages: users.total }; let i = index"
+                    *ngFor="let user of users.data | searchFilter: searchInput  | paginate: { id: 'server', itemsPerPage: users.limit, currentPage: page, totalItems: users.metric, numberOfPages: users.total }; let i = index"
                   >
                     <td>{{i + 1}}</td>
                     <td>{{user.email}}</td>

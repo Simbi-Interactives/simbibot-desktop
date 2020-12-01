@@ -39,7 +39,7 @@ export class EditStudentPage {
         
         this.editStudentForm = this.formBuilder.group({
             email: ['', [Validators.required]],
-            password: ['', [Validators.minLength(6)]],
+            password: ['', [Validators.minLength(3)]],
             firstname: ['', [Validators.required]],
             lastname: ['', [Validators.required]],
         })
