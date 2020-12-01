@@ -290,10 +290,10 @@ router.post("/bulk_upload_student", upload.single("file"), async (req, res) => {
               (err) => {
                 if (err) {
                   errors.push(err);
-                  callback();
+                  callback;
                 }
                 console.log("created ", student.firstname, callback);
-                callback();
+                callback;
               }
             );
           } catch (e) {
